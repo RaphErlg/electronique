@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Synthèse Théorie — Électronique (Systèmes Embarqués)</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+<style>
+:root{
+  --bg:#0f1320; --panel:#161c2d; --card:#1b2235; --ink:#e8ecf4; --muted:#9aa6c0;
+  --accent:#4cc9f0; --accent2:#7bdff2; --gold:#ffd166; --green:#06d6a0; --red:#ef476f; --violet:#b794f6;
+  --line:#2a3450; --code:#0c1322;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.65;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+/* Sidebar */
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:280px;max-width:280px;
+  background:var(--panel);border-right:1px solid var(--line);padding:20px 16px}
+nav.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:18px 0 8px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:4px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .grp{font-weight:700;color:var(--accent2);margin-top:14px}
+main{flex:1;max-width:920px;margin:0 auto;padding:32px 40px 120px}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 28px;font-size:15px}
+h2.chap{font-size:24px;margin:54px 0 4px;padding-top:14px;border-top:2px solid var(--line);color:#fff}
+h2.chap .num{color:var(--accent);font-weight:800;margin-right:10px}
+h3{font-size:19px;margin:30px 0 8px;color:var(--accent2)}
+h4{font-size:16px;margin:20px 0 6px;color:var(--gold)}
+p{margin:10px 0}
+.part{margin:60px 0 0;padding:18px 22px;background:linear-gradient(90deg,#1d2740,#161c2d);
+  border-radius:14px;border:1px solid var(--line)}
+.part h2{margin:0;font-size:22px;color:var(--accent)}
+.part p{margin:6px 0 0;color:var(--muted);font-size:14px}
+ul,ol{margin:10px 0;padding-left:22px}
+li{margin:5px 0}
+strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:"Cascadia Code",Consolas,monospace;font-size:14px;color:var(--gold)}
+.box{border-radius:12px;padding:14px 18px;margin:16px 0;border:1px solid var(--line)}
+.formula{background:#10243a;border-left:4px solid var(--accent)}
+.warning{background:#2a1622;border-left:4px solid var(--red)}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}
+.result{background:#211a33;border-left:4px solid var(--violet)}
+.def{background:#1b2235;border-left:4px solid var(--gold)}
+.box .tag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.formula .tag{color:var(--accent)} .warning .tag{color:var(--red)} .tip .tag{color:var(--green)}
+.result .tag{color:var(--violet)} .def .tag{color:var(--gold)}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left}
+th{background:#222c45;color:var(--accent2)}
+tr:nth-child(even) td{background:#1e273c}
+.center{text-align:center}
+figure{margin:20px 0;text-align:center}
+figure svg{max-width:100%;height:auto;background:#f7fafc;border-radius:12px;padding:10px;border:1px solid var(--line)}
+figcaption{color:var(--muted);font-size:13px;margin-top:6px}
+.svgwrap{background:#f7fafc;border-radius:12px;padding:8px;display:inline-block;border:1px solid var(--line)}
+.badge{display:inline-block;background:#222c45;color:var(--accent2);border-radius:20px;padding:2px 12px;font-size:12px;margin:2px 4px 2px 0}
+hr{border:none;border-top:1px dashed var(--line);margin:30px 0}
+.kpis{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.kpi{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.kpi b{display:block;color:var(--accent);font-size:13px}
+.kpi span{font-size:15px}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;
+  width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000;font-size:12px}main{max-width:100%}
+  figure svg,.svgwrap{background:#fff}.box{break-inside:avoid}}
+/* SVG schematic helpers (rendered on light bg) */
+text.lbl{font-family:Consolas,monospace;font-size:13px;fill:#1a2233}
+text.val{font-family:Consolas,monospace;font-size:12px;fill:#b00020}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}
+.comp{stroke:#1a2233;stroke-width:2;fill:none}
+.fillk{fill:#1a2233}
+</style>
+</head>
+<body>
+<a href="#top" class="top" title="Haut de page">↑</a>
+<div class="layout">
+<nav class="toc">
+  <a href="index.html" style="display:block;color:#ffd166;font-weight:600;text-decoration:none;padding:6px 8px;margin-bottom:6px">← Accueil</a>
+  <h2>Sommaire</h2>
+  <a class="grp">Partie 1 — Bases</a>
+  <a href="#c1">1 · Courant, tension, résistance</a>
+  <a href="#c2">2 · Énergie & puissance</a>
+  <a href="#c3">3 · Résistivité d'un conducteur</a>
+  <a href="#c4">4 · Série & loi des mailles</a>
+  <a href="#c5">5 · Parallèle & loi des nœuds</a>
+  <a href="#c6">6 · Diviseurs & circuits mixtes</a>
+  <a href="#c7">7 · Thévenin & superposition</a>
+  <a href="#c8">8 · Signaux sinusoïdaux (AC)</a>
+  <a class="grp">Partie 2 — Diodes & alim.</a>
+  <a href="#c9">9 · Atome & semi-conducteurs</a>
+  <a href="#c10">10 · Jonction PN & diode</a>
+  <a href="#c11">11 · Redresseurs</a>
+  <a href="#c12">12 · Condensateur & filtrage</a>
+  <a href="#c13">13 · Diode Zéner & régulation</a>
+  <a href="#c14">14 · LED</a>
+  <a href="#c15">15 · Régulateurs intégrés</a>
+  <a class="grp">Partie 3 — Transistors</a>
+  <a href="#c16">16 · Transistor bipolaire</a>
+  <a href="#c17">17 · Droite de charge & point Q</a>
+  <a href="#c18">18 · Transistor en interrupteur</a>
+  <a class="grp">Annexes</a>
+  <a href="#form">Formulaire condensé</a>
+  <a href="#qcm">Notions QCM express</a>
+  <a href="#pieges">Pièges classiques</a>
+  <a href="#method">Méthodes de résolution</a>
+</nav>
+
+<main id="top">
+<h1>⚡ Synthèse complète — Théorie d'Électronique</h1>
+<p class="sub">UE Systèmes embarqués (théorie : UE 156 Électronique) · 1<sup>re</sup> année TI / IR / RT — HENALLUX.<br>
+Couvre <strong>toute la matière</strong> du cours pour préparer l'examen écrit (théorie + exercices). Formules en MathJax, schémas en SVG.</p>
+
+<div class="box def"><span class="tag">Comment réviser avec ce document</span>
+Lis chaque chapitre, refais les <em>démonstrations de formules</em> de tête, puis va dans la
+<strong>correction de l'examen 2025</strong> pour t'entraîner. Les <span class="badge">⚠️ pièges</span> et le
+<span class="badge">formulaire</span> en fin de page sont à relire la veille.</div>
+
+<!-- ============ PARTIE 1 ============ -->
+<div class="part" id="p1"><h2>PARTIE 1 — Bases de l'électricité</h2>
+<p>Lois fondamentales, circuits résistifs, théorèmes et signaux alternatifs.</p></div>
+
+<!-- C1 -->
+<h2 class="chap" id="c1"><span class="num">1</span>Courant, tension, résistance</h2>
+<p>Trois grandeurs fondamentales reliées par la loi d'Ohm.</p>
+<table>
+<tr><th>Grandeur</th><th>Symbole</th><th>Unité</th><th>Définition physique</th></tr>
+<tr><td>Courant</td><td>$I$</td><td>Ampère (A)</td><td>Débit de charges : $1\,A = 1\,C/s$. Déplacement d'électrons.</td></tr>
+<tr><td>Tension</td><td>$U$</td><td>Volt (V)</td><td>Différence de potentiel entre 2 points (fournie par un générateur).</td></tr>
+<tr><td>Résistance</td><td>$R$</td><td>Ohm (Ω)</td><td>Opposition au passage du courant.</td></tr>
+</table>
+<div class="box formula"><span class="tag">📐 Loi d'Ohm</span>
+$$U = R \times I \qquad I = \frac{U}{R} \qquad R = \frac{U}{I}$$</div>
+<div class="box tip"><span class="tag">💡 Analogie hydraulique</span>
+Courant ↔ débit d'eau · Tension ↔ différence de hauteur entre deux bassins · Résistance ↔ étroitesse du tuyau · Générateur ↔ pompe.</div>
+<div class="box warning"><span class="tag">⚠️ Sens conventionnel</span>
+Le courant conventionnel va du <strong>+</strong> vers le <strong>−</strong> à l'extérieur du générateur. La flèche de la chute de tension sur une résistance est <strong>opposée</strong> au sens du courant.</div>
+
+<!-- C2 -->
+<h2 class="chap" id="c2"><span class="num">2</span>Énergie & puissance</h2>
+<div class="box def"><span class="tag">Définitions</span>
+<strong>Énergie $W$</strong> (Joule J ou kWh) : capacité à fournir un travail — elle se conserve.<br>
+<strong>Puissance $P$</strong> (Watt W) : énergie consommée par unité de temps.</div>
+<div class="box formula"><span class="tag">📐 Formules</span>
+$$P = U\times I = R\,I^2 = \frac{U^2}{R} \qquad W = P\times t = U\,I\,t \qquad P=\frac{W}{t}$$
+Conversion clé : $\;1\ \text{kWh} = 1000\,\text{W}\times 3600\,\text{s} = 3{,}6\times10^{6}\ \text{J}$.</div>
+<div class="box tip"><span class="tag">💡 Coût d'utilisation (type examen)</span>
+Énergie en kWh $= \dfrac{P(\text{W})\times t(\text{h})}{1000}$, puis coût $=$ énergie $\times$ prix du kWh.<br>
+<em>Ex. : serveur 500 W pendant 24 h $= 500\times24 = 12000$ Wh $= 12$ kWh ; à 0,10 €/kWh → <strong>1,20 €</strong>.</em></div>
+<div class="box warning"><span class="tag">⚠️ Puissance max d'une résistance</span>
+Chaque résistance a une puissance admissible (¼ W, 1 W…). Si $P=R I^2$ dépasse cette valeur → elle <strong>brûle</strong>. Toujours vérifier.</div>
+
+<!-- C3 -->
+<h2 class="chap" id="c3"><span class="num">3</span>Résistivité d'un conducteur</h2>
+<p>La résistance d'un fil dépend de sa matière et de sa géométrie.</p>
+<div class="box formula"><span class="tag">📐 Loi de la résistivité</span>
+$$R = \rho \,\frac{L}{S}$$
+$\rho$ = résistivité (Ω·m) · $L$ = longueur (m) · $S$ = section (m²).</div>
+<div class="box tip"><span class="tag">💡 Exemple (type examen D6)</span>
+Fil de cuivre $L=30$ m, $S=0{,}05\ \text{mm}^2 = 0{,}05\times10^{-6}\ \text{m}^2$, $\rho=17\times10^{-9}\ \Omega\!\cdot\!\text{m}$ :
+$$R=\frac{17\times10^{-9}\times 30}{0{,}05\times10^{-6}} = \frac{5{,}1\times10^{-7}}{5\times10^{-8}} = \mathbf{10{,}2\ \Omega}$$
+<strong>Piège unités</strong> : 1 mm² $=10^{-6}$ m².</div>
+
+<!-- C4 -->
+<h2 class="chap" id="c4"><span class="num">4</span>Résistances en série & loi des mailles</h2>
+<p>Un seul chemin → le <strong>même courant</strong> traverse tout. La <strong>tension se répartit</strong>.</p>
+<div class="box formula"><span class="tag">📐 Formules série</span>
+$$R_{éq}=R_1+R_2+\dots \qquad I=\frac{U_{src}}{R_{éq}} \qquad U_{src}=U_{R1}+U_{R2}+\dots$$</div>
+<div class="box formula"><span class="tag">📐 1<sup>re</sup> loi de Kirchhoff — loi des mailles</span>
+La somme algébrique des tensions dans une maille fermée est nulle :
+$$\sum U = 0 \;\Rightarrow\; U_{src}-U_{R1}-U_{R2}-\dots = 0$$</div>
+
+<!-- C5 -->
+<h2 class="chap" id="c5"><span class="num">5</span>Résistances en parallèle & loi des nœuds</h2>
+<p>Plusieurs chemins → <strong>même tension</strong> aux bornes de chaque branche. Le <strong>courant se divise</strong>.</p>
+<div class="box formula"><span class="tag">📐 Formules parallèle</span>
+$$\frac{1}{R_{éq}}=\frac{1}{R_1}+\frac{1}{R_2}+\dots \qquad\text{(2 résistances)}\quad R_{éq}=\frac{R_1 R_2}{R_1+R_2}$$
+$R_{éq}$ est toujours <strong>plus petite</strong> que la plus petite résistance.</div>
+<div class="box formula"><span class="tag">📐 2<sup>e</sup> loi de Kirchhoff — loi des nœuds</span>
+$$\sum I_{entrants}=\sum I_{sortants} \;\Rightarrow\; I_{tot}=I_1+I_2+\dots$$</div>
+<table>
+<tr><th></th><th>Série</th><th>Parallèle</th></tr>
+<tr><td>Courant</td><td>identique partout</td><td>se divise</td></tr>
+<tr><td>Tension</td><td>se divise</td><td>identique partout</td></tr>
+<tr><td>$R_{éq}$</td><td>plus grande</td><td>plus petite</td></tr>
+<tr><td>Loi de Kirchhoff</td><td>mailles</td><td>nœuds</td></tr>
+</table>
+
+<!-- C6 -->
+<h2 class="chap" id="c6"><span class="num">6</span>Diviseurs & circuits mixtes</h2>
+<div class="box formula"><span class="tag">📐 Diviseur de tension</span>
+Pour $R_1$ et $R_2$ en série : $\displaystyle U_{R2}=U_{src}\,\frac{R_2}{R_1+R_2}$</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 300 205" width="300" height="205">
+<text x="8" y="118" class="lbl">U</text>
+<line x1="45" y1="55" x2="45" y2="98" class="wire"/>
+<line x1="31" y1="98" x2="59" y2="98" class="comp"/>
+<line x1="38" y1="108" x2="52" y2="108" class="comp" stroke-width="3"/>
+<line x1="45" y1="108" x2="45" y2="172" class="wire"/>
+<line x1="45" y1="55" x2="180" y2="55" class="wire"/>
+<line x1="180" y1="55" x2="180" y2="68" class="wire"/>
+<path d="M180,68 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+<line x1="180" y1="112" x2="180" y2="118" class="wire"/>
+<text x="126" y="94" class="lbl">R1</text>
+<circle cx="180" cy="118" r="3" class="fillk"/>
+<line x1="180" y1="118" x2="180" y2="128" class="wire"/>
+<path d="M180,128 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+<text x="126" y="154" class="lbl">R2</text>
+<line x1="180" y1="172" x2="45" y2="172" class="wire"/>
+<line x1="220" y1="56" x2="220" y2="116" stroke="#b00020" stroke-width="1.3"/>
+<line x1="216" y1="56" x2="224" y2="56" stroke="#b00020" stroke-width="1.3"/>
+<line x1="216" y1="116" x2="224" y2="116" stroke="#b00020" stroke-width="1.3"/>
+<text x="226" y="90" class="val">U_R1</text>
+<line x1="220" y1="120" x2="220" y2="172" stroke="#b00020" stroke-width="1.3"/>
+<line x1="216" y1="120" x2="224" y2="120" stroke="#b00020" stroke-width="1.3"/>
+<line x1="216" y1="172" x2="224" y2="172" stroke="#b00020" stroke-width="1.3"/>
+<text x="226" y="148" class="val">U_R2</text>
+</svg></div><figcaption>R1 et R2 en série : la tension de sortie est prise aux bornes de R2. Plus R2 est grande, plus $U_{R2}$ est grande.</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Diviseur de courant</span>
+Pour $R_1\parallel R_2$ : $\displaystyle I_1=I_{tot}\,\frac{R_2}{R_1+R_2}$ — c'est <strong>l'autre</strong> résistance au numérateur.</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 300 175" width="300" height="175">
+<text x="22" y="42" class="lbl">I</text>
+<line x1="20" y1="50" x2="62" y2="50" class="wire"/>
+<polygon points="62,50 52,45 52,55" class="fillk"/>
+<line x1="62" y1="50" x2="230" y2="50" class="wire"/>
+<line x1="110" y1="50" x2="110" y2="62" class="wire"/>
+<path d="M110,62 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+<line x1="110" y1="106" x2="110" y2="138" class="wire"/>
+<text x="118" y="86" class="lbl">R1</text><text x="118" y="102" class="val">↓ I1</text>
+<line x1="210" y1="50" x2="210" y2="62" class="wire"/>
+<path d="M210,62 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+<line x1="210" y1="106" x2="210" y2="138" class="wire"/>
+<text x="218" y="86" class="lbl">R2</text><text x="218" y="102" class="val">↓ I2</text>
+<circle cx="110" cy="50" r="3" class="fillk"/><circle cx="210" cy="50" r="3" class="fillk"/>
+<circle cx="110" cy="138" r="3" class="fillk"/><circle cx="210" cy="138" r="3" class="fillk"/>
+<line x1="62" y1="138" x2="230" y2="138" class="wire"/>
+<line x1="20" y1="138" x2="62" y2="138" class="wire"/>
+<polygon points="20,138 30,133 30,143" class="fillk"/>
+<text x="22" y="130" class="lbl">I</text>
+</svg></div><figcaption>I se divise entre R1 et R2 (même tension). $I_1+I_2=I_{tot}$ ; le plus de courant passe par la <strong>plus petite</strong> résistance.</figcaption></figure>
+<div class="box warning"><span class="tag">⚠️ Validité du diviseur de tension</span>
+Valable uniquement si <strong>aucun courant ne dérive</strong> au point milieu (pas de charge), ou si la charge est très grande devant $R_2$.</div>
+<div class="box tip"><span class="tag">💡 Méthode circuit mixte</span>
+1) Identifier les blocs purement série / purement parallèle. 2) Réduire pas à pas jusqu'à un $R_{éq}$ unique. 3) Remonter : courant total, puis redescendre dans chaque branche (diviseurs).</div>
+
+<!-- C7 -->
+<h2 class="chap" id="c7"><span class="num">7</span>Théorème de Thévenin & superposition</h2>
+<div class="box def"><span class="tag">Thévenin</span>
+Tout réseau linéaire vu de deux bornes équivaut à une source $E_{th}$ en série avec $R_{th}$.<br>
+• $E_{th}$ = tension <strong>à vide</strong> entre les bornes (charge débranchée).<br>
+• $R_{th}$ = résistance vue des bornes, <strong>sources éteintes</strong> (tension → court-circuit, courant → circuit ouvert).</div>
+<div class="box def"><span class="tag">Superposition</span>
+Avec plusieurs sources : on calcule l'effet de <strong>chaque source seule</strong> (les autres éteintes), puis on <strong>additionne</strong> les contributions. Valable car le circuit est linéaire.</div>
+
+<!-- C8 -->
+<h2 class="chap" id="c8"><span class="num">8</span>Signaux sinusoïdaux (alternatif)</h2>
+<p>Indispensable pour les redresseurs et les QCM.</p>
+<div class="box formula"><span class="tag">📐 Équation temporelle</span>
+$$v(t)=V_{max}\sin(\omega t) \qquad \omega = 2\pi f \qquad f=\frac{1}{T}$$
+$\omega$ = pulsation (rad/s) · $f$ = fréquence (Hz) · $T$ = période (s).<br>
+<em>Ex. (D10) : $v(t)=20\sin(200\pi t)$ → $\omega=200\pi$ → $f=\dfrac{200\pi}{2\pi}=\mathbf{100\ Hz}$.</em></div>
+<div class="box formula"><span class="tag">📐 Valeurs caractéristiques</span>
+$$V_{crête}=V_{max} \qquad V_{pp}=2\,V_{crête}\ \text{(crête à crête)}$$
+$$\boxed{V_{eff}=V_{rms}=\frac{V_{crête}}{\sqrt2}\approx 0{,}707\,V_{crête}} \qquad V_{crête}=V_{eff}\sqrt2$$</div>
+<div class="box def"><span class="tag">Valeur efficace (RMS)</span>
+Tension continue qui produirait <strong>la même puissance</strong> (mêmes effets thermiques) que l'alternatif.</div>
+<div class="box def"><span class="tag">Valeur moyenne</span>
+Sur une période complète, $V_{moy}=0$ pour une sinusoïde (autant de + que de −). Elle n'est non nulle qu'<strong>après redressement</strong> (voir ch. 11).</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 460 180" width="460" height="180">
+<line x1="20" y1="90" x2="440" y2="90" class="wire"/>
+<line x1="30" y1="20" x2="30" y2="160" class="wire"/>
+<path d="M30,90 C70,10 110,10 150,90 C190,170 230,170 270,90 C310,10 350,10 390,90" stroke="#0a6" stroke-width="2.5" fill="none"/>
+<line x1="30" y1="30" x2="390" y2="30" stroke="#b00020" stroke-dasharray="4 3" stroke-width="1.5"/>
+<text x="395" y="34" class="val">+Vcrête</text>
+<line x1="30" y1="150" x2="390" y2="150" stroke="#b00020" stroke-dasharray="4 3" stroke-width="1.5"/>
+<text x="395" y="154" class="val">−Vcrête</text>
+<text x="150" y="178" class="lbl">T (période)</text>
+<text x="8" y="16" class="lbl">v(t)</text>
+</svg></div><figcaption>Onde sinusoïdale : $V_{pp}=2V_{crête}$, $V_{eff}=V_{crête}/\sqrt2$.</figcaption></figure>
+
+<!-- ============ PARTIE 2 ============ -->
+<div class="part" id="p2"><h2>PARTIE 2 — Diodes & alimentations</h2>
+<p>Des semi-conducteurs à la chaîne d'alimentation complète.</p></div>
+
+<!-- C9 -->
+<h2 class="chap" id="c9"><span class="num">9</span>Structure de la matière & semi-conducteurs</h2>
+<h3>L'atome</h3>
+<div class="box def"><span class="tag">Modèle de Bohr</span>
+Un <strong>noyau</strong> (protons + neutrons) entouré d'<strong>électrons</strong> répartis en couches.<br>
+• Proton = charge +, neutron = neutre, électron = charge −.<br>
+• La <strong>couche de valence</strong> = couche la plus externe ; ses électrons déterminent les propriétés électriques.</div>
+<h3>Conducteurs, isolants, semi-conducteurs</h3>
+<table>
+<tr><th>Type</th><th>Bandes d'énergie</th><th>Exemple</th></tr>
+<tr><td>Conducteur (métal)</td><td>bandes de valence et de conduction se <strong>superposent</strong></td><td>cuivre, or</td></tr>
+<tr><td>Isolant</td><td><strong>grand écart</strong> (gap) entre les bandes</td><td>verre, caoutchouc</td></tr>
+<tr><td>Semi-conducteur</td><td><strong>faible écart</strong> entre les bandes</td><td>silicium, germanium</td></tr>
+</table>
+<div class="box def"><span class="tag">Bandes d'énergie</span>
+La <strong>bande de conduction</strong> contient les <strong>électrons libres</strong> (à l'origine du courant). La <strong>bande de valence</strong> contient les électrons liés aux atomes.</div>
+<div class="box tip"><span class="tag">💡 Silicium — le matériau roi</span>
+Silicium et germanium ont <strong>4 électrons de valence</strong> et forment un cristal par <strong>liaisons covalentes</strong>. Le silicium est le semi-conducteur <strong>le plus utilisé</strong>. Pur (intrinsèque) il est quasi isolant ; la chaleur libère quelques électrons.</div>
+<h3>Dopage : types N et P</h3>
+<table>
+<tr><th>Type</th><th>Impureté ajoutée</th><th>Porteurs majoritaires</th></tr>
+<tr><td><strong>N</strong></td><td>atome à <strong>5</strong> électrons de valence (antimoine, phosphore…)</td><td>électrons libres (−)</td></tr>
+<tr><td><strong>P</strong></td><td>atome à <strong>3</strong> électrons de valence (bore…)</td><td>trous (+)</td></tr>
+</table>
+<p>Sans apport d'énergie, des électrons libres se <strong>recombinent</strong> avec des trous : c'est le principe utilisé dans la LED pour émettre de la lumière (ch. 14).</p>
+
+<!-- C10 -->
+<h2 class="chap" id="c10"><span class="num">10</span>Jonction PN & diode à jonction</h2>
+<p>Une diode = un cristal <strong>P</strong> (Anode, +) collé à un cristal <strong>N</strong> (Cathode, −). Elle ne laisse passer le courant que dans <strong>un seul sens</strong>.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 360 120" width="360" height="120">
+<line x1="20" y1="60" x2="150" y2="60" class="wire"/>
+<polygon points="150,40 150,80 185,60" class="fillk"/>
+<line x1="185" y1="40" x2="185" y2="80" class="comp"/>
+<line x1="185" y1="60" x2="320" y2="60" class="wire"/>
+<text x="120" y="100" class="lbl">Anode (P,+)</text>
+<text x="200" y="100" class="lbl">Cathode (N,−)</text>
+<text x="160" y="30" class="lbl">sens passant →</text>
+</svg></div><figcaption>Symbole : le courant passe dans le sens de la flèche (A→K).</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Polarisation directe (passante)</span>
+Condition $V_{pol} > 0{,}7\,$V. La diode = source fixe de $V_D=0{,}7\,$V (silicium).
+$$I_D=\frac{V_{pol}-0{,}7}{R}$$</div>
+<div class="box formula"><span class="tag">📐 Polarisation inverse (bloquée)</span>
+Si $V_{pol}<0{,}7\,$V → $I_D\approx 0$ (circuit ouvert). Tension inverse trop forte → <strong>claquage</strong> (destruction d'une diode normale).</div>
+<div class="box tip"><span class="tag">💡 Méthode d'analyse</span>
+1) Supposer la diode passante. 2) Remplacer par 0,7 V, calculer $I_D$. 3) Si $I_D>0$ : hypothèse OK. Sinon → diode bloquée ($I_D=0$).</div>
+
+<!-- C11 -->
+<h2 class="chap" id="c11"><span class="num">11</span>Les redresseurs de tension</h2>
+<p>Conversion <strong>AC → DC</strong>, toujours précédée d'un <strong>transformateur</strong>.</p>
+<div class="box formula"><span class="tag">📐 Transformateur</span>
+$$\frac{V_{sec}}{V_{prim}}=\frac{N_2}{N_1} \qquad\Rightarrow\qquad V_{sec}=V_{prim}\,\frac{N_2}{N_1}$$
+<em>Le rapport s'applique aux valeurs crête comme efficaces.</em></div>
+<h3>Redresseur simple alternance (1 diode)</h3>
+<div class="box formula"><span class="tag">📐</span>
+$$V_{crête,out}=V_{crête,in}-0{,}7 \qquad V_{moy}=0{,}318\times V_{crête,out} \qquad f_{out}=f_{in}$$</div>
+<h3>Redresseur double alternance — pont de Graetz (4 diodes)</h3>
+<figure><div class="svgwrap"><svg viewBox="0 0 340 230" width="340" height="230">
+<defs><g id="zd"><polygon points="-5,-7 -5,7 6,0" class="fillk"/><line x1="6" y1="-7" x2="6" y2="7" class="comp"/></g></defs>
+<line x1="80" y1="115" x2="160" y2="45" class="wire"/>
+<line x1="240" y1="115" x2="160" y2="45" class="wire"/>
+<line x1="160" y1="185" x2="80" y2="115" class="wire"/>
+<line x1="160" y1="185" x2="240" y2="115" class="wire"/>
+<use href="#zd" transform="translate(120,80) rotate(-41)"/>
+<use href="#zd" transform="translate(200,80) rotate(-139)"/>
+<use href="#zd" transform="translate(120,150) rotate(-139)"/>
+<use href="#zd" transform="translate(200,150) rotate(-41)"/>
+<line x1="160" y1="45" x2="160" y2="20" class="wire"/><text x="166" y="24" class="val">+ (sortie)</text>
+<line x1="160" y1="185" x2="160" y2="210" class="wire"/><text x="166" y="208" class="val">−</text>
+<line x1="80" y1="115" x2="40" y2="115" class="wire"/><text x="20" y="111" class="lbl">~</text>
+<line x1="240" y1="115" x2="290" y2="115" class="wire"/><text x="296" y="111" class="lbl">~</text>
+<text x="92" y="74" class="lbl">D1</text><text x="214" y="74" class="lbl">D2</text>
+<text x="86" y="160" class="lbl">D4</text><text x="214" y="160" class="lbl">D3</text>
+<text x="108" y="118" class="lbl">entrée AC</text>
+</svg></div><figcaption>Pont de Graetz : les 4 diodes ; 2 conduisent à chaque alternance (courant toujours vers + en haut).</figcaption></figure>
+<div class="box formula"><span class="tag">📐</span>
+$$V_{crête,out}=V_{crête,in}-1{,}4 \qquad V_{moy}=0{,}637\times V_{crête,out} \qquad \boxed{f_{out}=2\,f_{in}}$$</div>
+<div class="box formula"><span class="tag">📐 Tension inverse de crête (TIC / PIV)</span>
+Tension max supportée par chaque diode bloquée. Pour un pont :
+$$\text{TIC}\approx V_{crête,sec}-0{,}7 \quad(\text{ou } V_{crête,out}+0{,}7)$$</div>
+<table>
+<tr><th></th><th>Simple alternance</th><th>Pont de Graetz</th></tr>
+<tr><td>Diodes</td><td>1</td><td>4</td></tr>
+<tr><td>Chute</td><td>−0,7 V</td><td>−1,4 V</td></tr>
+<tr><td>$V_{moy}$</td><td>$0{,}318\,V_{crête}$</td><td>$0{,}637\,V_{crête}$</td></tr>
+<tr><td>$f_{out}$</td><td>$f$</td><td>$2f$ ✅</td></tr>
+</table>
+
+<!-- C12 -->
+<h2 class="chap" id="c12"><span class="num">12</span>Condensateur & filtrage</h2>
+<div class="box def"><span class="tag">Le condensateur</span>
+Stocke de l'énergie sous forme de charges. Capacité $C$ en Farads (µF, nF en pratique) : $\;C=\dfrac{Q}{V}$.</div>
+<div class="box formula"><span class="tag">📐 Constante de temps</span>
+$$\tau=R\times C\ \text{(s)} \qquad u_C(t)=V_1(1-e^{-t/\tau})\ \text{(charge)} \qquad u_C(t)=V_1\,e^{-t/\tau}\ \text{(décharge)}$$</div>
+<table>
+<tr><th>Temps</th><th>Charge</th><th>Décharge</th></tr>
+<tr><td>$1\tau$</td><td>63 %</td><td>37 %</td></tr>
+<tr><td>$2\tau$</td><td>87 %</td><td>13 %</td></tr>
+<tr><td>$5\tau$</td><td>≈100 %</td><td>≈0 %</td></tr>
+</table>
+<h3>Filtrage d'un redresseur</h3>
+<p>Le condensateur en parallèle sur la charge <strong>lisse</strong> la tension : il se charge au pic puis se décharge lentement dans $R_{charge}$.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 460 160" width="460" height="160">
+<line x1="20" y1="120" x2="440" y2="120" class="wire"/>
+<path d="M30,120 C60,30 90,30 120,120 C150,30 180,30 210,120 C240,30 270,30 300,120 C330,30 360,30 390,120" stroke="#ccc" stroke-width="1.5" fill="none"/>
+<path d="M30,118 C60,34 90,34 110,40 L120,42 C150,38 180,34 200,40 L210,42 C240,38 270,34 290,40 L300,42 C330,38 360,40 390,46"
+ stroke="#0a6" stroke-width="2.5" fill="none"/>
+<text x="300" y="30" class="lbl" fill="#0a6">tension filtrée</text>
+<text x="40" y="150" class="lbl">ondulation Vond ↕ faible</text>
+</svg></div><figcaption>En vert : sortie filtrée (faible ondulation). En gris : sortie non filtrée.</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Ondulation (crête à crête)</span>
+$$V_{ond}=\frac{V_{crête,out}}{f\times R_{charge}\times C}$$
+avec $f$ = fréquence du signal <strong>redressé</strong> (100 Hz pont sur secteur 50 Hz ; $2f$ en général).</div>
+<div class="box formula"><span class="tag">📐 Valeur moyenne filtrée & taux d'ondulation</span>
+$$V_{moy}\approx V_{crête,out}-\frac{V_{ond}}{2} \qquad r=\frac{V_{ond}}{V_{moy}} \qquad \text{(règle : } R\,C>10\,T_{out})$$</div>
+<div class="box warning"><span class="tag">⚠️ Contre-intuitif mais clé</span>
+Plus $C$ est <strong>grand</strong> → ondulation <strong>petite</strong>. Plus $R_{charge}$ est <strong>petite</strong> (charge lourde) → ondulation <strong>grande</strong>.</div>
+
+<!-- C13 -->
+<h2 class="chap" id="c13"><span class="num">13</span>Diode Zéner & régulation</h2>
+<p>Conçue pour fonctionner en <strong>inverse</strong> sans se détruire : maintient une tension constante $V_Z$.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 380 170" width="380" height="170">
+<text x="10" y="20" class="lbl">Vin</text>
+<line x1="30" y1="40" x2="30" y2="130" class="wire"/>
+<line x1="22" y1="60" x2="38" y2="60" class="comp"/><line x1="20" y1="72" x2="40" y2="72" class="comp"/>
+<line x1="30" y1="40" x2="120" y2="40" class="wire"/>
+<rect x="120" y="32" width="60" height="16" class="comp"/><text x="128" y="26" class="lbl">R</text>
+<line x1="180" y1="40" x2="260" y2="40" class="wire"/>
+<line x1="260" y1="40" x2="260" y2="130" class="wire"/>
+<line x1="246" y1="74" x2="274" y2="74" class="comp"/>
+<line x1="246" y1="74" x2="241" y2="79" class="comp"/><line x1="274" y1="74" x2="279" y2="69" class="comp"/>
+<polygon points="246,96 274,96 260,76" class="fillk"/>
+<text x="278" y="80" class="lbl">Vz</text>
+<line x1="260" y1="40" x2="340" y2="40" class="wire"/>
+<line x1="340" y1="40" x2="340" y2="130" class="wire"/>
+<rect x="332" y="70" width="16" height="40" class="comp"/><text x="352" y="94" class="lbl">Rch</text>
+<line x1="30" y1="130" x2="340" y2="130" class="wire"/>
+<text x="200" y="60" class="lbl">→ I_R</text><text x="262" y="118" class="lbl">↓Iz</text><text x="300" y="60" class="lbl">→Ich</text>
+</svg></div><figcaption>Régulateur Zéner : Vin → R → (Zéner ∥ charge).</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Calculs</span>
+$$I_R=\frac{V_{in}-V_Z}{R} \qquad I_{ch}=\frac{V_Z}{R_{ch}} \qquad I_Z=I_R-I_{ch} \qquad P_Z=V_Z\,I_Z$$</div>
+<div class="box formula"><span class="tag">📐 Plage de fonctionnement (type examen B)</span>
+La tension d'entrée doit garder $I_{Zmin}\le I_Z\le I_{Zmax}$ :
+$$V_{in,min}=V_Z+(I_{ch}+I_{Zmin})\,R \qquad V_{in,max}=V_Z+(I_{ch}+I_{Zmax})\,R$$</div>
+<div class="box warning"><span class="tag">⚠️ Conditions</span>
+$V_{in}>V_Z$ toujours · $I_Z<I_{Zmin}$ → plus de régulation · $I_Z>I_{Zmax}$ → la Zéner brûle.</div>
+
+<!-- C14 -->
+<h2 class="chap" id="c14"><span class="num">14</span>La LED (diode électroluminescente)</h2>
+<p>Diode qui, en direct, <strong>recombine électrons et trous pour émettre de la lumière</strong>.</p>
+<div class="box formula"><span class="tag">📐 Résistance de limitation (obligatoire)</span>
+$$R=\frac{V_{source}-V_{LED}}{I_{LED}}$$
+$V_{LED}\approx 1{,}5$ à $3$ V selon la couleur (≈2 V) · $I_{LED}$ typique 10–20 mA (max 20 mA).</div>
+<div class="box tip"><span class="tag">💡 Exemple (type C1)</span>
+LED $V_{LED}=2{,}1$ V, limiter à 15 mA sur 10 V :
+$R=\dfrac{10-2{,}1}{0{,}015}=\mathbf{527\ \Omega}$ (≈ 530 Ω commercial).</div>
+<div class="box warning"><span class="tag">⚠️</span> $V_{LED}\ne 0{,}7$ V ! Jamais de LED sans résistance → claquage instantané.</div>
+
+<!-- C15 -->
+<h2 class="chap" id="c15"><span class="num">15</span>Régulateurs de tension intégrés</h2>
+<h3>Famille fixe 78xx</h3>
+<p>3 broches : <strong>Entrée (Vi)</strong> — <strong>Masse (GND)</strong> — <strong>Sortie (Vo)</strong>. Maintiennent une tension de sortie <strong>constante</strong>.</p>
+<table>
+<tr><th>Modèle</th><th>Sortie</th><th>Modèle</th><th>Sortie</th></tr>
+<tr><td>7805</td><td>+5 V</td><td>7815</td><td>+15 V</td></tr>
+<tr><td>7809</td><td>+9 V</td><td>7818</td><td>+18 V</td></tr>
+<tr><td>7812</td><td>+12 V</td><td>7824</td><td>+24 V</td></tr>
+</table>
+<div class="box formula"><span class="tag">📐 Condition (tension de déchet ≈ 2 V)</span>
+$$V_{entrée}>V_{sortie}+2\ \text{V}$$
+Beaucoup de datasheets donnent une <strong>plage d'entrée</strong> (ex. 7824 : ≈ 26,5 à 39 V). Le <strong>minimum de la tension filtrée</strong> ($V_{moy}-V_{ond}/2$) doit rester dans cette plage.</div>
+<div class="box formula"><span class="tag">📐 Régulateur ajustable LM317</span>
+$$V_{out}=1{,}25\left(1+\frac{R_2}{R_1}\right) \qquad (R_1\ \text{min}=120\,\Omega)$$</div>
+<div class="box tip"><span class="tag">💡 Décalage avec Zéner</span>
+Zéner entre GND du régulateur et masse : $V_{out}=V_{régulateur}+V_Z$. Ex. 7805 + Zéner 5,1 V = 10,1 V.</div>
+<h3>Chaîne d'alimentation complète</h3>
+<figure><div class="svgwrap"><svg viewBox="0 0 720 90" width="720" height="90">
+<g font-family="Consolas,monospace" font-size="13" fill="#1a2233">
+<rect x="6" y="30" width="80" height="32" rx="6" class="comp"/><text x="20" y="50">V_AC</text>
+<rect x="106" y="30" width="100" height="32" rx="6" class="comp"/><text x="116" y="50">Transfo</text>
+<rect x="226" y="30" width="110" height="32" rx="6" class="comp"/><text x="236" y="50">Pont Graetz</text>
+<rect x="356" y="30" width="100" height="32" rx="6" class="comp"/><text x="368" y="50">C filtre</text>
+<rect x="476" y="30" width="110" height="32" rx="6" class="comp"/><text x="486" y="50">Régul. 78xx</text>
+<rect x="606" y="30" width="100" height="32" rx="6" class="comp"/><text x="630" y="50">Charge</text>
+<line x1="86" y1="46" x2="106" y2="46" class="wire"/><line x1="206" y1="46" x2="226" y2="46" class="wire"/>
+<line x1="336" y1="46" x2="356" y2="46" class="wire"/><line x1="456" y1="46" x2="476" y2="46" class="wire"/>
+<line x1="586" y1="46" x2="606" y2="46" class="wire"/>
+</g></svg></div></figure>
+
+<!-- ============ PARTIE 3 ============ -->
+<div class="part" id="p3"><h2>PARTIE 3 — Transistors bipolaires</h2>
+<p>Amplification et commutation : un petit courant en commande un grand.</p></div>
+
+<!-- C16 -->
+<h2 class="chap" id="c16"><span class="num">16</span>Le transistor bipolaire</h2>
+<p>3 broches : <strong>B</strong>ase (commande), <strong>C</strong>ollecteur, <strong>E</strong>metteur. Types <strong>NPN</strong> (courant) et PNP.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 240 180" width="240" height="180">
+<circle cx="120" cy="90" r="55" fill="none" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="40" y1="90" x2="95" y2="90" class="wire"/><text x="20" y="94" class="lbl">B</text>
+<line x1="95" y1="55" x2="95" y2="125" class="comp" stroke-width="3"/>
+<line x1="95" y1="70" x2="150" y2="40" class="wire"/><line x1="150" y1="40" x2="150" y2="10" class="wire"/><text x="156" y="20" class="lbl">C</text>
+<line x1="95" y1="110" x2="150" y2="145" class="wire"/><line x1="150" y1="145" x2="150" y2="172" class="wire"/><text x="156" y="165" class="lbl">E</text>
+<polygon points="135,140 150,145 138,153" class="fillk"/>
+</svg></div><figcaption>NPN : flèche de l'émetteur <strong>sortante</strong>.</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Relations fondamentales</span>
+$$I_E=I_C+I_B \qquad \beta_{CC}=\frac{I_C}{I_B}\ (\approx100\text{–}200) \qquad I_C=\beta_{CC}\,I_B$$
+$$\alpha_{CC}=\frac{I_C}{I_E}\approx0{,}99 \qquad \alpha=\frac{\beta}{\beta+1} \qquad \beta=\frac{\alpha}{1-\alpha}$$</div>
+<div class="box tip"><span class="tag">💡 Jonction Base-Émetteur</span>
+Se comporte comme une diode : $V_{BE}\approx0{,}7\,$V en conduction. Si $V_{BE}<0{,}7\,$V → transistor <strong>bloqué</strong> ($I_B=I_C=0$).</div>
+<table>
+<tr><th>Région</th><th>État</th><th>$I_C$</th><th>$V_{CE}$</th></tr>
+<tr><td>Blocage</td><td>« éteint »</td><td>$\approx 0$</td><td>$=V_{CC}$ (max)</td></tr>
+<tr><td>Active</td><td>amplificateur</td><td>$\beta I_B$</td><td>modéré</td></tr>
+<tr><td>Saturation</td><td>« allumé »</td><td>$I_{Csat}$ (max)</td><td>$\approx 0$</td></tr>
+</table>
+<div class="box tip"><span class="tag">💡 Comment ça marche (le déclic)</span>
+Le transistor = une <strong>vanne de courant</strong> commandée par la base : un petit $I_B$ commande un gros $I_C=\beta I_B$ (la base est si fine que ~99 % des charges filent vers le collecteur). Il y a <strong>deux branches de courant distinctes</strong> :<br>
+• <strong>branche de commande</strong> (côté base) : <em>petit</em> courant, sert juste à régler l'ouverture de la vanne ;<br>
+• <strong>branche de puissance</strong> (Collecteur → Émetteur) : <em>gros</em> courant $I_C$.<br>
+Elles se rejoignent à l'émetteur : $I_E=I_C+I_B$. Un petit courant commande un grand courant — c'est tout l'intérêt.</div>
+
+<!-- C17 -->
+<h2 class="chap" id="c17"><span class="num">17</span>Droite de charge & point de repos Q</h2>
+<div class="box formula"><span class="tag">📐 Équation de la droite de charge</span>
+Loi des mailles côté collecteur : $\;I_C=\dfrac{V_{CC}-V_{CE}}{R_C}$. Deux points extrêmes :
+$$\text{Saturation }(V_{CE}=0): I_{Csat}=\frac{V_{CC}}{R_C} \qquad \text{Blocage }(I_C=0): V_{CE}=V_{CC}$$</div>
+<div class="box tip"><span class="tag">💡 Le « budget de tension » (pour visualiser)</span>
+$V_{CC}$ se partage <strong>obligatoirement</strong> entre Rc, le transistor ($V_{CE}$) et Re :
+$$V_{CC}=R_C I_C+V_{CE}+R_E I_E$$
+Quand $I_C$ monte, les chutes dans Rc/Re mangent plus de tension → <strong>$V_{CE}$ diminue</strong>. À $V_{CE}=0$, les résistances prennent tout → courant <strong>plafonné</strong> : $I_{Csat}=V_{CC}/(R_C+R_E)$.<br>
+<strong>Qui commande le courant ?</strong> En zone <strong>active</strong> = la base ($I_C=\beta I_B$) ; en <strong>saturation</strong> = les résistances ($I=V_{CC}/(R_C+R_E)$, le transistor devient un fil).</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 300 220" width="300" height="220">
+<line x1="40" y1="20" x2="40" y2="190" class="wire"/><line x1="40" y1="190" x2="280" y2="190" class="wire"/>
+<text x="6" y="24" class="lbl">Ic</text><text x="255" y="210" class="lbl">Vce</text>
+<line x1="40" y1="40" x2="250" y2="190" stroke="#b00020" stroke-width="2"/>
+<circle cx="40" cy="40" r="4" class="fillk"/><text x="48" y="40" class="val">Icsat=Vcc/Rc</text>
+<circle cx="250" cy="190" r="4" class="fillk"/><text x="200" y="184" class="val">Vcc</text>
+<circle cx="150" cy="115" r="5" fill="#0a6"/><text x="158" y="110" class="lbl" fill="#0a6">Q</text>
+<path d="M48,150 q60,-2 100,-2 q60,0 120,-1" stroke="#1a6" stroke-width="1.5" fill="none"/>
+<text x="120" y="165" class="lbl" fill="#1a6">courbe Ib</text>
+</svg></div><figcaption>Le point Q = intersection droite de charge ↔ courbe $I_B$.</figcaption></figure>
+<div class="box formula"><span class="tag">📐 Point de repos (polarisation par base)</span>
+$$I_B=\frac{V_{BB}-0{,}7}{R_B} \qquad I_C=\beta_{CC}\,I_B \qquad V_{CE}=V_{CC}-R_C\,I_C$$</div>
+<div class="box formula"><span class="tag">📐 Polarisation par pont diviseur + émetteur (type G)</span>
+$$V_B=V_{CC}\frac{R_2}{R_1+R_2} \qquad V_E=V_B-0{,}7 \qquad I_C\approx I_E=\frac{V_E}{R_E}$$
+$$V_C=V_{CC}-R_C\,I_C \qquad V_{CE}=V_C-V_E \qquad I_{Csat}=\frac{V_{CC}}{R_C+R_E}$$</div>
+<div class="box warning"><span class="tag">⚠️ Saturation</span>
+Si le $I_C$ calculé dépasse $I_{Csat}$ → transistor <strong>saturé</strong> : on prend $I_C=I_{Csat}$ et $V_{CE}\approx0$. <strong>Le $\beta$ ne s'applique plus.</strong></div>
+<div class="box def"><span class="tag">Pourquoi un diviseur (R1/R2) plutôt qu'une seule R_B ?</span>
+<strong>Une seule $R_B$</strong> (polarisation par base, type H) : $I_C=\beta I_B$ dépend <strong>directement de β</strong>… or β varie beaucoup (100→300 selon le composant, et avec la température) → point de fonctionnement <strong>instable</strong>. OK pour un <strong>interrupteur</strong> (on sature, β importe peu).<br>
+<strong>Diviseur + Re</strong> (type G) : le pont fixe une tension $V_B$ <strong>stable</strong> (indépendante du transistor), et $I_C\approx I_E=V_E/R_E$ est fixé par <strong>Re, pas par β</strong> → point <strong>stable</strong>. Idéal pour un <strong>amplificateur</strong>. Le courant « gaspillé » dans R2 vers la masse est le prix de cette stabilité (le pont doit rester « rigide », courant ≫ $I_B$). Re ajoute en plus une auto-correction (si $I_C$ monte, $V_E$ monte, $V_{BE}$ baisse, $I_C$ redescend).</div>
+
+<!-- C18 -->
+<h2 class="chap" id="c18"><span class="num">18</span>Le transistor en interrupteur</h2>
+<p>On n'utilise que <strong>blocage</strong> (ouvert) et <strong>saturation</strong> (fermé).</p>
+<div class="box formula"><span class="tag">📐 Dimensionnement de $R_B$ pour saturer (type H)</span>
+$$I_{Csat}=\frac{V_{CC}-V_{CEsat}}{R_C} \qquad I_{Bmin}=\frac{I_{Csat}}{\beta_{CC}} \qquad R_B=\frac{V_{BB}-0{,}7}{I_{Bmin}}$$
+$R_B$ ainsi obtenu est le <strong>maximum</strong> pour juste atteindre la saturation. En pratique on prend $I_B$ un peu plus grand (donc $R_B$ plus petit) → surpolarisation.</div>
+<div class="box tip"><span class="tag">💡 Vérifier l'état</span>
+Calculer $I_{Bmin}=I_{Csat}/\beta$ puis $I_B=(V_{BB}-0{,}7)/R_B$. Si $I_B\ge I_{Bmin}$ → saturé ✅. Si $V_{BB}=0$ → bloqué.</div>
+<div class="box def"><span class="tag">Applications</span>
+Commande de relais, moteurs, LEDs/buzzers depuis un microcontrôleur ; logique numérique (0/1).</div>
+
+<!-- ============ ANNEXES ============ -->
+<div class="part" id="ann"><h2>Annexes</h2><p>Formulaire, notions QCM, pièges et méthodes.</p></div>
+
+<h2 class="chap" id="form">📐 Formulaire condensé</h2>
+<div class="box formula"><span class="tag">Bases</span>
+$$U=RI \quad P=UI=RI^2=\tfrac{U^2}{R} \quad W=Pt \quad 1\,\text{kWh}=3{,}6\,\text{MJ} \quad R=\rho\tfrac{L}{S}$$</div>
+<div class="box formula"><span class="tag">Résistances & diviseurs</span>
+$$R_{série}=\textstyle\sum R_i \quad \tfrac1{R_\parallel}=\textstyle\sum\tfrac1{R_i} \quad U_{R2}=U\tfrac{R_2}{R_1+R_2} \quad I_1=I\tfrac{R_2}{R_1+R_2}$$</div>
+<div class="box formula"><span class="tag">Sinusoïdal</span>
+$$v(t)=V_{max}\sin(2\pi f t)\quad V_{eff}=\tfrac{V_{crête}}{\sqrt2}\quad V_{pp}=2V_{crête}\quad f=\tfrac1T$$</div>
+<div class="box formula"><span class="tag">Diodes & redresseurs</span>
+$$I_D=\tfrac{V_{pol}-0{,}7}{R}\quad R_{LED}=\tfrac{V_{src}-V_{LED}}{I_{LED}}\quad V_{moy}^{simple}=0{,}318V_c\quad V_{moy}^{pont}=0{,}637V_c\ (f_{out}=2f)$$</div>
+<div class="box formula"><span class="tag">Filtrage & Zéner</span>
+$$V_{ond}=\tfrac{V_{c,out}}{fRC}\quad r=\tfrac{V_{ond}}{V_{moy}}\quad \tau=RC\quad I_Z=I_R-I_{ch}\quad P_Z=V_ZI_Z$$</div>
+<div class="box formula"><span class="tag">Régulateurs & transistor</span>
+$$V_{LM317}=1{,}25(1+\tfrac{R_2}{R_1})\quad I_E=I_C+I_B\quad \beta=\tfrac{I_C}{I_B}\quad I_{Csat}=\tfrac{V_{CC}}{R_C}\quad V_{CE}=V_{CC}-R_CI_C$$</div>
+
+<h2 class="chap" id="qcm">🎯 Notions QCM express</h2>
+<table>
+<tr><th>Question type</th><th>Réponse</th></tr>
+<tr><td>Unité du Hertz</td><td>fréquence</td></tr>
+<tr><td>Noyau d'un atome</td><td>protons + neutrons</td></tr>
+<tr><td>Semi-conducteur le plus utilisé</td><td>silicium</td></tr>
+<tr><td>Bande des électrons libres</td><td>bande de conduction</td></tr>
+<tr><td>Polarisation directe d'une jonction PN</td><td>+ sur P (anode), − sur N (cathode)</td></tr>
+<tr><td>Onde de crête 10 V → crête à crête</td><td>20 V</td></tr>
+<tr><td>Redresseur double alt., entrée 60 Hz → sortie</td><td>120 Hz</td></tr>
+<tr><td>$R_{charge}$ d'un redresseur filtré réduite → ondulation</td><td>augmente</td></tr>
+<tr><td>Fonction de la jonction PN dans une LED</td><td>recombiner électrons/trous → lumière</td></tr>
+<tr><td>Utilité du 7805</td><td>maintenir +5 V constants</td></tr>
+</table>
+
+<h2 class="chap" id="pieges">⚠️ Pièges classiques</h2>
+<ul>
+<li><strong>Unités</strong> : convertir avant de calculer (mA→A, kΩ→Ω, µF→F, mm²→m²).</li>
+<li><strong>Diode</strong> : 0,7 V vaut pour le <em>silicium</em>. <strong>LED</strong> : 1,5–3 V, jamais 0,7 V.</li>
+<li><strong>Pont de Graetz</strong> : 2 diodes en série → chute <strong>1,4 V</strong>, fréquence <strong>doublée</strong>.</li>
+<li><strong>Filtrage</strong> : $R_{charge}$ petite → ondulation grande ; $C$ grand → ondulation petite.</li>
+<li><strong>Zéner</strong> : toujours vérifier $I_{Zmin}<I_Z<I_{Zmax}$.</li>
+<li><strong>Transistor saturé</strong> : si $\beta I_B>I_{Csat}$ → $I_C=I_{Csat}$, $V_{CE}\approx0$, le $\beta$ ne s'applique plus.</li>
+<li><strong>Diviseur de tension</strong> : invalide si une charge dérive du courant au point milieu.</li>
+<li><strong>$V_{eff}$ vs $V_{crête}$</strong> : ne pas oublier le $\sqrt2$.</li>
+</ul>
+
+<h2 class="chap" id="method">🧭 Méthodes de résolution</h2>
+<div class="box tip"><span class="tag">Circuit à diode</span>
+1) supposer passante (0,7 V) · 2) calculer $I$ · 3) vérifier $I_D>0$, sinon bloquée.</div>
+<div class="box tip"><span class="tag">Redresseur filtré</span>
+1) $V_{crête}$ après transfo ($\times N_2/N_1$, puis $\times\sqrt2$ si on part de l'efficace) · 2) − chute diodes · 3) $V_{ond}$ ($f=2f_{in}$ pour un pont) · 4) $V_{moy}$, $r$ · 5) régulateur ? vérifier la plage d'entrée.</div>
+<div class="box tip"><span class="tag">Régulateur Zéner</span>
+1) $V_{in}>V_Z$ · 2) $I_R$, $I_{ch}$, $I_Z$ · 3) $I_{Zmin}<I_Z<I_{Zmax}$ · 4) $P_Z$ vs $P_{Zmax}$.</div>
+<div class="box tip"><span class="tag">Transistor — point de fonctionnement</span>
+1) $I_B$ (ou $V_B$ par diviseur) · 2) $I_{Csat}$ · 3) comparer $\beta I_B$ et $I_{Csat}$ : actif → $I_C=\beta I_B$ ; saturé → $I_C=I_{Csat}$, $V_{CE}\approx0$.</div>
+
+<hr>
+<p class="sub">📖 Synthèse établie d'après les supports du cours (Mme A. Pannaije, HENALLUX 2025-2026) et les photos de l'examen 2025. À utiliser avec la <strong>correction de l'examen 2025</strong> et la <strong>synthèse labo</strong>. Bonne révision ! 🎓</p>
+</main>
+</div>
+</body>
+</html>

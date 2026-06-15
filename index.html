@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Révisions — Systèmes Embarqués</title>
+<style>
+:root{--bg:#0f1320;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--gold:#ffd166;--green:#06d6a0;--violet:#b794f6;--line:#2a3450}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1a2236,#0f1320);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:60px 20px}
+h1{font-size:34px;margin:0 0 6px;text-align:center}
+.sub{color:var(--muted);margin:0 0 40px;text-align:center;max-width:560px}
+.cards{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;max-width:1000px}
+a.card{display:block;width:300px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;text-decoration:none;color:var(--ink);transition:.18s;border-top:4px solid var(--accent)}
+a.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.4);border-color:var(--accent)}
+a.card.c2{border-top-color:var(--green)}a.card.c3{border-top-color:var(--violet)}a.card.c4{border-top-color:var(--gold)}a.card.c5{border-top-color:var(--red)}a.card.c6{border-top-color:var(--accent2)}a.card.c7{border-top-color:var(--green)}
+.ico{font-size:40px}
+a.card h2{font-size:20px;margin:14px 0 8px}
+a.card p{color:var(--muted);font-size:14px;margin:0;line-height:1.55}
+.tag{display:inline-block;margin-top:14px;font-size:12px;color:var(--gold);font-weight:700}
+footer{color:var(--muted);margin-top:50px;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<h1>⚡ Révisions — Systèmes Embarqués</h1>
+<p class="sub">Support d'étude complet pour l'examen de théorie puis de labo. 1<sup>re</sup> année TI / IR / RT — HENALLUX.</p>
+<div class="cards">
+<a class="card c1" href="synthese_theorie.html">
+  <div class="ico">📘</div>
+  <h2>Synthèse Théorie</h2>
+  <p>Tout le cours : électricité, signaux AC, semi-conducteurs, diodes, redresseurs, filtrage, Zéner, régulateurs, transistors. Formules + schémas.</p>
+  <span class="tag">18 chapitres + formulaire →</span>
+</a>
+<a class="card c2" href="correction_examen_2025.html">
+  <div class="ico">✅</div>
+  <h2>Correction Examen 2025</h2>
+  <p>Les 8 sections (A→H) + QCM résolus pas à pas, avec schémas et tableaux de résultats. Pour s'entraîner sur un examen du même type.</p>
+  <span class="tag">40 points corrigés →</span>
+</a>
+<a class="card c3" href="synthese_labo.html">
+  <div class="ico">🔧</div>
+  <h2>Synthèse Labo</h2>
+  <p>Mesures, circuits, alimentation, LDR, transistor, Arduino (E/S, PWM, série), patterns de code et programme complet de l'examen pratique.</p>
+  <span class="tag">Élec + Arduino + examen /20 →</span>
+</a>
+<a class="card c4" href="aide_memoire.html">
+  <div class="ico">📑</div>
+  <h2>Aide-mémoire</h2>
+  <p>Fiche ultra-condensée : toutes les formules, les valeurs clés (0,7 V, 1,4 V…), les modèles de composants et les pièges. Imprimable sur ~2 pages.</p>
+  <span class="tag">Tout l'essentiel en 1 coup d'œil →</span>
+</a>
+<a class="card c5" href="exercices_essentiels.html">
+  <div class="ico">📝</div>
+  <h2>Exercices essentiels</h2>
+  <p>Un exercice complet et représentatif par concept (résistifs, diodes, redresseurs, filtrage, LED, Zéner, régulateurs, transistors). Énoncé → méthode → calcul, avec schémas.</p>
+  <span class="tag">16 exercices par concept →</span>
+</a>
+<a class="card c6" href="examen_pratique.html">
+  <div class="ico">🎯</div>
+  <h2>Examen pratique</h2>
+  <p>Préparation isolée de l'épreuve Arduino /20 : format & règles, les 4 questions, le programme complet (anti-rebond robuste, commenté), checklist et dépannage.</p>
+  <span class="tag">Prêt pour l'épreuve →</span>
+</a>
+<a class="card c7" href="revision_active.html">
+  <div class="ico">🧠</div>
+  <h2>Révision active</h2>
+  <p>Entraîne ta mémoire : pour chaque sujet, une question — tu récites de tête, puis tu cliques pour vérifier. Méthode du rappel actif, en arbre par sujet.</p>
+  <span class="tag">Teste-toi sujet par sujet →</span>
+</a>
+</div>
+<footer>Établi d'après les supports de cours (Mme A. Pannaije) et les photos de l'examen 2025.<br>Ouvre les fichiers dans un navigateur — les formules se rendent automatiquement (connexion Internet requise pour MathJax).</footer>
+</body>
+</html>

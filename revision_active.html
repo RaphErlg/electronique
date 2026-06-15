@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Révision active — entraîne ta mémoire</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:235px;max-width:235px;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .home{color:var(--gold);font-weight:600;margin-bottom:8px}
+nav.toc h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin:14px 0 6px}
+main{flex:1;max-width:860px;margin:0 auto;padding:30px 38px 120px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+h2.sujet{font-size:20px;margin:38px 0 10px;padding:9px 15px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:10px;border:1px solid var(--line);color:var(--accent)}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin:9px 0;overflow:hidden}
+summary{cursor:pointer;padding:11px 15px;font-weight:600;color:var(--accent2);list-style:none;position:relative;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--accent);margin-right:9px;display:inline-block;transition:transform .15s}
+details[open] summary{border-bottom:1px solid var(--line)}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{background:#1f2740}
+.ans{padding:12px 16px 14px}
+.ans p{margin:7px 0}.ans ul{margin:6px 0;padding-left:20px}.ans li{margin:4px 0}
+strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+.f{display:block;margin:5px 0;color:#e8ecf4}
+.key{color:var(--green);font-weight:700}
+.box{border-radius:10px;padding:12px 16px;margin:14px 0;border:1px solid var(--line)}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.tip .tag{color:var(--green);font-weight:700;font-size:12px;text-transform:uppercase}
+.def{background:#1b2235;border-left:4px solid var(--gold)}.def .tag{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000}details,details[open]{border:1px solid #999}.ans{display:block!important}body{font-size:12px}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a class="home" href="index.html">← Accueil</a>
+<h2>Sujets</h2>
+<a href="#plan">🌳 Le plan complet</a>
+<a href="#s1">1 · Bases & loi d'Ohm</a>
+<a href="#s2">2 · Série/Parallèle/Kirchhoff</a>
+<a href="#s3">3 · Signaux sinusoïdaux</a>
+<a href="#s4">4 · Semi-conducteurs</a>
+<a href="#s5">5 · Diode</a>
+<a href="#s6">6 · Redresseurs</a>
+<a href="#s7">7 · Condensateur & filtrage</a>
+<a href="#s8">8 · Zéner & régulateurs</a>
+<a href="#s9">9 · Transistor : relations</a>
+<a href="#s10">10 · Droite de charge & polarisation</a>
+<a href="#s11">11 · Transistor interrupteur</a>
+</nav>
+<main id="top">
+<h1>🧠 Révision active — entraîne ta mémoire</h1>
+<p class="sub">Pour chaque question : <strong>ferme les yeux et récite de tête</strong> (à voix haute, c'est encore mieux), <em>puis</em> clique pour vérifier. Si tu bloques → relis la synthèse, et réessaie plus tard. Le but : ouvrir le bon « tiroir » mentalement devant un exercice.</p>
+<div class="box def"><span class="tag">Mode d'emploi</span>
+1) Lis le titre du sujet → essaie de citer <strong>ce qu'il contient</strong>. 2) Ouvre chaque question, <strong>réponds avant de cliquer</strong>. 3) À la fin d'un sujet, reconstitue-le entièrement de tête. ⚠️ Ne clique pas trop vite : l'effort de rappel = la mémorisation.</div>
+
+<!-- PLAN -->
+<h2 class="sujet" id="plan">🌳 Le plan complet (commence par ça)</h2>
+<details><summary>Cite les 11 sujets du cours, dans l'ordre logique</summary>
+<div class="ans">
+<ol>
+<li>Bases &amp; loi d'Ohm</li>
+<li>Série / Parallèle / Kirchhoff</li>
+<li>Signaux sinusoïdaux (AC)</li>
+<li>Semi-conducteurs</li>
+<li>Diode</li>
+<li>Redresseurs</li>
+<li>Condensateur &amp; filtrage</li>
+<li>Diode Zéner &amp; régulateurs</li>
+<li>Transistor : relations &amp; zones</li>
+<li>Droite de charge &amp; polarisation</li>
+<li>Transistor en interrupteur</li>
+</ol>
+<p class="tip" style="border:none;background:none;padding:0;color:var(--green)">💡 Fil rouge : <strong>électricité de base → composants (diode, condo, zéner, transistor) → applications (alim, ampli, interrupteur)</strong>.</p>
+</div></details>
+
+<!-- S1 -->
+<h2 class="sujet" id="s1">1 · Bases &amp; loi d'Ohm</h2>
+<details><summary>Les 3 grandeurs, leurs unités, et la loi qui les relie ?</summary>
+<div class="ans"><span class="f">Courant <strong>I</strong> (Ampère, A) · Tension <strong>U</strong> (Volt, V) · Résistance <strong>R</strong> (Ohm, Ω)</span>
+<span class="f">Loi d'Ohm : <span class="key">$U = R\,I$</span></span></div></details>
+<details><summary>Puissance et énergie : formules + conversion kWh ?</summary>
+<div class="ans"><span class="f"><span class="key">$P = U\,I$</span> (et $=R I^2=U^2/R$, qui se déduisent)</span>
+<span class="f">$W = P\,t$ &nbsp;;&nbsp; $1\,$kWh $= 3{,}6\,$MJ</span>
+<span class="f">Coût = (P en kW) × (t en h) × prix du kWh</span></div></details>
+<details><summary>Résistance d'un fil conducteur ?</summary>
+<div class="ans"><span class="f"><span class="key">$R = \rho\,\dfrac{L}{S}$</span> &nbsp;(ρ = résistivité, L longueur, S section)</span>
+<span class="f">⚠️ unités : $1\,\text{mm}^2 = 10^{-6}\,\text{m}^2$</span></div></details>
+
+<!-- S2 -->
+<h2 class="sujet" id="s2">2 · Série / Parallèle / Kirchhoff</h2>
+<details><summary>Série : qu'est-ce qui est commun ? comment combiner ? que devient la tension ?</summary>
+<div class="ans"><span class="f"><strong>Même courant</strong> partout · $R_{eq}=R_1+R_2+\dots$</span>
+<span class="f">La tension <strong>se divise</strong> → diviseur de tension : $U_{R2}=U\dfrac{R_2}{R_1+R_2}$</span></div></details>
+<details><summary>Parallèle : qu'est-ce qui est commun ? comment combiner ? que devient le courant ?</summary>
+<div class="ans"><span class="f"><strong>Même tension</strong> · $\dfrac1{R_{eq}}=\dfrac1{R_1}+\dfrac1{R_2}+\dots$ ($R_{eq}$ plus petite que la plus petite)</span>
+<span class="f">Le courant <strong>se divise</strong> → diviseur de courant : $I_1=I\dfrac{R_2}{R_1+R_2}$ (<strong>l'autre</strong> R au numérateur)</span></div></details>
+<details><summary>Les deux lois de Kirchhoff ?</summary>
+<div class="ans"><span class="f">Mailles : <span class="key">$\sum U = 0$</span> dans une boucle fermée</span>
+<span class="f">Nœuds : <span class="key">$\sum I_{entrant} = \sum I_{sortant}$</span></span></div></details>
+
+<!-- S3 -->
+<h2 class="sujet" id="s3">3 · Signaux sinusoïdaux</h2>
+<details><summary>Les valeurs caractéristiques d'une sinusoïde ?</summary>
+<div class="ans"><span class="f">Crête $V_{crête}$ · Crête à crête $V_{pp}=2V_{crête}$</span>
+<span class="f">Efficace : <span class="key">$V_{eff}=\dfrac{V_{crête}}{\sqrt2}$</span> (≈ 0,707·V_crête)</span>
+<span class="f">Moyenne d'une sinus pure = <strong>0</strong> (≠ 0 seulement après redressement)</span></div></details>
+<details><summary>Trouver la fréquence depuis $v(t)=V_{max}\sin(\omega t)$ ?</summary>
+<div class="ans"><span class="f">Le nombre devant $t$ = $\omega$ (pulsation, rad/s), <strong>pas</strong> la fréquence</span>
+<span class="f"><span class="key">$\omega = 2\pi f \Rightarrow f = \dfrac{\omega}{2\pi}$</span> &nbsp;;&nbsp; $f=\dfrac1T$</span>
+<span class="f">Ex : $20\sin(200\pi t)$ → $f=200\pi/2\pi=100$ Hz</span></div></details>
+
+<!-- S4 -->
+<h2 class="sujet" id="s4">4 · Semi-conducteurs</h2>
+<details><summary>Conducteur / isolant / semi-conducteur : la différence (bandes) ? le matériau roi ?</summary>
+<div class="ans"><span class="f">Métal : bandes superposées · Isolant : grand écart · <strong>SC : faible écart</strong></span>
+<span class="f">Bande de <strong>conduction</strong> = électrons libres (= le courant)</span>
+<span class="f">Le + utilisé : <span class="key">silicium</span> (4 e⁻ de valence)</span></div></details>
+<details><summary>Dopage : type N vs type P ?</summary>
+<div class="ans"><span class="f">Type <strong>N</strong> : impureté à 5 e⁻ → électrons libres (porteurs −)</span>
+<span class="f">Type <strong>P</strong> : impureté à 3 e⁻ → trous (porteurs +)</span></div></details>
+
+<!-- S5 -->
+<h2 class="sujet" id="s5">5 · Diode</h2>
+<details><summary>Le modèle de la diode (direct / inverse) ? Est-ce une résistance ?</summary>
+<div class="ans"><span class="f">Direct ($V_{pol}>0{,}7$) : <strong>chute fixe 0,7 V</strong> (silicium)</span>
+<span class="f">Inverse : <strong>circuit ouvert</strong> ($I\approx0$)</span>
+<span class="f">⚠️ <strong>Jamais une résistance</strong> : soit ouverte, soit chute fixe.</span></div></details>
+<details><summary>Méthode d'analyse + formules diode/LED ?</summary>
+<div class="ans"><span class="f">Méthode : supposer passante → calculer → vérifier $I_D>0$ (sinon bloquée)</span>
+<span class="f">$I_D=\dfrac{V_{pol}-0{,}7}{R}$ &nbsp;(se déduit : Ohm + chute 0,7)</span>
+<span class="f">LED : chute ≈ 2 V ; $R=\dfrac{V_{src}-V_{LED}}{I_{LED}}$ (jamais sans R !)</span></div></details>
+
+<!-- S6 -->
+<h2 class="sujet" id="s6">6 · Redresseurs</h2>
+<details><summary>Le transformateur : que fait-il ? formules ?</summary>
+<div class="ans"><span class="f">Abaisse/élève la tension : $V_{sec}=V_{prim}\dfrac{N_2}{N_1}$</span>
+<span class="f">Passage efficace → crête : $V_{crête}=V_{eff}\sqrt2$</span></div></details>
+<details><summary>Simple alternance vs pont : chute, Vmoy, fréquence ? (sans condensateur)</summary>
+<div class="ans"><span class="f"><strong>Simple</strong> (1 diode) : $-0{,}7$ · $V_{moy}=0{,}318\,V_c$ (=$V_c/\pi$) · $f_{out}=f$</span>
+<span class="f"><strong>Pont</strong> (4 diodes) : $-1{,}4$ · $V_{moy}=0{,}637\,V_c$ (=$2V_c/\pi$) · $f_{out}=2f$</span>
+<span class="f">⚠️ 0,318 et 0,637 = <strong>sans condensateur</strong> (moyenne des bosses de sinus).</span></div></details>
+<details><summary>La TIC (tension inverse de crête) : c'est quoi ? valeur pour un pont ?</summary>
+<div class="ans"><span class="f">Tension max qu'une diode <strong>bloquée</strong> doit supporter (pour choisir la diode)</span>
+<span class="f">Pont : TIC $\approx V_{crête,sec}-0{,}7$ (ou $V_{crête,out}+0{,}7$)</span></div></details>
+
+<!-- S7 -->
+<h2 class="sujet" id="s7">7 · Condensateur &amp; filtrage</h2>
+<details><summary>Charge / décharge RC : constante de temps, équations, repères ?</summary>
+<div class="ans"><span class="f"><span class="key">$\tau=RC$</span></span>
+<span class="f">Charge : $u_C=V(1-e^{-t/\tau})$ · Décharge : $u_C=V\,e^{-t/\tau}$</span>
+<span class="f">Repères : 1τ → 63 % · 2τ → 87 % · 5τ → ≈100 %</span></div></details>
+<details><summary>Filtrage : ondulation, valeur moyenne filtrée, taux ?</summary>
+<div class="ans"><span class="f">$V_{ond}=\dfrac{V_{crête,out}}{f\,R\,C}$ &nbsp;($f=2f_{in}$ pour un pont)</span>
+<span class="f"><strong>Avec condensateur</strong> : $V_{moy}\approx V_{crête,out}-\dfrac{V_{ond}}{2}$ (proche du sommet)</span>
+<span class="f">Taux $r=\dfrac{V_{ond}}{V_{moy}}$ · C grand → ondulation petite · R charge petite → ondulation grande</span></div></details>
+
+<!-- S8 -->
+<h2 class="sujet" id="s8">8 · Diode Zéner &amp; régulateurs</h2>
+<details><summary>La Zéner : à quoi sert-elle ? comment se branche-t-elle ?</summary>
+<div class="ans"><span class="f">Maintient une <strong>tension constante $V_Z$</strong> à ses bornes, en <strong>inverse</strong></span>
+<span class="f">Cathode vers le + . Elle « avale » le surplus de courant pour garder $V_Z$.</span></div></details>
+<details><summary>Régulation Zéner : les courants, la puissance, la plage de Vin ?</summary>
+<div class="ans"><span class="f">$I_R=\dfrac{V_{in}-V_Z}{R}$ · $I_{ch}=\dfrac{V_Z}{R_{ch}}$ · $I_Z=I_R-I_{ch}$ · $P_Z=V_Z I_Z$</span>
+<span class="f">Plage : $V_{in}=V_Z+(I_{ch}+I_Z)\,R$ → min avec $I_{Zmin}$, max avec $I_{Zmax}$</span>
+<span class="f">OK si $I_{Zmin}\le I_Z\le I_{Zmax}$. <em>Tout se déduit (Ohm + nœud + maille).</em></span></div></details>
+<details><summary>Régulateurs intégrés : 78xx et LM317 ?</summary>
+<div class="ans"><span class="f">78xx fixe (7805→5V…) · condition $V_{in}>V_{out}+2\,$V</span>
+<span class="f">LM317 ajustable : $V_{out}=1{,}25\left(1+\dfrac{R_2}{R_1}\right)$</span></div></details>
+
+<!-- S9 -->
+<h2 class="sujet" id="s9">9 · Transistor : relations &amp; zones</h2>
+<details><summary>Le transistor, c'est quoi en une image ?</summary>
+<div class="ans"><span class="f">Une <strong>vanne de courant</strong> commandée par la base : un <strong>petit $I_B$</strong> commande un <strong>gros $I_C$</strong> (×β).</span>
+<span class="f">2 branches : commande (petit courant, base) + puissance (gros $I_C$, C→E).</span></div></details>
+<details><summary>Les relations de courant ?</summary>
+<div class="ans"><span class="f"><span class="key">$I_E=I_C+I_B$</span> · <span class="key">$\beta=\dfrac{I_C}{I_B}$</span></span>
+<span class="f">$\alpha=\dfrac{I_C}{I_E}\approx0{,}99$ (se déduit : $=\beta/(\beta+1)$) · $V_{BE}\approx0{,}7$ V</span></div></details>
+<details><summary>Les 3 zones de fonctionnement ?</summary>
+<div class="ans"><span class="f"><strong>Blocage</strong> : $I_C\approx0$, $V_{CE}=V_{CC}$ (éteint)</span>
+<span class="f"><strong>Active</strong> : $I_C=\beta I_B$ (amplificateur)</span>
+<span class="f"><strong>Saturation</strong> : $V_{CE}\approx0$, $I_C=I_{Csat}$ (le β ne s'applique plus)</span></div></details>
+
+<!-- S10 -->
+<h2 class="sujet" id="s10">10 · Droite de charge &amp; polarisation</h2>
+<details><summary>La droite de charge : à quoi correspond-elle ? ses 2 extrémités ?</summary>
+<div class="ans"><span class="f">Toutes les combinaisons $(V_{CE},I_C)$ permises par le circuit. Le point Q est dessus.</span>
+<span class="f">Saturation : $I_{Csat}=\dfrac{V_{CC}}{R_C}$ ($V_{CE}=0$) · Blocage : $V_{CE}=V_{CC}$ ($I_C=0$)</span></div></details>
+<details><summary>Polarisation par pont diviseur (+ Re) : la chaîne de calcul ?</summary>
+<div class="ans"><span class="f">$V_B=V_{CC}\dfrac{R_2}{R_1+R_2}$ → $V_E=V_B-0{,}7$ → $I_C\approx I_E=\dfrac{V_E}{R_E}$</span>
+<span class="f">→ $V_C=V_{CC}-R_C I_C$ → $V_{CE}=V_C-V_E$</span>
+<span class="f">Saturé ? comparer $I_C$ à $I_{Csat}=\dfrac{V_{CC}}{R_C+R_E}$. Montage <strong>stable</strong> (indép. de β).</span></div></details>
+
+<!-- S11 -->
+<h2 class="sujet" id="s11">11 · Transistor en interrupteur</h2>
+<details><summary>Méthode pour dimensionner Rb afin de saturer ?</summary>
+<div class="ans"><span class="f">$I_{Csat}=\dfrac{V_{CC}-V_{CEsat}}{R_C}$ → $I_{Bmin}=\dfrac{I_{Csat}}{\beta}$ → $R_B=\dfrac{V_{BB}-0{,}7}{I_{Bmin}}$</span>
+<span class="f">$R_B$ trouvé = <strong>maximum</strong> ; on prend plus petit pour garantir la saturation (marge).</span></div></details>
+<details><summary>Pourquoi une seule Rb (interrupteur) mais un diviseur (amplificateur) ?</summary>
+<div class="ans"><span class="f">Une seule $R_B$ : $I_C=\beta I_B$ <strong>dépend de β</strong> (instable) → OK pour un interrupteur (on sature).</span>
+<span class="f">Diviseur + Re : $I_C$ fixé par Re, <strong>pas par β</strong> → point stable → pour un amplificateur.</span></div></details>
+
+<div class="box tip"><span class="tag">🏁 Test final</span>
+Quand tu te sens prêt : ferme tout, prends une feuille, et essaie de <strong>réécrire chaque sujet de tête</strong> (titre → formules → méthode). Ce que tu n'arrives pas à reconstruire = à retravailler. C'est ton meilleur indicateur de progression.</div>
+
+</main>
+</div>
+</body>
+</html>

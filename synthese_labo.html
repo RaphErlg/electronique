@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Synthèse Labo — Systèmes Embarqués (élec + Arduino)</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('pre code').forEach(function(el){el.classList.add('language-cpp');});if(window.hljs){hljs.highlightAll();}});</script>
+<style>
+pre code.hljs{background:transparent;padding:0}
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:260px;max-width:260px;background:var(--panel);border-right:1px solid var(--line);padding:20px 16px}
+nav.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:14px 0 6px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .grp{font-weight:700;color:var(--accent2);margin-top:12px}
+main{flex:1;max-width:900px;margin:0 auto;padding:32px 40px 120px}
+h1{font-size:28px;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 24px;font-size:15px}
+h2.chap{font-size:23px;margin:50px 0 4px;padding-top:14px;border-top:2px solid var(--line);color:#fff}
+h2.chap .num{color:var(--accent);font-weight:800;margin-right:10px}
+h3{font-size:18px;margin:26px 0 8px;color:var(--accent2)}h4{font-size:15px;margin:18px 0 6px;color:var(--gold)}
+p{margin:9px 0}strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55}
+pre code{background:none;padding:0;color:#d6e2ff}
+.cmt{color:#5d7290}.kw{color:#7bdff2}.str{color:#ffd166}.fn{color:#b794f6}
+.part{margin:54px 0 0;padding:18px 22px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:14px;border:1px solid var(--line)}
+.part h2{margin:0;font-size:22px;color:var(--accent)}.part p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.box{border-radius:12px;padding:13px 18px;margin:14px 0;border:1px solid var(--line)}
+.formula{background:#10243a;border-left:4px solid var(--accent)}.warning{background:#2a1622;border-left:4px solid var(--red)}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.result{background:#211a33;border-left:4px solid var(--violet)}.def{background:#1b2235;border-left:4px solid var(--gold)}
+.box .tag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.codenote{font-size:13.5px;margin:6px 0;color:var(--muted);line-height:1.55}
+.codenote b{color:var(--accent2)}
+.formula .tag{color:var(--accent)}.warning .tag{color:var(--red)}.tip .tag{color:var(--green)}.result .tag{color:var(--violet)}.def .tag{color:var(--gold)}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14.5px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:8px 11px;text-align:left}th{background:#222c45;color:var(--accent2)}tr:nth-child(even) td{background:#1e273c}
+figure{margin:18px 0;text-align:center}.svgwrap{background:#f7fafc;border-radius:12px;padding:8px;display:inline-block;border:1px solid var(--line)}
+figcaption{color:var(--muted);font-size:13px;margin-top:6px}
+ol,ul{margin:8px 0;padding-left:22px}li{margin:5px 0}
+.check li{list-style:none;margin-left:-14px}.check li::before{content:"☐ ";color:var(--accent)}
+text.lbl{font-family:Consolas,monospace;font-size:12px;fill:#1a2233}text.val{font-family:Consolas,monospace;font-size:11px;fill:#b00020}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}.comp{stroke:#1a2233;stroke-width:2;fill:none}.fillk{fill:#1a2233}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000;font-size:12px}.svgwrap{background:#fff}pre{background:#f4f4f4;color:#000}pre code{color:#000}.box{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a href="index.html" style="display:block;color:#ffd166;font-weight:600;text-decoration:none;padding:6px 8px;margin-bottom:6px">← Accueil</a>
+<h2>Synthèse Labo</h2>
+<a class="grp">Préparation</a>
+<a href="#setup">0 · Setup & sécurité</a>
+<a class="grp">Électronique (labos 1-5)</a>
+<a href="#mesures">1 · Matériel & mesures</a>
+<a href="#circuits">2 · Série / parallèle / mixte</a>
+<a href="#led">3 · LED + résistance</a>
+<a href="#pont">4 · Pont diviseur</a>
+<a href="#alim">5 · Alimentation complète</a>
+<a href="#ldr">6 · Photorésistance (LDR)</a>
+<a href="#transistor">7 · Transistor NPN</a>
+<a class="grp">Arduino (labo 6)</a>
+<a href="#arduino">8 · Bases Arduino</a>
+<a href="#io">9 · E/S & pull-up</a>
+<a href="#analog">10 · Analogique & PWM</a>
+<a href="#patterns">11 · Patterns de code</a>
+<a href="#serie">12 · Communication série</a>
+<a href="#codes">📟 Recueil de codes</a>
+<a class="grp">Examen pratique</a>
+<a href="examen_pratique.html">🎯 Examen pratique →</a>
+<a href="#annexe">📎 Annexes & pièges</a>
+</nav>
+<main id="top">
+<h1>🔧 Synthèse Labo — Systèmes Embarqués</h1>
+<p class="sub">Tous les laboratoires : électronique (mesures, circuits, alimentation, LDR, transistor) + Arduino (E/S, PWM, série, télérupteur). Pensé pour servir de <strong>support pendant l'examen pratique</strong> (/20, 2 h, document autorisé).</p>
+<div class="box def"><span class="tag">À utiliser avec</span> la <strong>synthèse théorie</strong> (formules) et la <strong>correction de l'examen 2025</strong> (entraînement).</div>
+
+<!-- 0 -->
+<h2 class="chap" id="setup"><span class="num">0</span>Setup & règles de sécurité</h2>
+<h3>Checklist matériel</h3>
+<ul class="check">
+<li>Carte <strong>Arduino UNO</strong> + câble USB</li>
+<li><strong>Breadboard</strong> + câbles mâle-mâle</li>
+<li>LEDs de <strong>2 couleurs</strong> différentes</li>
+<li>Résistances : 150 Ω, 220 Ω, 330 Ω, 470 Ω, 10 kΩ</li>
+<li>Bouton poussoir (BP), multimètre, PC avec Arduino IDE</li>
+</ul>
+<div class="box warning"><span class="tag">⚠️ Ne pas perdre de points bêtement</span>
+<ol>
+<li><strong>Jamais de LED sans résistance</strong> → claquage (−6 pts pour dégradation de matériel, cumulatif !).</li>
+<li><strong>Sens LED</strong> : anode = patte longue (côté +), cathode = patte courte / méplat (côté −/GND).</li>
+<li><strong>Ampèremètre en série</strong> (ouvrir le circuit), <strong>voltmètre en parallèle</strong>. Ampèremètre en parallèle = court-circuit.</li>
+<li>Brancher <strong>alimentation éteinte</strong> / Arduino débranché.</li>
+<li><strong>Pull-up / pull-down obligatoire</strong> sur un BP, sinon entrée flottante.</li>
+</ol></div>
+<div class="box tip"><span class="tag">💡 Méthodologie</span>
+Lire l'énoncé en entier → dessiner le schéma → calculer la résistance LED → câbler et vérifier 2× → tester le hardware → coder par étapes → vérifier au moniteur série.</div>
+
+<!-- ============ PARTIE ELEC ============ -->
+<div class="part"><h2>Électronique — labos 1 à 5</h2><p>Mesures, lois des circuits, alimentation, composants spéciaux.</p></div>
+
+<!-- 1 -->
+<h2 class="chap" id="mesures"><span class="num">1</span>Matériel & mesures</h2>
+<h3>Alimentation de laboratoire</h3>
+<ul>
+<li>Bornes <strong>orange</strong> : tensions fixes 5 V / 12 V DC. Bornes <strong>jaunes</strong> : ajustable.</li>
+<li>Réglage <strong>rouge</strong> = tension (0–30 V) · réglage <strong>bleu</strong> = courant max (sécurité).</li>
+<li>Régler $I_{max}$ : court-circuiter la sortie → mode <em>Current Limited</em>.</li>
+</ul>
+<h3>Multimètre</h3>
+<table>
+<tr><th>Mesure</th><th>Branchement</th><th>Remarque</th></tr>
+<tr><td>Tension (V)</td><td><strong>parallèle</strong></td><td>résistance interne ≈ ∞</td></tr>
+<tr><td>Courant (A)</td><td><strong>série</strong> (ouvrir le circuit)</td><td>résistance interne ≈ 0</td></tr>
+<tr><td>Résistance (Ω)</td><td>circuit <strong>hors tension</strong></td><td>—</td></tr>
+</table>
+<div class="box warning"><span class="tag">⚠️ Erreur fatale</span> Ampèremètre en parallèle = court-circuit garanti.</div>
+<h3>Oscilloscope (labo 4)</h3>
+<p>Mesure une tension <strong>variable dans le temps</strong> : amplitude crête à crête $V_{pp}$, période $T$, fréquence $f=1/T$. Sert à voir le signal AC, l'ondulation de filtrage, la PWM.</p>
+<h3>Breadboard</h3>
+<p>Lignes <strong>horizontales</strong> (centre) connectées par groupes de 5, séparées par la rainure. Bandes <strong>verticales</strong> latérales (+ et −) coupées au milieu de la plaque.</p>
+
+<!-- 2 -->
+<h2 class="chap" id="circuits"><span class="num">2</span>Circuits série / parallèle / mixte</h2>
+<div class="box formula"><span class="tag">📐 Lois</span>
+$$U=RI\quad P=UI\quad \sum U=0\ (\text{maille})\quad \sum I_{ent}=\sum I_{sort}\ (\text{nœud})$$
+$$R_{série}=\textstyle\sum R_i \qquad \frac1{R_\parallel}=\textstyle\sum\frac1{R_i} \qquad R_\parallel^{(2)}=\frac{R_1R_2}{R_1+R_2}$$</div>
+<table>
+<tr><th></th><th>Série</th><th>Parallèle</th></tr>
+<tr><td>Courant</td><td>identique partout</td><td>se divise</td></tr>
+<tr><td>Tension</td><td>se divise</td><td>identique</td></tr>
+<tr><td>$R_{éq}$</td><td>plus grande</td><td>plus petite</td></tr>
+</table>
+<div class="box tip"><span class="tag">💡 Manip type</span>
+1) Mesurer chaque R au multimètre. 2) Simuler sur <strong>LTSpice</strong>, puis réaliser sur breadboard. 3) Mesurer $U$ et $I$ de chaque branche. 4) Vérifier vs calcul théorique.</div>
+
+<!-- 3 -->
+<h2 class="chap" id="led"><span class="num">3</span>LED + résistance de limitation ⭐</h2>
+<div class="box formula"><span class="tag">📐 Formule magique</span>
+$$R_{LED}=\frac{V_{source}-V_{LED}}{I_{LED}} \qquad (V_{LED}\approx2\,\text{V},\ I_{LED}=20\,\text{mA})$$</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 360 90" width="360" height="90">
+<text x="6" y="48" class="lbl">+5V</text>
+<line x1="40" y1="45" x2="80" y2="45" class="wire"/>
+<rect x="80" y="37" width="46" height="16" class="comp"/><text x="84" y="32" class="lbl">R 220Ω</text>
+<line x1="126" y1="45" x2="170" y2="45" class="wire"/>
+<polygon points="170,37 170,53 188,45" class="fillk"/><line x1="188" y1="37" x2="188" y2="53" class="comp"/><text x="166" y="72" class="lbl">LED</text>
+<line x1="188" y1="45" x2="320" y2="45" class="wire"/><text x="324" y="48" class="lbl">GND</text>
+</svg></div></figure>
+<table>
+<tr><th>Source</th><th>Calcul</th><th>Valeur pratique</th></tr>
+<tr><td>5 V (Arduino)</td><td>(5−2)/0,02 = 150 Ω</td><td>220 ou 330 Ω</td></tr>
+<tr><td>9 V</td><td>(9−2)/0,02 = 350 Ω</td><td>470 Ω</td></tr>
+<tr><td>12 V</td><td>(12−2)/0,02 = 500 Ω</td><td>560 / 680 Ω</td></tr>
+</table>
+<div class="box tip"><span class="tag">💡 Vérif</span> Sur 5 V avec 220/330 Ω, on doit mesurer $U_R\approx3$ V aux bornes de la résistance.</div>
+
+<!-- 4 -->
+<h2 class="chap" id="pont"><span class="num">4</span>Pont diviseur de tension</h2>
+<div class="box formula"><span class="tag">📐</span>
+$$U_{R2}=U_t\,\frac{R_2}{R_1+R_2} \qquad\text{(chargé)}\quad U_{R2}=U_t\,\frac{R_2\parallel R_{ch}}{R_1+(R_2\parallel R_{ch})}$$</div>
+<div class="box warning"><span class="tag">⚠️</span> Le pont n'est valide qu'<strong>à vide</strong> ou avec une charge très grande (l'entrée A0 de l'Arduino, ≈ ∞, convient).</div>
+
+<!-- 5 -->
+<h2 class="chap" id="alim"><span class="num">5</span>Alimentation complète (labo 4)</h2>
+<p>Chaîne : <strong>secteur → transformateur → pont redresseur → condensateur → régulateur → sortie</strong>.</p>
+<div class="box formula"><span class="tag">📐 Étapes de calcul</span>
+1) $V_{sec}=\frac{N_2}{N_1}V_{prim}$ · 2) $V_{crête}=V_{eff}\sqrt2$ · 3) pont : $V_{c,out}=V_{c,in}-1{,}4$, $V_{moy}=0{,}637V_{c,out}$, $f_{out}=2f$ · 4) $V_{ond}=\frac{V_{c,out}}{fRC}$, $r=\frac{V_{ond}}{V_{moy}}$ · 5) régulateur 78xx / LM317 $\left(V_{out}=1{,}25(1+\frac{R_2}{R_1})\right)$.</div>
+<div class="box tip"><span class="tag">💡 Manip (ordre)</span>
+1) $V_2$ efficace au <strong>multimètre AC</strong>. 2) Période/fréquence à l'<strong>oscillo</strong> (50 Hz, 20 ms). 3) Après redresseur seul : $V_{moy}$ (DC) + $V_{crête}$ (oscillo). 4) Avec C=1 µF puis 100 µF : mesurer $V_{moy}$ et $V_{ond}$ → calculer $r$ et comparer. 5) Changer $R_{charge}$ → observer l'ondulation.</div>
+<div class="box warning"><span class="tag">⚠️</span> Plus $C$ grand → ondulation petite. Plus $R_{charge}$ petite → ondulation grande.</div>
+
+<!-- 6 -->
+<h2 class="chap" id="ldr"><span class="num">6</span>Photorésistance (LDR) — labo 5</h2>
+<p>Résistance qui <strong>diminue quand la lumière augmente</strong>. Beaucoup de lumière → R faible ; obscurité → R élevée.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 240 200" width="240" height="200">
+<text x="6" y="20" class="lbl">+5V</text>
+<line x1="60" y1="20" x2="60" y2="50" class="wire"/>
+<rect x="52" y="50" width="16" height="44" class="comp"/><text x="74" y="74" class="lbl">R 10kΩ</text>
+<line x1="60" y1="94" x2="60" y2="120" class="wire"/>
+<line x1="60" y1="107" x2="150" y2="107" class="wire"/><text x="155" y="111" class="lbl">→ A0</text>
+<rect x="52" y="120" width="16" height="44" class="comp"/><text x="74" y="146" class="lbl">LDR</text>
+<line x1="60" y1="164" x2="60" y2="185" class="wire"/><text x="40" y="198" class="lbl">GND</text>
+</svg></div><figcaption>Pont diviseur LDR + R fixe → lecture sur A0.</figcaption></figure>
+<div class="box formula"><span class="tag">📐</span>$$U_{A0}=5\,\frac{R_{LDR}}{R+R_{LDR}}$$ <code>analogRead(A0)</code> renvoie 0–1023 (0–5 V).</div>
+<p>Cahier des charges type : « sous un certain seuil de luminosité, la LED s'allume » → entrée analogique (A0) + sortie digitale (LED). Voir <a href="#patterns">pattern LDR</a>.</p>
+
+<!-- 7 -->
+<h2 class="chap" id="transistor"><span class="num">7</span>Transistor NPN en commutation — labo 5</h2>
+<p>Interrupteur commandé : <strong>bloqué</strong> ($I_B\approx0$) → charge éteinte ; <strong>saturé</strong> (faible $I_B$) → charge allumée.</p>
+<div class="box tip"><span class="tag">💡 Les 2 manips du labo (matériel : R 470 Ω + 10 kΩ, LED, transistor NPN)</span>
+<strong>Manip 1 — commande directe par bouton</strong> : la base est pilotée par un <strong>bouton poussoir</strong> (via la R de 10 kΩ), pas par du code. L'Arduino ne sert que d'<strong>alim 5 V</strong>. Bouton relâché → base sans courant → LED éteinte ; appuyé → transistor saturé → LED allumée.<br>
+<strong>Manip 2 — commande par signal numérique</strong> : même circuit, mais la base est pilotée par une <strong>sortie Arduino (ex. D9)</strong> au lieu du bouton → on commande la LED par programme (<code>digitalWrite</code>).</div>
+<div class="box formula"><span class="tag">📐</span>
+$$I_C=\beta I_B \quad I_E=I_C+I_B \quad V_{BE}\approx0{,}7\,\text{V} \quad I_{Csat}=\frac{V_{CC}}{R_C} \quad I_{Bmin}=\frac{I_{Csat}}{\beta} \quad R_B=\frac{V_{BB}-0{,}7}{I_B}$$</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 280 220" width="280" height="220">
+<text x="6" y="20" class="lbl">+5V</text><line x1="200" y1="18" x2="200" y2="40" class="wire"/>
+<rect x="192" y="40" width="16" height="36" class="comp"/><text x="212" y="60" class="lbl">R 470Ω</text>
+<line x1="200" y1="76" x2="200" y2="92" class="wire"/>
+<polygon points="192,92 208,92 200,108" class="fillk"/><line x1="190" y1="108" x2="210" y2="108" class="comp"/><text x="212" y="104" class="lbl">LED</text>
+<line x1="200" y1="108" x2="200" y2="125" class="wire"/>
+<line x1="175" y1="120" x2="175" y2="155" class="comp" stroke-width="3"/>
+<line x1="175" y1="128" x2="200" y2="125" class="wire"/><line x1="175" y1="148" x2="200" y2="160" class="wire"/>
+<polygon points="190,156 200,160 191,166" class="fillk"/>
+<line x1="90" y1="138" x2="175" y2="138" class="wire"/><rect x="50" y="130" width="40" height="16" class="comp"/><text x="40" y="126" class="lbl">10kΩ</text>
+<line x1="20" y1="138" x2="50" y2="138" class="wire"/><text x="2" y="142" class="lbl">D9</text>
+<line x1="200" y1="160" x2="200" y2="195" class="wire"/><text x="180" y="210" class="lbl">GND</text>
+</svg></div><figcaption>Le transistor commande une charge depuis une broche Arduino (max 40 mA/broche).</figcaption></figure>
+<div class="box tip"><span class="tag">💡 Exemple (β=100, LED $V_F=2$V)</span>
+$I_{Csat}=\frac{5-2}{470}=6{,}4$ mA → $I_{Bmin}=64\,\mu$A. Avec $R_B=10$ kΩ : $I_B=\frac{5-0{,}7}{10000}=430\,\mu$A ≫ 64 µA → <strong>saturé</strong> ✅. Avec $R_B=100$ kΩ : $I_B=43\,\mu$A < 64 µA → <strong>pas saturé</strong>.</div>
+
+<!-- ============ PARTIE ARDUINO ============ -->
+<div class="part"><h2>Arduino — labo 6</h2><p>Bases du langage, entrées/sorties, PWM, communication série, patterns prêts à l'emploi.</p></div>
+
+<!-- 8 -->
+<h2 class="chap" id="arduino"><span class="num">8</span>Bases d'un programme</h2>
+<pre><code>void setup() {   // exécuté UNE FOIS au démarrage
+  // config broches, Serial.begin...
+}
+void loop() {    // boucle infinie
+  // programme principal
+}</code></pre>
+<p>Constantes lisibles : <code>#define LED 13</code>, <code>#define BP1 2</code>, <code>#define SEUIL 500</code>.</p>
+
+<!-- 9 -->
+<h2 class="chap" id="io"><span class="num">9</span>Entrées / sorties & pull-up</h2>
+<pre><code>pinMode(broche, OUTPUT);        // sortie
+pinMode(broche, INPUT_PULLUP);  // entrée + pull-up interne ⭐
+digitalWrite(broche, HIGH);    // 5V (ou LOW = 0V)
+int e = digitalRead(broche);    // HIGH/LOW</code></pre>
+<div class="box warning"><span class="tag">⚠️ Entrée flottante</span>
+Un BP sans résistance « flotte » et lit n'importe quoi. Solutions : pull-down externe, pull-up externe, ou <strong>pull-up interne</strong> (le plus simple).</div>
+<div class="box tip"><span class="tag">💡 INPUT_PULLUP (logique inversée)</span>
+BP entre la broche et GND. <strong>Relâché = HIGH</strong>, <strong>appuyé = LOW</strong>.
+<pre><code>if (digitalRead(BP1) == LOW) { /* appuyé */ }</code></pre></div>
+
+<!-- 10 -->
+<h2 class="chap" id="analog"><span class="num">10</span>Analogique & PWM</h2>
+<h4>Entrée analogique (ADC 10 bits : 0–1023, 0–5 V)</h4>
+<pre><code>int v = analogRead(A0);              // 0..1023
+float u = v * (5.0 / 1023.0);    // en volts</code></pre>
+<h4>Sortie PWM (8 bits : 0–255) — broches ~ 3,5,6,9,10,11</h4>
+<pre><code>analogWrite(9, 128);   // duty 50%
+int pwm = map(v, 0, 1023, 0, 255);  // adapter analogRead → PWM</code></pre>
+<div class="box warning"><span class="tag">⚠️</span> <code>analogRead</code> = 0–1023 (10 bits), <code>analogWrite</code> = 0–255 (8 bits). Relier avec <code>map()</code>.</div>
+
+<!-- 11 -->
+<h2 class="chap" id="patterns"><span class="num">11</span>Patterns de code prêts à l'emploi</h2>
+<h3>11.1 Clignotement non-bloquant avec <code>millis()</code> ⭐⭐⭐</h3>
+<pre><code>#define LED 13
+unsigned long tPrec = 0;
+const unsigned long INTERVALLE = 500;
+bool etat = LOW;
+void setup(){ pinMode(LED, OUTPUT); }
+void loop(){
+  unsigned long t = millis();
+  if (t - tPrec >= INTERVALLE){
+    tPrec = t; etat = !etat;
+    digitalWrite(LED, etat);
+  }
+  // on peut faire AUTRE chose ici (lire un BP...)
+}</code></pre>
+<div class="box warning"><span class="tag">⚠️</span> Toujours <code>unsigned long</code> pour <code>millis()</code> (un <code>int</code> déborde après ~32 s). Éviter <code>delay()</code> qui bloque tout.</div>
+
+<h3>11.2 Télérupteur (anti-rebond, sans delay) ⭐⭐⭐</h3>
+<pre><code>#define LED 13
+#define BP1 2
+bool etatLED = LOW, bpPrec = HIGH;
+unsigned long tDernier = 0;
+const unsigned long REBOND = 50;
+void setup(){ pinMode(LED,OUTPUT); pinMode(BP1,INPUT_PULLUP); }
+void loop(){
+  bool bp = digitalRead(BP1);
+  if (bpPrec==HIGH && bp==LOW){            // front descendant = appui
+    if (millis()-tDernier > REBOND){
+      etatLED = !etatLED;
+      digitalWrite(LED, etatLED);
+      tDernier = millis();
+    }
+  }
+  bpPrec = bp;
+}</code></pre>
+<div class="box tip"><span class="tag">💡 Pourquoi ça marche</span>
+On agit sur le <strong>front</strong> (relâché→appuyé), pas tant que le BP est maintenu. L'anti-rebond ignore les micro-impulsions parasites (~10–50 ms).</div>
+
+<h3>11.3 Fréquence ↔ période</h3>
+<div class="box formula"><span class="tag">📐</span>$$f=\frac1T \qquad \text{demi-période}=\frac{T}{2}=\frac{1}{2f}$$</div>
+<table>
+<tr><th>f</th><th>T</th><th>demi-période</th></tr>
+<tr><td>1 Hz</td><td>1000 ms</td><td>500 ms</td></tr>
+<tr><td>0,8 Hz</td><td>1250 ms</td><td>625 ms</td></tr>
+<tr><td><strong>0,6 Hz</strong></td><td>1666 ms</td><td><strong>833 ms</strong> ← examen</td></tr>
+<tr><td>0,5 Hz</td><td>2000 ms</td><td>1000 ms</td></tr>
+</table>
+
+<h3>11.4 LDR + LED avec seuil</h3>
+<pre><code>#define LDR A0
+#define LED 9
+#define SEUIL 400
+void setup(){ pinMode(LED,OUTPUT); Serial.begin(9600); }
+void loop(){
+  int lum = analogRead(LDR);
+  Serial.println(lum);
+  digitalWrite(LED, lum &lt; SEUIL ? HIGH : LOW); // peu de lumière → LED ON
+}</code></pre>
+
+<h3>11.5 Dimmer : potentiomètre → PWM</h3>
+<pre><code>void loop(){
+  int p = analogRead(A0);
+  analogWrite(9, map(p, 0, 1023, 0, 255));
+}</code></pre>
+
+<!-- 12 -->
+<h2 class="chap" id="serie"><span class="num">12</span>Communication série</h2>
+<pre><code>Serial.begin(9600);            // dans setup()
+Serial.print("Lumi = "); Serial.println(lum);
+if (Serial.available() > 0){
+  String m = Serial.readString(); m.trim();
+  if (m == "ON")  digitalWrite(LED, HIGH);
+  if (m == "OFF") digitalWrite(LED, LOW);
+}</code></pre>
+<table>
+<tr><th>Fonction</th><th>Rôle</th></tr>
+<tr><td><code>Serial.read()</code></td><td>lit 1 caractère</td></tr>
+<tr><td><code>Serial.readString()</code></td><td>lit tout le buffer (pratique)</td></tr>
+<tr><td><code>Serial.available()</code></td><td>nombre de bytes en attente</td></tr>
+<tr><td><code>Serial.parseInt()</code></td><td>lit un entier</td></tr>
+</table>
+<div class="box warning"><span class="tag">⚠️</span> Broches <strong>0 (RX) et 1 (TX)</strong> = liaison série : ne jamais y mettre BP/LED (bloque l'upload). Vérifier que le moniteur série est aussi à <strong>9600 bauds</strong>.</div>
+
+<!-- ============ RECUEIL DE CODES ============ -->
+<h2 class="chap" id="codes"><span class="num">📟</span>Recueil de codes Arduino (labo)</h2>
+<p>Tes codes du labo (<strong>testés en vrai</strong> par un camarade), corrigés des bugs évidents. Le titre = la tâche. Les <span style="color:#ef476f">⚠️</span> = correction apportée, les <span style="color:#06d6a0">✓</span> = correct tel quel. Pour chaque code : <b>🔌 câblage</b> + <b>💡 pourquoi ce choix / alternative</b>. Idéal pour <strong>câbler → tester → comprendre</strong>.</p>
+<div class="box tip"><span class="tag">🔑 3 réflexes boutons (vrais sur le matériel)</span>
+<strong>① INPUT_PULLUP</strong> : bouton entre la broche et GND (pas de résistance externe). <strong>Appuyé = LOW (0)</strong>, relâché = HIGH (1) → logique « inversée » (d'où les <code>!</code> dans le code).<br>
+<strong>② Niveau vs front</strong> : lire le <em>niveau</em> (<code>digitalRead</code>) = « tant que c'est appuyé » ; détecter un <em>front</em> (HIGH→LOW) = « une seule fois par appui ».<br>
+<strong>③ Anti-rebond</strong> : un bouton mécanique « rebondit » (plusieurs bascules en ~10–50 ms). Pour une action par appui, on ignore les changements pendant ~50 ms — <strong>sinon ça se déclenche 2-3 fois</strong> (c'est LE bug classique sur matériel réel).</div>
+
+<h3>1 · LED allumée tant que le bouton est appuyé (2 boutons / 2 LEDs)</h3>
+<p class="codenote"><b>🔌 Câblage :</b> LED1→D10, LED2→D13 (chacune + résistance ~220 Ω vers GND) ; BP1→D3, BP2→D2 (vers GND). <b>💡 Pourquoi :</b> lecture de <em>niveau</em> + INPUT_PULLUP ; le <code>!</code> rétablit « appuyé = allumé ». Pas besoin d'anti-rebond ici (on suit l'état, pas un front).</p>
+<div class="box warning"><span class="tag">⚠️ corrigé</span> L'original faisait <code>digitalWrite(LED, etat)</code> → la LED s'allumait quand le bouton était <strong>relâché</strong> (INPUT_PULLUP : appuyé = LOW). On inverse avec <code>!</code>.</div>
+<pre><code>#define LED1 10
+#define BP1  3
+#define LED2 13
+#define BP2  2
+void setup() {
+  pinMode(BP1, INPUT_PULLUP);
+  pinMode(BP2, INPUT_PULLUP);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+}
+void loop() {
+  digitalWrite(LED1, !digitalRead(BP1));  // appuyé (LOW) -> !LOW = HIGH = LED ON
+  digitalWrite(LED2, !digitalRead(BP2));
+}</code></pre>
+
+<h3>2 · Clignoter une LED avec delay()</h3>
+<p class="codenote"><b>🔌</b> LED→D8 (+ résistance). <b>💡</b> <code>delay()</code> est simple mais <em>bloque</em> tout le programme pendant l'attente. Alternative non bloquante → code 12.</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct (delay = bloquant). 15 ms dans l'original → clignotement quasi invisible, mets ~500 ms.</p>
+<pre><code>#define LED 8
+void setup() { pinMode(LED, OUTPUT); }
+void loop() {
+  digitalWrite(LED, HIGH);
+  delay(500);
+  digitalWrite(LED, LOW);
+  delay(500);
+}</code></pre>
+
+<h3>3 · Clignoter 2 LEDs en alternance avec millis()</h3>
+<p class="codenote"><b>🔌</b> LED1→D8, LED2→D10. <b>💡</b> <code>millis()</code> = horloge non bloquante ; <code>LED2 = !LED1</code> les met en opposition. Avantage sur delay : on pourrait lire un bouton en même temps.</p>
+<div class="box warning"><span class="tag">⚠️ corrigé</span> L'original écrivait <code>pinMode(ledPin, OUTPUT)</code> → variable inexistante (ne compile pas). On configure bien les deux broches.</div>
+<pre><code>#define LED1 8
+#define LED2 10
+int ledState1 = LOW;
+unsigned long previousMillis = 0;
+const int interval = 500;
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+}
+void loop() {
+  if (millis() - previousMillis &gt;= interval) {
+    previousMillis = millis();
+    ledState1 = !ledState1;
+    digitalWrite(LED1, ledState1);
+    digitalWrite(LED2, !ledState1);   // toujours en opposition
+  }
+}</code></pre>
+
+<h3>4 · Une LED clignote (millis), l'autre s'allume quand on appuie</h3>
+<p class="codenote"><b>🔌</b> LED1→D8 (suit le bouton), LED2→D10 (clignote), BP→D2. <b>💡</b> Montre qu'avec <code>millis()</code> on fait <em>deux choses à la fois</em> (clignoter ET lire le bouton) — impossible avec <code>delay()</code>.</p>
+<div class="box warning"><span class="tag">⚠️ corrigé</span> Logique du bouton inversée (INPUT_PULLUP) → ajout du <code>!</code> pour allumer LED1 à l'appui.</div>
+<pre><code>#define LED1 8    // suit le bouton
+#define LED2 10   // clignote
+#define BP   2
+bool ledState2 = HIGH;
+unsigned long previousMillis = 0;
+const int interval = 500;
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(BP, INPUT_PULLUP);
+}
+void loop() {
+  if (millis() - previousMillis &gt;= interval) {
+    previousMillis = millis();
+    ledState2 = !ledState2;
+    digitalWrite(LED2, ledState2);
+  }
+  digitalWrite(LED1, !digitalRead(BP));  // appuyé -> LED ON
+}</code></pre>
+
+<h3>5 · Dimmer : maintenir le bouton fait varier la luminosité (PWM)</h3>
+<p class="codenote"><b>🔌</b> LED→D11 (broche PWM <code>~</code>, + résistance), BP→D3. <b>💡</b> <code>analogWrite</code> = PWM 0–255. Maintenir = varier, relâcher = inverser le sens. Ici <code>delay(20)</code> est acceptable (on reste volontairement dans la boucle tant qu'on appuie).</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct. Tant qu'on maintient le bouton, la luminosité monte (ou descend) ; au relâchement, le sens s'inverse.</p>
+<pre><code>#define LED 11   // broche PWM (~)
+#define BP  3
+bool increasing = true;
+int brightness = 0;
+void setup() {
+  pinMode(BP, INPUT_PULLUP);
+  pinMode(LED, OUTPUT);
+}
+void loop() {
+  if (digitalRead(BP) == LOW) {
+    while (digitalRead(BP) == LOW) {
+      brightness += increasing ? 5 : -5;
+      brightness = constrain(brightness, 0, 255);
+      analogWrite(LED, brightness);
+      delay(20);
+    }
+    increasing = !increasing;   // au relâchement : on inverse le sens
+  }
+}</code></pre>
+
+<h3>6 · Afficher la durée d'appui sur le bouton (en secondes)</h3>
+<p class="codenote"><b>🔌</b> BP→D5. <b>💡</b> Détection de <em>front</em> : on mémorise l'instant du début (front descendant) et on calcule au relâchement (front montant). C'est LE schéma pour mesurer une durée → réutilisé pour l'<strong>appui long</strong> de l'examen.</p>
+<div class="box warning"><span class="tag">⚠️ corrigé</span> L'original calculait <code>(tempsAppuye − tempsRelache)</code> en continu → incohérent. Version correcte : on mémorise le <strong>début</strong> d'appui et on calcule la durée au <strong>relâchement</strong> (détection de front).</div>
+<pre><code>#define BP 5
+unsigned long debut = 0;
+bool appuye = false;
+void setup() {
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+void loop() {
+  bool etat = (digitalRead(BP) == LOW);   // appuyé ?
+  if (etat &amp;&amp; !appuye) {                  // front : début d'appui
+    debut = millis();
+    appuye = true;
+  }
+  if (!etat &amp;&amp; appuye) {                  // front : relâchement
+    unsigned long duree = (millis() - debut) / 1000;
+    Serial.print("Duree : "); Serial.print(duree); Serial.println(" s");
+    appuye = false;
+  }
+}</code></pre>
+
+<h3>7 · Afficher les lettres a → z à chaque appui</h3>
+<p class="codenote"><b>🔌</b> BP→D5 ; ouvre le moniteur série. <b>💡</b> <code>char</code> = code ASCII (97 = 'a'). Le test <code>millis()-dernierTemps >= 200</code> sert de cadence ET d'anti-rebond grossier.</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ logique correcte (accolades remises en ordre). Une lettre toutes les 200 ms tant qu'on appuie, puis on boucle.</p>
+<pre><code>#define BP 5
+char lettre = 'a';                 // code ASCII 97
+unsigned long dernierTemps = 0;
+void setup() {
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+void loop() {
+  if (digitalRead(BP) == LOW &amp;&amp; millis() - dernierTemps &gt;= 200) {
+    Serial.println(lettre);
+    lettre++;
+    if (lettre &gt; 'z') lettre = 'a';  // 122 -> 97
+    dernierTemps = millis();
+  }
+}</code></pre>
+
+<h3>8 · Convertir une valeur analogique (A0) en pourcentage</h3>
+<p class="codenote"><b>🔌</b> potentiomètre (ou capteur) sur A0. <b>💡</b> <code>analogRead</code> = 0–1023 (10 bits) ; <code>map()</code> met à l'échelle 0–100. Affichage cadencé (500 ms) pour ne pas saturer le moniteur.</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct.</p>
+<pre><code>unsigned long dernierTemps = 0;
+const int intervalle = 500;
+void setup() { Serial.begin(9600); }
+void loop() {
+  int valeur = analogRead(A0);
+  valeur = map(valeur, 0, 1023, 0, 100);
+  if (millis() - dernierTemps &gt;= intervalle) {
+    Serial.print(valeur); Serial.println("%");
+    dernierTemps = millis();
+  }
+}</code></pre>
+
+<h3>9 · Piloter une LED par "ON" / "OFF" reçus en série</h3>
+<p class="codenote"><b>🔌</b> LED→D8. <b>💡</b> <code>readString()</code> + <code>.trim()</code> (enlève le retour-ligne parasite). Tape "ON"/"OFF" dans le moniteur. Alternative : <code>Serial.read()</code> pour 1 seul caractère.</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct.</p>
+<pre><code>#define LED 8
+void setup() { Serial.begin(9600); pinMode(LED, OUTPUT); }
+void loop() {
+  if (Serial.available() &gt; 0) {
+    String msg = Serial.readString();
+    msg.trim();
+    if (msg == "ON")  digitalWrite(LED, HIGH);
+    if (msg == "OFF") digitalWrite(LED, LOW);
+  }
+}</code></pre>
+
+<h3>10 · Afficher la luminosité (LDR) sur demande "lumi"</h3>
+<p class="codenote"><b>🔌</b> LDR en pont diviseur sur A0. <b>💡</b> Ne répond que si on tape "lumi". <code>map(1023,0,…)</code> inverse l'échelle (plus de lumière → % plus haut). Adapte les bornes selon ton câblage (LDR en haut ou en bas du pont).</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct. <code>map(valeur, 1023, 0, 0, 100)</code> inverse l'échelle (plus de lumière → % plus élevé).</p>
+<pre><code>void setup() { Serial.begin(9600); }
+void loop() {
+  int valeur = analogRead(A0);
+  valeur = map(valeur, 1023, 0, 0, 100);
+  if (Serial.available() &gt; 0) {
+    String msg = Serial.readString();
+    msg.trim();
+    if (msg == "lumi") { Serial.print(valeur); Serial.println("%"); }
+  }
+}</code></pre>
+
+<h3>11 · Allumer une LED selon la luminosité (LDR + seuil)</h3>
+<p class="codenote"><b>🔌</b> LDR sur A0, LED→D7. <b>💡</b> Seuil à 50 % : sombre → LED ON. <em>Conseil :</em> affiche d'abord les valeurs au moniteur pour choisir le bon seuil selon ta pièce.</p>
+<div class="box warning"><span class="tag">⚠️ corrigé</span> Supprimer la ligne <code>#define A0</code> : elle « écrasait » A0 (vide) → <code>analogRead(A0)</code> ne compilait plus. A0 existe déjà.</div>
+<pre><code>#define LED 7
+void setup() { Serial.begin(9600); pinMode(LED, OUTPUT); }
+void loop() {
+  int valeur = analogRead(A0);
+  valeur = map(valeur, 0, 1023, 0, 100);
+  if (valeur &lt; 50) digitalWrite(LED, HIGH);  // sombre -> LED ON
+  else             digitalWrite(LED, LOW);
+}</code></pre>
+
+<h3>12 · Clignoter une LED avec millis() (non bloquant)</h3>
+<p class="codenote"><b>🔌</b> LED→D9. <b>💡</b> LA référence : pendant l'« attente », le programme reste libre (on pourrait lire un bouton). À préférer à <code>delay()</code> dès qu'il y a plusieurs tâches simultanées.</p>
+<p style="color:#06d6a0;font-size:13.5px">✓ correct — la référence du clignotement non bloquant.</p>
+<pre><code>#define LED 9
+unsigned long tempsPrecedent = 0;
+bool ledState = HIGH;
+void setup() { pinMode(LED, OUTPUT); }
+void loop() {
+  if (millis() - tempsPrecedent &gt; 500) {
+    tempsPrecedent = millis();
+    ledState = !ledState;
+  }
+  digitalWrite(LED, ledState);
+}</code></pre>
+
+<!-- ============ EXAMEN PRATIQUE ============ -->
+<h2 class="chap" id="exam"><span class="num">🎯</span>Examen pratique</h2>
+<div class="box def"><span class="tag">📄 Document dédié</span>
+La préparation complète de l'examen pratique (format &amp; règles, les 4 questions, le <strong>programme robuste commenté</strong>, checklist, dépannage) est dans un <strong>document séparé</strong>, pour réviser l'épreuve de façon isolée :<br>
+👉 <a href="examen_pratique.html" style="color:var(--accent);font-weight:600">Ouvrir « Examen pratique »</a></div>
+
+<!-- ANNEXE -->
+<h2 class="chap" id="annexe">📎 Annexes & pièges</h2>
+<h3>Pinout Arduino UNO essentiel</h3>
+<table>
+<tr><th>Broches</th><th>Usage</th></tr>
+<tr><td>0 (RX), 1 (TX)</td><td>⚠️ liaison série — ne pas utiliser</td></tr>
+<tr><td>2,4,7,8,12,13</td><td>numérique standard (D13 = LED intégrée)</td></tr>
+<tr><td>3,5,6,9,10,11 (~)</td><td>numérique + <strong>PWM</strong></td></tr>
+<tr><td>A0–A5</td><td>analogique (10 bits, 0–1023)</td></tr>
+<tr><td>5V / 3,3V / GND / VIN</td><td>alimentation (VIN = 7–12 V externe)</td></tr>
+</table>
+<h3>Pièges classiques ⚠️</h3>
+<ol>
+<li>LED sans résistance → claquage (−6 pts).</li>
+<li><code>int</code> au lieu de <code>unsigned long</code> pour <code>millis()</code> → débordement après ~32 s.</li>
+<li><code>delay()</code> interdit dans les cahiers des charges → utiliser <code>millis()</code>.</li>
+<li>Confondre <code>analogRead</code> (0–1023) et <code>analogWrite</code> (0–255) → <code>map()</code>.</li>
+<li>Pull-up oublié → BP imprévisible. <code>INPUT_PULLUP</code> : LOW = appuyé.</li>
+<li>Anti-rebond oublié → le télérupteur bascule 2-3 fois.</li>
+<li>Détection sur état au lieu de <strong>front</strong> → action répétée tant que maintenu.</li>
+<li>Pas de <code>Serial.begin()</code> ou mauvais baud rate → console illisible.</li>
+<li>Broches 0/1 utilisées → upload bloqué.</li>
+</ol>
+<h3>Avant de rendre</h3>
+<ul class="check">
+<li>Le programme compile sans erreur</li>
+<li>Aucun <code>delay()</code></li>
+<li>Télérupteur OK (1 appui = 1 changement)</li>
+<li>Appui long déclenche le clignotement à 0,6 Hz</li>
+<li>Console affiche type d'appui + période</li>
+<li>Résistance présente sur chaque LED, câblage propre</li>
+</ul>
+<hr style="border:none;border-top:1px dashed var(--line);margin:30px 0">
+<p class="sub">📖 Synthèse labo — Systèmes embarqués (HENALLUX 2025-2026). Compagnon de la synthèse théorie et de la correction d'examen. Bon courage ! 🚀</p>
+</main>
+</div>
+</body>
+</html>

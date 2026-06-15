@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aide-mémoire — Électronique (formules essentielles)</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{--bg:#0f1320;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45;font-size:14px}
+header{padding:22px 28px 10px;text-align:center}
+h1{font-size:24px;margin:0}
+.sub{color:var(--muted);font-size:13px;margin:4px 0 0}
+.grid{column-count:3;column-gap:14px;padding:14px 22px 60px;max-width:1500px;margin:0 auto}
+.card{break-inside:avoid;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:0 0 14px;border-top:3px solid var(--accent)}
+.card.g{border-top-color:var(--green)}.card.v{border-top-color:var(--violet)}.card.o{border-top-color:var(--gold)}.card.r{border-top-color:var(--red)}
+.card h3{font-size:13.5px;margin:0 0 6px;color:var(--accent);text-transform:uppercase;letter-spacing:.03em}
+.card.g h3{color:var(--green)}.card.v h3{color:var(--violet)}.card.o h3{color:var(--gold)}.card.r h3{color:var(--red)}
+.card p{margin:5px 0}
+.f{display:block;margin:4px 0;font-size:13.5px}
+ul{margin:4px 0;padding-left:16px}li{margin:2px 0}
+strong{color:#fff}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-family:Consolas,monospace;font-size:12.5px;color:var(--gold)}
+table{border-collapse:collapse;width:100%;margin:5px 0;font-size:12px}
+th,td{border:1px solid var(--line);padding:3px 6px;text-align:left}
+th{background:#222c45;color:var(--accent)}
+.hl{color:var(--gold);font-weight:700}
+.no{color:var(--red);font-weight:700}.yes{color:var(--green);font-weight:700}
+a.top{position:fixed;bottom:18px;right:18px;background:var(--accent);color:#04121f;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px}
+.note{font-size:12px;color:var(--muted);margin-top:3px}
+@media(max-width:1100px){.grid{column-count:2}}
+@media(max-width:720px){.grid{column-count:1}}
+@media print{body{background:#fff;color:#000;font-size:10.5px}.grid{column-count:3;column-gap:8px;padding:6px}
+  .card{background:#fff;border:1px solid #999;margin-bottom:8px;padding:5px 7px}.card h3{color:#000}
+  code{background:#eee;color:#000}th{background:#ddd;color:#000}a.top{display:none}header{padding:6px}}
+</style>
+</head>
+<body>
+<a href="#" class="top">↑</a>
+<header>
+<a href="index.html" style="display:inline-block;color:var(--gold);font-weight:600;text-decoration:none;margin-bottom:8px">← Accueil</a>
+<h1>⚡ Aide-mémoire — Électronique</h1>
+<p class="sub">Formules &amp; valeurs essentielles · Systèmes embarqués · à relire avant l'examen — compagnon de la synthèse complète.</p>
+</header>
+<div class="grid">
+
+<div class="card o" style="border-top-width:5px"><h3>★ Socle à connaître par cœur</h3>
+<p class="note" style="margin-top:0">Le minimum vital. <strong>Tout le reste du document se déduit de ça + la loi d'Ohm</strong> (repéré par <span style="color:#8896b3">↳</span> ailleurs).</p>
+<span class="f">$U=R\,I$ &nbsp;·&nbsp; $P=U I$ &nbsp;·&nbsp; $W=P\,t$</span>
+<span class="f">$R_{série}=\textstyle\sum R$ &nbsp;·&nbsp; $\dfrac1{R_\parallel}=\textstyle\sum\dfrac1R$</span>
+<span class="f">Kirchhoff : $\textstyle\sum U=0$ &nbsp;·&nbsp; $\textstyle\sum I_{ent}=\sum I_{sort}$</span>
+<span class="f">$R=\rho\dfrac{L}{S}$</span>
+<span class="f">$V_{eff}=\dfrac{V_{crête}}{\sqrt2}$ · $V_{pp}=2V_{crête}$ · $f=\dfrac1T$ · $\omega=2\pi f$</span>
+<span class="f">$\tau=RC$ · $u_C=V(1-e^{-t/\tau})$ (charge / inverse en décharge)</span>
+<span class="f">Transfo : $V_{sec}=V_{prim}\dfrac{N_2}{N_1}$</span>
+<span class="f">$I_E=I_C+I_B$ · $\beta=\dfrac{I_C}{I_B}$</span>
+<p class="note"><strong>Faits à savoir :</strong> diode 0,7 V · LED ≈ 2 V · pont −1,4 V &amp; f×2 · $V_{BE}$ 0,7 V · Zéner = $V_Z$ · $V_{moy}$ : 0,318/0,637·$V_c$</p></div>
+
+<div class="card o"><h3>⭐ Valeurs à retenir par cœur</h3>
+<ul>
+<li>Diode Si directe : <span class="hl">0,7 V</span></li>
+<li>Pont (2 diodes) : <span class="hl">1,4 V</span></li>
+<li>LED : <span class="hl">≈ 2 V</span> (1,5–3 V), I max <span class="hl">20 mA</span></li>
+<li>$V_{BE}$ transistor : <span class="hl">0,7 V</span></li>
+<li>$V_{moy}$ simple alt. : <span class="hl">0,318</span> · pont : <span class="hl">0,637</span></li>
+<li>$\sqrt2\approx$ <span class="hl">1,414</span></li>
+<li>$1\,$kWh $=$ <span class="hl">3,6 MJ</span> $=3{,}6\!\times\!10^6$ J</li>
+<li>Déchet régulateur 78xx : <span class="hl">≈ 2 V</span></li>
+</ul></div>
+
+<div class="card"><h3>Lois de base</h3>
+<span class="f">$U=R\,I$</span>
+<span class="f">$P=U I$ <small style="color:#8896b3;font-size:11px">↳ $=R I^2=\dfrac{U^2}{R}$ (via Ohm)</small></span>
+<span class="f">$W=P\,t=U I t$</span>
+<span class="f">$R=\rho\,\dfrac{L}{S}$ (1 mm²$=10^{-6}$m²)</span>
+<p class="note">Coût : énergie(kWh)=P(W)·t(h)/1000, ×prix.</p></div>
+
+<div class="card"><h3>Résistances</h3>
+<span class="f">Série : $R_{eq}=R_1+R_2+\dots$</span>
+<span class="f">Parallèle : $\dfrac1{R_{eq}}=\dfrac1{R_1}+\dfrac1{R_2}+\dots$</span>
+<span class="f"><span style="color:#8896b3">↳</span> 2 résist. : $R_{eq}=\dfrac{R_1R_2}{R_1+R_2}$ <small style="color:#8896b3;font-size:11px">(via 1/R_eq)</small></span>
+<p class="note">Série = même courant. Parallèle = même tension. On <strong>additionne</strong> les séries, on combine en <strong>1/R</strong> les parallèles.</p></div>
+
+<div class="card"><h3>Kirchhoff &amp; diviseurs</h3>
+<span class="f">Maille : $\sum U=0$</span>
+<span class="f">Nœud : $\sum I_{ent}=\sum I_{sort}$</span>
+<span class="f"><span style="color:#8896b3">↳</span> Div. tension : $U_{R2}=U\dfrac{R_2}{R_1+R_2}$ <small style="color:#8896b3;font-size:11px">(série + Ohm)</small></span>
+<span class="f"><span style="color:#8896b3">↳</span> Div. courant : $I_1=I\dfrac{R_2}{R_1+R_2}$ <small style="color:#8896b3;font-size:11px">(// + Ohm)</small></span>
+<p class="note">Diviseur de courant : l'<strong>autre</strong> R au numérateur.</p></div>
+
+<div class="card"><h3>Signaux sinusoïdaux</h3>
+<span class="f">$v(t)=V_{max}\sin(2\pi f t)$</span>
+<span class="f">$\omega=2\pi f \qquad f=\dfrac1T$</span>
+<span class="f">$V_{eff}=\dfrac{V_{crête}}{\sqrt2} \quad V_{crête}=V_{eff}\sqrt2$</span>
+<span class="f">$V_{pp}=2\,V_{crête}$</span>
+<p class="note">Moyenne d'une sinus pure = 0 (sauf après redressement).</p></div>
+
+<div class="card r"><h3>🎯 Modèle des composants</h3>
+<table>
+<tr><th>Composant</th><th>Modèle</th></tr>
+<tr><td>Diode directe</td><td>chute <strong>0,7 V</strong></td></tr>
+<tr><td>Diode inverse</td><td>circuit ouvert</td></tr>
+<tr><td>LED directe</td><td>chute <strong>≈ 2 V</strong></td></tr>
+<tr><td>Zéner direct</td><td>0,7 V (diode)</td></tr>
+<tr><td>Zéner inverse ≥ V_Z</td><td>source <strong>V_Z</strong></td></tr>
+<tr><td>Transistor V_BE</td><td>0,7 V</td></tr>
+</table>
+<p class="note"><span class="no">Aucun</span> n'est une <strong>résistance</strong> : soit ouvert, soit chute de tension fixe.</p></div>
+
+<div class="card o"><h3>Où vaut 0,7 V ?</h3>
+<p>= une <strong>jonction PN silicium qui conduit en direct</strong> :</p>
+<ul>
+<li><span class="yes">✓</span> diode en direct</li>
+<li><span class="yes">✓</span> zéner en direct</li>
+<li><span class="yes">✓</span> base-émetteur ($V_{BE}$)</li>
+<li><span class="no">✗</span> zéner en inverse → $V_Z$</li>
+<li><span class="no">✗</span> LED → ≈ 2 V</li>
+<li><span class="no">✗</span> $V_{CE}$ → 0 V (saturé) ou variable</li>
+</ul></div>
+
+<div class="card"><h3>Diode &amp; LED</h3>
+<span class="f"><span style="color:#8896b3">↳</span> Diode passante : $I_D=\dfrac{V_{pol}-0{,}7}{R}$ <small style="color:#8896b3;font-size:11px">(Ohm + chute 0,7)</small></span>
+<span class="f"><span style="color:#8896b3">↳</span> R limit. LED : $R=\dfrac{V_{src}-V_{LED}}{I_{LED}}$ <small style="color:#8896b3;font-size:11px">(Ohm + maille)</small></span>
+<p class="note">Diode passante si $V_{pol}>0{,}7$. LED : V_LED donné, R à calculer. Jamais de LED sans R.</p></div>
+
+<div class="card"><h3>Redresseurs</h3>
+<span class="f">Transfo : $V_{sec}=V_{prim}\dfrac{N_2}{N_1}$</span>
+<span class="f">$V_{crête}=V_{eff}\sqrt2$</span>
+<table>
+<tr><th></th><th>Simple</th><th>Pont</th></tr>
+<tr><td>Diodes</td><td>1</td><td>4</td></tr>
+<tr><td>Chute</td><td>−0,7</td><td>−1,4</td></tr>
+<tr><td>$V_{moy}$</td><td>0,318·V_c</td><td>0,637·V_c</td></tr>
+<tr><td>$f_{out}$</td><td>$f$</td><td>$2f$</td></tr>
+</table>
+<span class="f">TIC pont : $\approx V_{crête,sec}-0{,}7$</span></div>
+
+<div class="card"><h3>Condensateur &amp; filtrage</h3>
+<span class="f">$\tau=R\,C$</span>
+<span class="f">$V_{ond}=\dfrac{V_{crête,out}}{f\,R\,C}$ (pont : $f=2f_{in}$)</span>
+<span class="f">$V_{moy}\approx V_{crête,out}-\dfrac{V_{ond}}{2}$</span>
+<span class="f">Taux : $r=\dfrac{V_{ond}}{V_{moy}}$</span>
+<p class="note">C grand → ondulation petite. R_charge petite → ondulation grande. 1τ : 63% charge / 37% décharge.</p></div>
+
+<div class="card g"><h3>Régulateur Zéner</h3>
+<span class="f">$I_R=\dfrac{V_{in}-V_Z}{R}$</span>
+<span class="f">$I_{ch}=\dfrac{V_Z}{R_{ch}}\qquad I_Z=I_R-I_{ch}$</span>
+<span class="f">$P_Z=V_Z\,I_Z$</span>
+<span class="f">$V_{in,min}=V_Z+(I_{ch}+I_{Zmin})R$</span>
+<span class="f">$V_{in,max}=V_Z+(I_{ch}+I_{Zmax})R$</span>
+<p class="note"><span style="color:#8896b3">↳ tout se déduit</span> : Ohm ($I_R,I_{ch}$) + nœud ($I_Z$) + maille ($V_{in}=V_Z+I_R R$). Retiens la <strong>méthode</strong>, pas les formules. OK si $I_{Zmin}\le I_Z\le I_{Zmax}$. Cathode vers +.</p></div>
+
+<div class="card g"><h3>Régulateurs intégrés</h3>
+<span class="f">78xx fixe : 7805→5V, 7812→12V, 7824→24V</span>
+<span class="f">Condition : $V_{in}>V_{out}+2\,$V</span>
+<span class="f">LM317 : $V_{out}=1{,}25\left(1+\dfrac{R_2}{R_1}\right)$</span>
+<p class="note">Plage typique d'entrée donnée en table (ex. 7824 : 26,5–39 V).</p></div>
+
+<div class="card v"><h3>Transistor — relations</h3>
+<span class="f">$I_E=I_C+I_B$</span>
+<span class="f">$\beta_{CC}=\dfrac{I_C}{I_B}\Rightarrow I_C=\beta I_B$</span>
+<span class="f"><span style="color:#8896b3">↳</span> $\alpha=\dfrac{I_C}{I_E}\approx0{,}99$ <small style="color:#8896b3;font-size:11px">($=\beta/(\beta+1)$)</small></span>
+<span class="f">$V_{BE}\approx0{,}7\,$V</span>
+<p class="note">3 zones : blocage ($I_C\!=\!0$), active ($I_C\!=\!\beta I_B$), saturation ($V_{CE}\!\approx\!0$).</p></div>
+
+<div class="card v"><h3>Droite de charge / point Q</h3>
+<span class="f">Saturation : $I_{Csat}=\dfrac{V_{CC}}{R_C}$ ($V_{CE}=0$)</span>
+<span class="f">Blocage : $V_{CE}=V_{CC}$ ($I_C=0$)</span>
+<span class="f">$V_{CE}=V_{CC}-R_C I_C$</span>
+<span class="f">Base : $I_B=\dfrac{V_{BB}-0{,}7}{R_B}$</span>
+<p class="note"><span style="color:#8896b3">↳</span> $I_{Csat},I_B,V_{CE}$ se déduisent (Ohm + maille + déf β). Si $\beta I_B>I_{Csat}$ → saturé : $I_C=I_{Csat}$, le β ne s'applique plus.</p></div>
+
+<div class="card v"><h3>Polarisation pont diviseur (+ R_E)</h3>
+<span class="f">$V_B=V_{CC}\dfrac{R_2}{R_1+R_2}$</span>
+<span class="f">$V_E=V_B-0{,}7$</span>
+<span class="f">$I_C\approx I_E=\dfrac{V_E}{R_E}$</span>
+<span class="f">$V_C=V_{CC}-R_C I_C \quad V_{CE}=V_C-V_E$</span>
+<span class="f">$I_{Csat}=\dfrac{V_{CC}}{R_C+R_E}$</span></div>
+
+<div class="card v"><h3>Transistor en interrupteur</h3>
+<span class="f">$I_{Csat}=\dfrac{V_{CC}-V_{CEsat}}{R_C}$</span>
+<span class="f">$I_{Bmin}=\dfrac{I_{Csat}}{\beta}$</span>
+<span class="f">$R_B=\dfrac{V_{BB}-0{,}7}{I_B}$</span>
+<p class="note"><span style="color:#8896b3">↳ tout via</span> Ohm ($V_{CE}=0$) + déf β. $R_B$ trouvé = max pour juste saturer ; prendre + petit pour garantir.</p></div>
+
+<div class="card g"><h3>Semi-conducteurs (QCM)</h3>
+<ul>
+<li>Le + utilisé : <strong>silicium</strong> (4 e⁻ valence)</li>
+<li>Électrons libres : <strong>bande de conduction</strong></li>
+<li>Noyau : <strong>protons + neutrons</strong></li>
+<li>Type N : impureté 5 e⁻ (électrons) · Type P : 3 e⁻ (trous)</li>
+<li>Polar. directe PN : + sur P (anode), − sur N (cathode)</li>
+<li>LED : recombiner e⁻/trous → lumière</li>
+</ul></div>
+
+<div class="card r"><h3>⚠️ Pièges fréquents</h3>
+<ul>
+<li>Convertir les unités (mA, kΩ, µF, mm²)</li>
+<li>Pont : <strong>1,4 V</strong> et <strong>fréquence ×2</strong></li>
+<li>LED ≠ 0,7 V (≈ 2 V) + toujours une R</li>
+<li>Zéner : vérifier $I_{Zmin}<I_Z<I_{Zmax}$</li>
+<li>Transistor saturé : β ne s'applique plus</li>
+<li>Diviseur tension : invalide si charge dérive le courant</li>
+</ul></div>
+
+<div class="card o"><h3>Réflexes méthode</h3>
+<ul>
+<li><strong>Diode</strong> : supposer passante (0,7) → vérifier $I_D>0$.</li>
+<li><strong>Redresseur</strong> : V_crête → −chute → ondulation ($f{=}2f$) → V_moy.</li>
+<li><strong>Zéner</strong> : $I_R,I_{ch},I_Z$ → vérifier seuils.</li>
+<li><strong>Transistor</strong> : comparer $\beta I_B$ et $I_{Csat}$ → actif ou saturé.</li>
+<li><strong>R_total</strong> : additionner les R en série, combiner les // ; diodes/LED = chutes (jamais des R).</li>
+</ul></div>
+
+</div>
+</body>
+</html>
