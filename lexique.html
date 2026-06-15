@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lexique — notations & symboles</title>
+<style>
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:235px;max-width:235px;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .home{color:var(--gold);font-weight:600;margin-bottom:8px}
+main{flex:1;max-width:920px;margin:0 auto;padding:30px 38px 120px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+h2.sec{font-size:20px;margin:40px 0 6px;padding:9px 15px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:10px;border:1px solid var(--line);color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14.5px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:7px 11px;text-align:left;vertical-align:top}
+th{background:#222c45;color:var(--accent2)}tr:nth-child(even) td{background:#1e273c}
+td.sym{font-family:Consolas,monospace;color:var(--gold);font-weight:700;white-space:nowrap}
+td.u{color:var(--green);white-space:nowrap;font-family:Consolas,monospace}
+sub,sup{font-size:.72em}
+strong{color:#fff}
+code{background:var(--code);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+.box{border-radius:10px;padding:12px 16px;margin:14px 0;border:1px solid var(--line)}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.tip .tag{color:var(--green);font-weight:700;font-size:12px;text-transform:uppercase}
+.warning{background:#2a1622;border-left:4px solid var(--red)}.warning .tag{color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
+.def{background:#1b2235;border-left:4px solid var(--gold)}.def .tag{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+.symgrid{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.symcard{background:#f7fafc;border:1px solid var(--line);border-radius:10px;padding:8px 10px 4px;text-align:center;width:150px}
+.symcard .nm{color:#1a2233;font-size:12.5px;font-family:Consolas,monospace;margin-top:2px}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}.comp{stroke:#1a2233;stroke-width:2;fill:none}.fillk{fill:#1a2233}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000;font-size:12px}.symcard{background:#fff}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a class="home" href="index.html">← Accueil</a>
+<a href="#grec">α Alphabet grec</a>
+<a href="#base">Grandeurs de base</a>
+<a href="#ac">Signaux AC / valeurs</a>
+<a href="#prefix">Préfixes & conversions</a>
+<a href="#diode">Diodes · LED · Zéner</a>
+<a href="#redr">Transfo · redresseur · filtrage</a>
+<a href="#trans">Transistor</a>
+<a href="#regul">Régulateurs & divers</a>
+<a href="#sym">Symboles de schéma</a>
+<a href="#pieges">⚠️ Notations à ne pas confondre</a>
+</nav>
+<main id="top">
+<h1>📖 Lexique — notations &amp; symboles</h1>
+<p class="sub">Tous les symboles, abréviations et unités du cours, au même endroit. À parcourir la veille pour ne jamais bloquer sur « c'est quoi déjà ce truc ? » le jour J.</p>
+
+<div class="box def"><span class="tag">Comment lire un symbole</span>
+La <strong>lettre</strong> dit la grandeur (V = tension, I = courant…), l'<strong>indice</strong> précise <em>où</em> ou <em>quel type</em> (V<sub>C</sub> = tension au collecteur, V<sub>eff</sub> = valeur efficace). Si tu connais les deux, tu lis n'importe quelle notation.</div>
+
+<!-- ===== GREC ===== -->
+<h2 class="sec" id="grec">α · Alphabet grec utilisé</h2>
+<table>
+<tr><th>Lettre</th><th>Nom</th><th>Sert à désigner</th></tr>
+<tr><td class="sym">ρ</td><td>rhô</td><td>la <strong>résistivité</strong> d'un matériau (Ω·m)</td></tr>
+<tr><td class="sym">τ</td><td>tau</td><td>la <strong>constante de temps</strong> d'un circuit RC (τ = R·C, en secondes)</td></tr>
+<tr><td class="sym">ω</td><td>oméga (min.)</td><td>la <strong>pulsation</strong> d'une sinusoïde (ω = 2π·f, en rad/s)</td></tr>
+<tr><td class="sym">Ω</td><td>oméga (maj.)</td><td>l'<strong>unité</strong> de résistance, l'ohm</td></tr>
+<tr><td class="sym">β</td><td>bêta</td><td>le <strong>gain en courant</strong> d'un transistor (β = I<sub>C</sub>/I<sub>B</sub>)</td></tr>
+<tr><td class="sym">α</td><td>alpha</td><td>le rapport I<sub>C</sub>/I<sub>E</sub> d'un transistor (≈ 0,99)</td></tr>
+<tr><td class="sym">π</td><td>pi</td><td>la constante 3,14159… (sert dans ω = 2πf et V<sub>moy</sub>)</td></tr>
+<tr><td class="sym">Δ</td><td>delta</td><td>une <strong>variation</strong> (« ΔV » = variation de tension)</td></tr>
+</table>
+
+<!-- ===== BASE ===== -->
+<h2 class="sec" id="base">Grandeurs électriques de base</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Unité</th><th>Note</th></tr>
+<tr><td class="sym">U ou V</td><td>Tension (différence de potentiel)</td><td class="u">V (volt)</td><td>U = tension <em>entre deux points</em> ; V = potentiel d'un point. Souvent interchangeables.</td></tr>
+<tr><td class="sym">I</td><td>Courant (intensité)</td><td class="u">A (ampère)</td><td>Souvent en mA dans les exos.</td></tr>
+<tr><td class="sym">R</td><td>Résistance</td><td class="u">Ω (ohm)</td><td>Souvent en kΩ.</td></tr>
+<tr><td class="sym">R<sub>éq</sub></td><td>Résistance équivalente</td><td class="u">Ω</td><td>La résistance « globale » d'un groupe (série + parallèle).</td></tr>
+<tr><td class="sym">P</td><td>Puissance</td><td class="u">W (watt)</td><td>P = U·I = R·I² = U²/R.</td></tr>
+<tr><td class="sym">W (ou E)</td><td>Énergie</td><td class="u">J (joule) / kWh</td><td>W = P·t. 1 kWh = 3,6 MJ.</td></tr>
+<tr><td class="sym">ρ</td><td>Résistivité</td><td class="u">Ω·m</td><td>Propriété du matériau, dans R = ρ·L/S.</td></tr>
+<tr><td class="sym">L</td><td>Longueur (d'un fil)</td><td class="u">m</td><td></td></tr>
+<tr><td class="sym">S</td><td>Section (d'un fil)</td><td class="u">m²</td><td>⚠️ 1 mm² = 10⁻⁶ m².</td></tr>
+<tr><td class="sym">t</td><td>Temps</td><td class="u">s</td><td>⚠️ convertir les heures : 1 h = 3600 s.</td></tr>
+</table>
+
+<!-- ===== AC ===== -->
+<h2 class="sec" id="ac">Signaux alternatifs (AC) &amp; valeurs caractéristiques</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Unité</th><th>Note</th></tr>
+<tr><td class="sym">f</td><td>Fréquence</td><td class="u">Hz</td><td>f = 1/T.</td></tr>
+<tr><td class="sym">T</td><td>Période</td><td class="u">s</td><td>Durée d'un cycle.</td></tr>
+<tr><td class="sym">ω</td><td>Pulsation</td><td class="u">rad/s</td><td>ω = 2π·f. C'est le nombre devant t dans v(t)=V<sub>max</sub>·sin(ω·t).</td></tr>
+<tr><td class="sym">V<sub>crête</sub>, V<sub>pk</sub>, V<sub>max</sub>, V̂</td><td>Valeur <strong>crête</strong> (le sommet)</td><td class="u">V</td><td>Toutes ces notations = la même chose : l'amplitude.</td></tr>
+<tr><td class="sym">V<sub>eff</sub>, V<sub>rms</sub></td><td>Valeur <strong>efficace</strong></td><td class="u">V</td><td>Ce que lit un multimètre. V<sub>eff</sub> = V<sub>crête</sub>/√2.</td></tr>
+<tr><td class="sym">V<sub>pp</sub></td><td>Valeur <strong>crête à crête</strong></td><td class="u">V</td><td>V<sub>pp</sub> = 2·V<sub>crête</sub> (du bas au haut).</td></tr>
+<tr><td class="sym">V<sub>moy</sub></td><td>Valeur <strong>moyenne</strong> (composante continue)</td><td class="u">V</td><td>0 pour une sinus pure ; ≠ 0 après redressement.</td></tr>
+<tr><td class="sym">V<sub>ond</sub></td><td>Ondulation (ripple)</td><td class="u">V</td><td>Le « tremblotement » résiduel après filtrage.</td></tr>
+<tr><td class="sym">r</td><td>Taux d'ondulation</td><td class="u">% (sans unité)</td><td>r = V<sub>ond</sub>/V<sub>moy</sub>.</td></tr>
+</table>
+
+<!-- ===== PREFIX ===== -->
+<h2 class="sec" id="prefix">Préfixes &amp; conversions clés</h2>
+<table>
+<tr><th>Préfixe</th><th>Symbole</th><th>Facteur</th></tr>
+<tr><td>Méga</td><td class="sym">M</td><td>× 10<sup>6</sup> (1 000 000)</td></tr>
+<tr><td>kilo</td><td class="sym">k</td><td>× 10<sup>3</sup> (1 000)</td></tr>
+<tr><td>milli</td><td class="sym">m</td><td>× 10<sup>−3</sup> (÷ 1 000)</td></tr>
+<tr><td>micro</td><td class="sym">µ</td><td>× 10<sup>−6</sup></td></tr>
+<tr><td>nano</td><td class="sym">n</td><td>× 10<sup>−9</sup></td></tr>
+<tr><td>pico</td><td class="sym">p</td><td>× 10<sup>−12</sup></td></tr>
+</table>
+<div class="box tip"><span class="tag">Conversions à connaître</span>
+<strong>1 kΩ</strong> = 1000 Ω · <strong>1 mA</strong> = 10⁻³ A · <strong>1 µF</strong> = 10⁻⁶ F · <strong>1 nF</strong> = 10⁻⁹ F · <strong>1 mm²</strong> = 10⁻⁶ m² · <strong>1 h</strong> = 3600 s · <strong>1 kWh</strong> = 3,6 MJ<br>
+Constantes utiles : <strong>√2 ≈ 1,414</strong> · <strong>1/√2 ≈ 0,707</strong> · <strong>1/π ≈ 0,318</strong> · <strong>2/π ≈ 0,637</strong></div>
+
+<!-- ===== DIODE ===== -->
+<h2 class="sec" id="diode">Diodes · LED · Zéner</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Valeur typique / note</th></tr>
+<tr><td class="sym">V<sub>D</sub>, V<sub>F</sub></td><td>Tension d'une diode en direct (forward)</td><td><strong>0,7 V</strong> (silicium). En inverse : circuit ouvert.</td></tr>
+<tr><td class="sym">V<sub>LED</sub></td><td>Tension d'une LED en direct</td><td><strong>≈ 2 V</strong> (1,5 à 3 V selon couleur). Jamais sans résistance.</td></tr>
+<tr><td class="sym">I<sub>LED</sub></td><td>Courant dans la LED</td><td>≤ 20 mA typiquement.</td></tr>
+<tr><td class="sym">V<sub>Z</sub></td><td>Tension Zéner</td><td>Tension fixe maintenue par la Zéner en <strong>inverse</strong>.</td></tr>
+<tr><td class="sym">I<sub>Z</sub></td><td>Courant dans la Zéner</td><td>Doit rester entre I<sub>Zmin</sub> et I<sub>Zmax</sub>.</td></tr>
+<tr><td class="sym">I<sub>Zmin</sub> / I<sub>Zmax</sub></td><td>Courants Zéner min / max admissibles</td><td>Bornes de bon fonctionnement.</td></tr>
+<tr><td class="sym">P<sub>Z</sub></td><td>Puissance dissipée par la Zéner</td><td>P<sub>Z</sub> = V<sub>Z</sub>·I<sub>Z</sub>.</td></tr>
+<tr><td class="sym">anode / cathode</td><td>Bornes d'une diode</td><td>Courant passe anode → cathode (la barre = cathode).</td></tr>
+</table>
+
+<!-- ===== REDRESSEUR ===== -->
+<h2 class="sec" id="redr">Transformateur · redresseur · filtrage</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Note</th></tr>
+<tr><td class="sym">N<sub>1</sub> / N<sub>2</sub></td><td>Nombre de spires primaire / secondaire</td><td>Rapport « N<sub>1</sub>:N<sub>2</sub> » (ex. 6:2). V<sub>sec</sub> = V<sub>prim</sub>·N<sub>2</sub>/N<sub>1</sub>.</td></tr>
+<tr><td class="sym">primaire / secondaire</td><td>Côté entrée / sortie du transfo</td><td>Le secondaire alimente le redresseur.</td></tr>
+<tr><td class="sym">V<sub>crête,sec</sub></td><td>Tension crête au secondaire</td><td>Juste avant le pont/la diode.</td></tr>
+<tr><td class="sym">V<sub>crête,out</sub></td><td>Tension crête en sortie (après diodes)</td><td>= V<sub>crête,sec</sub> − 0,7 (simple) ou − 1,4 (pont).</td></tr>
+<tr><td class="sym">TIC (ou PIV)</td><td>Tension Inverse de Crête</td><td>Tension max qu'une diode <strong>bloquée</strong> doit supporter (pour choisir la diode). Pont : ≈ V<sub>crête,sec</sub> − 0,7.</td></tr>
+<tr><td class="sym">simple alternance</td><td>Redresseur à 1 diode</td><td>−0,7 V · V<sub>moy</sub> = 0,318·V<sub>c</sub> · f<sub>out</sub> = f.</td></tr>
+<tr><td class="sym">double alternance / pont</td><td>Pont de Graetz (4 diodes)</td><td>−1,4 V · V<sub>moy</sub> = 0,637·V<sub>c</sub> · f<sub>out</sub> = 2·f.</td></tr>
+<tr><td class="sym">C</td><td>Capacité (condensateur de filtrage)</td><td class="u">F (farad), souvent µF.</td></tr>
+<tr><td class="sym">τ</td><td>Constante de temps</td><td>τ = R·C. Charge à 63 % en 1τ, ≈100 % en 5τ.</td></tr>
+</table>
+
+<!-- ===== TRANSISTOR ===== -->
+<h2 class="sec" id="trans">Transistor bipolaire</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Note</th></tr>
+<tr><td class="sym">B / C / E</td><td>Base / Collecteur / Émetteur</td><td>Les 3 bornes. La base commande, C→E conduit.</td></tr>
+<tr><td class="sym">I<sub>B</sub> / I<sub>C</sub> / I<sub>E</sub></td><td>Courants de base / collecteur / émetteur</td><td>I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub>.</td></tr>
+<tr><td class="sym">β, β<sub>CC</sub>, h<sub>FE</sub></td><td>Gain en courant continu</td><td>β = I<sub>C</sub>/I<sub>B</sub> (souvent 50 à 300).</td></tr>
+<tr><td class="sym">α, α<sub>CC</sub></td><td>Rapport I<sub>C</sub>/I<sub>E</sub></td><td>≈ 0,99. (= β/(β+1)).</td></tr>
+<tr><td class="sym">V<sub>BE</sub></td><td>Tension base-émetteur</td><td><strong>0,7 V</strong> quand le transistor conduit.</td></tr>
+<tr><td class="sym">V<sub>CE</sub></td><td>Tension collecteur-émetteur</td><td>V<sub>CE</sub> = V<sub>C</sub> − V<sub>E</sub>. ≈ 0 si saturé.</td></tr>
+<tr><td class="sym">V<sub>CEsat</sub></td><td>V<sub>CE</sub> en saturation</td><td>≈ 0 V (souvent pris = 0).</td></tr>
+<tr><td class="sym">V<sub>B</sub> / V<sub>C</sub> / V<sub>E</sub></td><td>Potentiels base / collecteur / émetteur</td><td>Mesurés par rapport à la masse.</td></tr>
+<tr><td class="sym">V<sub>CC</sub></td><td>Tension d'alimentation (rail +)</td><td>Le « + » du circuit, côté collecteur.</td></tr>
+<tr><td class="sym">V<sub>BB</sub></td><td>Tension de commande de la base</td><td>La source qui pilote la base (via R<sub>B</sub>).</td></tr>
+<tr><td class="sym">R<sub>C</sub> / R<sub>E</sub> / R<sub>B</sub></td><td>Résistances collecteur / émetteur / base</td><td></td></tr>
+<tr><td class="sym">I<sub>Csat</sub></td><td>Courant de collecteur à saturation</td><td>Le courant max possible (transistor « grand ouvert »).</td></tr>
+<tr><td class="sym">I<sub>Bmin</sub></td><td>Courant de base minimal pour saturer</td><td>I<sub>Bmin</sub> = I<sub>Csat</sub>/β.</td></tr>
+<tr><td class="sym">Q</td><td>Point de repos (point de fonctionnement)</td><td>Le couple (V<sub>CE</sub> ; I<sub>C</sub>) réel, situé sur la droite de charge.</td></tr>
+<tr><td class="sym">droite de charge</td><td>Droite des (V<sub>CE</sub> ; I<sub>C</sub>) permis</td><td>Relie le blocage (V<sub>CE</sub>=V<sub>CC</sub>) à la saturation (I<sub>C</sub>=I<sub>Csat</sub>).</td></tr>
+</table>
+
+<!-- ===== REGUL ===== -->
+<h2 class="sec" id="regul">Régulateurs &amp; divers</h2>
+<table>
+<tr><th>Symbole</th><th>Nom</th><th>Note</th></tr>
+<tr><td class="sym">78xx</td><td>Régulateur de tension fixe positif</td><td>7805 → 5 V, 7812 → 12 V, 7824 → 24 V. Condition : V<sub>in</sub> > V<sub>out</sub> + 2 V.</td></tr>
+<tr><td class="sym">LM317</td><td>Régulateur <strong>ajustable</strong></td><td>V<sub>out</sub> = 1,25·(1 + R<sub>2</sub>/R<sub>1</sub>).</td></tr>
+<tr><td class="sym">R<sub>s</sub> (ou R série)</td><td>Résistance série d'un régulateur Zéner</td><td>Limite le courant (entre l'entrée et la Zéner).</td></tr>
+<tr><td class="sym">R<sub>ch</sub></td><td>Résistance de charge</td><td>Ce que le circuit alimente. I<sub>ch</sub> = V<sub>Z</sub>/R<sub>ch</sub>.</td></tr>
+<tr><td class="sym">I<sub>ch</sub></td><td>Courant de charge</td><td>Le courant tiré par la charge.</td></tr>
+<tr><td class="sym">I<sub>R</sub></td><td>Courant dans la résistance série</td><td>I<sub>R</sub> = I<sub>ch</sub> + I<sub>Z</sub> (loi des nœuds).</td></tr>
+<tr><td class="sym">FEM (E)</td><td>Force électromotrice</td><td>La tension « moteur » d'une source.</td></tr>
+<tr><td class="sym">LDR</td><td>Photorésistance</td><td>Résistance qui varie avec la lumière (Light Dependent Resistor).</td></tr>
+<tr><td class="sym">masse / GND</td><td>Référence 0 V du circuit</td><td>Le point par rapport auquel on mesure les potentiels.</td></tr>
+</table>
+
+<!-- ===== SYMBOLES SCHEMA ===== -->
+<h2 class="sec" id="sym">Symboles de schéma</h2>
+<p class="sub" style="margin-bottom:6px">Pour reconnaître les composants sur un schéma d'examen.</p>
+<div class="symgrid">
+
+<div class="symcard"><svg viewBox="0 0 110 40" width="110" height="40">
+<line x1="2" y1="20" x2="20" y2="20" class="wire"/>
+<path d="M20,20 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<line x1="88" y1="20" x2="108" y2="20" class="wire"/></svg>
+<div class="nm">Résistance</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 40" width="110" height="40">
+<line x1="2" y1="20" x2="48" y2="20" class="wire"/><line x1="48" y1="8" x2="48" y2="32" class="comp"/>
+<line x1="58" y1="8" x2="58" y2="32" class="comp"/><line x1="58" y1="20" x2="108" y2="20" class="wire"/></svg>
+<div class="nm">Condensateur</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 40" width="110" height="40">
+<line x1="2" y1="20" x2="42" y2="20" class="wire"/>
+<polygon points="42,10 42,30 64,20" class="fillk"/><line x1="64" y1="10" x2="64" y2="30" class="comp"/>
+<line x1="64" y1="20" x2="108" y2="20" class="wire"/></svg>
+<div class="nm">Diode</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 48" width="110" height="48">
+<line x1="2" y1="26" x2="42" y2="26" class="wire"/>
+<polygon points="42,16 42,36 64,26" class="fillk"/><line x1="64" y1="16" x2="64" y2="36" class="comp"/>
+<line x1="64" y1="26" x2="108" y2="26" class="wire"/>
+<line x1="50" y1="12" x2="58" y2="4" class="comp"/><polygon points="58,4 53,5 56,8" class="fillk"/>
+<line x1="58" y1="12" x2="66" y2="4" class="comp"/><polygon points="66,4 61,5 64,8" class="fillk"/></svg>
+<div class="nm">LED</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 40" width="110" height="40">
+<line x1="2" y1="20" x2="42" y2="20" class="wire"/>
+<polygon points="42,10 42,30 64,20" class="fillk"/>
+<path d="M58,10 h6 v20 h-6" class="comp" fill="none"/>
+<line x1="64" y1="20" x2="108" y2="20" class="wire"/></svg>
+<div class="nm">Diode Zéner</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 64" width="110" height="64">
+<line x1="2" y1="32" x2="34" y2="32" class="wire"/>
+<line x1="34" y1="14" x2="34" y2="50" class="comp" stroke-width="3"/>
+<line x1="34" y1="22" x2="70" y2="10" class="comp"/><line x1="70" y1="10" x2="70" y2="2" class="wire"/>
+<line x1="34" y1="42" x2="70" y2="54" class="comp"/><line x1="70" y1="54" x2="70" y2="62" class="wire"/>
+<polygon points="58,50 70,54 60,44" class="fillk"/>
+<text x="2" y="12" font-size="9" font-family="monospace" fill="#1a2233">C</text>
+<text x="2" y="60" font-size="9" font-family="monospace" fill="#1a2233">E</text></svg>
+<div class="nm">Transistor NPN</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 56" width="110" height="56">
+<line x1="55" y1="2" x2="55" y2="18" class="wire"/>
+<line x1="38" y1="18" x2="72" y2="18" class="comp"/>
+<line x1="46" y1="28" x2="64" y2="28" class="comp" stroke-width="3"/>
+<line x1="55" y1="28" x2="55" y2="44" class="wire"/>
+<text x="78" y="26" font-size="10" font-family="monospace" fill="#1a2233">+ −</text></svg>
+<div class="nm">Source / pile DC</div></div>
+
+<div class="symcard"><svg viewBox="0 0 110 48" width="110" height="48">
+<line x1="55" y1="4" x2="55" y2="22" class="wire"/>
+<line x1="35" y1="22" x2="75" y2="22" class="comp"/>
+<line x1="42" y1="30" x2="68" y2="30" class="comp"/>
+<line x1="48" y1="38" x2="62" y2="38" class="comp"/></svg>
+<div class="nm">Masse (GND)</div></div>
+
+</div>
+<div class="box tip"><span class="tag">Astuce diode</span>
+La <strong>barre</strong> du symbole = la <strong>cathode</strong>. Le courant (sens conventionnel) entre par le triangle (anode) et sort par la barre. Pour une <strong>Zéner</strong>, la barre est « pliée » ; elle travaille en inverse, <strong>cathode vers le +</strong>.</div>
+
+<!-- ===== PIEGES ===== -->
+<h2 class="sec" id="pieges">⚠️ Notations à ne pas confondre</h2>
+<div class="box warning"><span class="tag">Le piège classique</span>
+<ul>
+<li><strong>U vs V</strong> : les deux veulent dire « tension ». U = tension entre deux points (U<sub>R1</sub>) ; V = potentiel d'un point (V<sub>C</sub>) ou nom d'une source (V<sub>1</sub>). Ne te bloque pas dessus, c'est la même grandeur en volts.</li>
+<li><strong>V<sub>in</sub> = V<sub>EN</sub> = V<sub>S</sub></strong> (selon l'exo) : ce sont tous des noms pour la <strong>tension d'entrée</strong> d'un régulateur. Pareil, V<sub>out</sub> = sortie.</li>
+<li><strong>V<sub>1</sub>, V<sub>2</sub>, V<sub>4</sub>, V<sub>7</sub>…</strong> : ce ne sont <em>pas</em> des grandeurs standard, juste des <strong>noms donnés aux sources/nœuds</strong> dans un schéma précis. Regarde le schéma pour savoir ce que c'est.</li>
+<li><strong>crête (pk) ≠ efficace (eff)</strong> : un « 230 V » nu = efficace ; un « 150 V<sub>pk</sub> » = crête. Le ×√2 ne s'applique que pour passer de l'efficace à la crête.</li>
+<li><strong>β (gain) ≠ α</strong> (≈0,99) : β est grand (50–300), α est proche de 1.</li>
+<li><strong>0,7 V partout sauf…</strong> : 0,7 V = une jonction PN silicium en direct (diode, V<sub>BE</sub>, Zéner en direct). Mais LED ≈ 2 V, et Zéner en <em>inverse</em> = V<sub>Z</sub>.</li>
+</ul></div>
+
+</main>
+</div>
+</body>
+</html>
