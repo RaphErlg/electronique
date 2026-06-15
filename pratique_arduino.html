@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Examen pratique — Systèmes embarqués (Arduino)</title>
+<title>Pratique Arduino</title>
 <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
@@ -47,7 +47,7 @@ a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#0412
 <div class="layout">
 <nav class="toc">
 <a class="home" href="index.html">← Accueil</a>
-<h2>Examen pratique</h2>
+<h2>Pratique Arduino</h2>
 <a href="#format">Format & règles</a>
 <a href="#questions">Les 4 questions</a>
 <a href="#q1">Q1 · LED + résistance</a>
@@ -60,8 +60,8 @@ a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#0412
 <a href="synthese_labo.html">📘 Synthèse labo (référence)</a>
 </nav>
 <main id="top">
-<h1>🎯 Examen pratique — Systèmes embarqués</h1>
-<p class="sub">UE 151 · épreuve sur <strong>Arduino réel</strong> · /20. Document de préparation <strong>isolé</strong> : tout ce qu'il faut pour réussir l'épreuve, sans le reste de la matière. La théorie/manips sont dans la <a href="synthese_labo.html">synthèse labo</a>.</p>
+<h1>🎯 Pratique Arduino</h1>
+<p class="sub">Montage sur <strong>Arduino réel</strong> : LED + bouton (télérupteur, appui long, console). Document <strong>autonome</strong>. La théorie/manips sont dans la <a href="synthese_labo.html">synthèse labo</a>.</p>
 
 <!-- ===== FORMAT ===== -->
 <h2 class="sec" id="format">Format & règles</h2>
@@ -109,7 +109,7 @@ LED : <strong>anode</strong> = patte longue (côté résistance/+), <strong>cath
 <div class="box tip"><span class="tag">💡 Anti-rebond robuste (la clé pour que ça marche en vrai)</span>
 On ne lit pas le bouton « brutalement » : on <strong>confirme</strong> un changement seulement s'il reste stable plus de ~30 ms. Le rebond mécanique (faux fronts) est ignoré → le télérupteur ne bascule <strong>qu'une seule fois</strong> par appui. C'est la méthode officielle Arduino (<em>Debounce</em>) — bien plus fiable que de tester <code>millis()</code> au moment du front.</div>
 <pre><code>// ============================================================
-//  Examen pratique - Systemes embarques
+//  Projet Arduino - LED + bouton
 //  Q2 : telerupteur (un appui bref bascule LED1)
 //  Q3 : appui long (&gt;= 2 s) -&gt; les 2 LEDs clignotent a 0,6 Hz
 //  Q4 : console -&gt; type d'appui + periode de clignotement mesuree
@@ -222,7 +222,7 @@ $T=\dfrac{1}{f}=\dfrac{1}{0{,}6}\approx 1666$ ms → demi-période $=\dfrac{T}{2
 </table>
 
 <hr style="border:none;border-top:1px dashed var(--line);margin:34px 0">
-<p class="sub">📖 Document de préparation à l'examen pratique. Toute la matière de fond (mesures, électronique, Arduino, autres codes) est dans la <a href="synthese_labo.html">synthèse labo</a>. Bon courage ! 🚀</p>
+<p class="sub">📖 Document de pratique Arduino. Toute la matière de fond (mesures, électronique, Arduino, autres codes) est dans la <a href="synthese_labo.html">synthèse labo</a>. Bon courage ! 🚀</p>
 </main>
 </div>
 </body>

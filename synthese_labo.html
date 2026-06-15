@@ -75,14 +75,14 @@ a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#0412
 <a href="#patterns">11 · Patterns de code</a>
 <a href="#serie">12 · Communication série</a>
 <a href="#codes">📟 Recueil de codes</a>
-<a class="grp">Examen pratique</a>
-<a href="examen_pratique.html">🎯 Examen pratique →</a>
+<a class="grp">Pratique Arduino</a>
+<a href="pratique_arduino.html">🎯 Pratique Arduino →</a>
 <a href="#annexe">📎 Annexes & pièges</a>
 </nav>
 <main id="top">
 <h1>🔧 Synthèse Labo — Systèmes Embarqués</h1>
-<p class="sub">Tous les laboratoires : électronique (mesures, circuits, alimentation, LDR, transistor) + Arduino (E/S, PWM, série, télérupteur). Pensé pour servir de <strong>support pendant l'examen pratique</strong> (/20, 2 h, document autorisé).</p>
-<div class="box def"><span class="tag">À utiliser avec</span> la <strong>synthèse théorie</strong> (formules) et la <strong>correction de l'examen 2025</strong> (entraînement).</div>
+<p class="sub">Tous les laboratoires : électronique (mesures, circuits, alimentation, LDR, transistor) + Arduino (E/S, PWM, série, télérupteur). Pensé pour servir de <strong>support pour la pratique Arduino</strong>.</p>
+<div class="box def"><span class="tag">À utiliser avec</span> la <strong>synthèse théorie</strong> (formules) et le <strong>corrigé détaillé</strong> (entraînement).</div>
 
 <!-- 0 -->
 <h2 class="chap" id="setup"><span class="num">0</span>Setup & règles de sécurité</h2>
@@ -297,7 +297,7 @@ On agit sur le <strong>front</strong> (relâché→appuyé), pas tant que le BP 
 <tr><th>f</th><th>T</th><th>demi-période</th></tr>
 <tr><td>1 Hz</td><td>1000 ms</td><td>500 ms</td></tr>
 <tr><td>0,8 Hz</td><td>1250 ms</td><td>625 ms</td></tr>
-<tr><td><strong>0,6 Hz</strong></td><td>1666 ms</td><td><strong>833 ms</strong> ← examen</td></tr>
+<tr><td><strong>0,6 Hz</strong></td><td>1666 ms</td><td><strong>833 ms</strong> ← à retenir</td></tr>
 <tr><td>0,5 Hz</td><td>2000 ms</td><td>1000 ms</td></tr>
 </table>
 
@@ -442,7 +442,7 @@ void loop() {
 }</code></pre>
 
 <h3>6 · Afficher la durée d'appui sur le bouton (en secondes)</h3>
-<p class="codenote"><b>🔌</b> BP→D5. <b>💡</b> Détection de <em>front</em> : on mémorise l'instant du début (front descendant) et on calcule au relâchement (front montant). C'est LE schéma pour mesurer une durée → réutilisé pour l'<strong>appui long</strong> de l'examen.</p>
+<p class="codenote"><b>🔌</b> BP→D5. <b>💡</b> Détection de <em>front</em> : on mémorise l'instant du début (front descendant) et on calcule au relâchement (front montant). C'est LE schéma pour mesurer une durée → réutilisé pour l'<strong>appui long</strong>.</p>
 <div class="box warning"><span class="tag">⚠️ corrigé</span> L'original calculait <code>(tempsAppuye − tempsRelache)</code> en continu → incohérent. Version correcte : on mémorise le <strong>début</strong> d'appui et on calcule la durée au <strong>relâchement</strong> (détection de front).</div>
 <pre><code>#define BP 5
 unsigned long debut = 0;
@@ -553,11 +553,11 @@ void loop() {
   digitalWrite(LED, ledState);
 }</code></pre>
 
-<!-- ============ EXAMEN PRATIQUE ============ -->
-<h2 class="chap" id="exam"><span class="num">🎯</span>Examen pratique</h2>
+<!-- PRATIQUE ARDUINO -->
+<h2 class="chap" id="exam"><span class="num">🎯</span>Pratique Arduino</h2>
 <div class="box def"><span class="tag">📄 Document dédié</span>
-La préparation complète de l'examen pratique (format &amp; règles, les 4 questions, le <strong>programme robuste commenté</strong>, checklist, dépannage) est dans un <strong>document séparé</strong>, pour réviser l'épreuve de façon isolée :<br>
-👉 <a href="examen_pratique.html" style="color:var(--accent);font-weight:600">Ouvrir « Examen pratique »</a></div>
+La pratique Arduino (les étapes, le <strong>programme robuste commenté</strong>, checklist, dépannage) est dans un <strong>document séparé</strong> :<br>
+👉 <a href="pratique_arduino.html" style="color:var(--accent);font-weight:600">Ouvrir « Pratique Arduino »</a></div>
 
 <!-- ANNEXE -->
 <h2 class="chap" id="annexe">📎 Annexes & pièges</h2>
@@ -592,7 +592,7 @@ La préparation complète de l'examen pratique (format &amp; règles, les 4 ques
 <li>Résistance présente sur chaque LED, câblage propre</li>
 </ul>
 <hr style="border:none;border-top:1px dashed var(--line);margin:30px 0">
-<p class="sub">📖 Synthèse labo — Systèmes embarqués (HENALLUX 2025-2026). Compagnon de la synthèse théorie et de la correction d'examen. Bon courage ! 🚀</p>
+<p class="sub">📖 Synthèse labo — systèmes embarqués. Compagnon de la synthèse théorie et du corrigé. Bon courage ! 🚀</p>
 </main>
 </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Correction — Examen Théorie 2025 (Systèmes Embarqués)</title>
+<title>Théorie — exercices corrigés</title>
 <script>
 window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};
 </script>
@@ -60,7 +60,7 @@ a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#0412
 <div class="layout">
 <nav class="toc">
 <a href="index.html" style="display:block;color:#ffd166;font-weight:600;text-decoration:none;padding:6px 8px;margin-bottom:6px">← Accueil</a>
-<h2>Examen 11 juin 2025</h2>
+<h2>Exercices corrigés</h2>
 <a href="#A">A · LED + résistances <span class="pts">/4</span></a>
 <a href="#B">B · Plage régul. Zéner <span class="pts">/4</span></a>
 <a href="#C">C · Calculs <span class="pts">/10</span></a>
@@ -72,8 +72,8 @@ a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#0412
 <a href="#recap">📋 Récap résultats</a>
 </nav>
 <main id="top">
-<h1>✅ Correction détaillée — Examen Théorie 2025</h1>
-<p class="sub">UE 151 Systèmes embarqués — Questionnaire B — /40 points. Chaque question est résolue <strong>pas à pas</strong> avec la méthode, pour t'entraîner sur un examen <em>du même type</em>. Valeurs lues sur les photos HD ; quelques-unes (signalées) restent à confirmer.</p>
+<h1>✅ Théorie — série d'exercices corrigés</h1>
+<p class="sub">Série d'exercices (A→H) résolus <strong>pas à pas</strong> avec la méthode. Quelques valeurs (signalées) restent à confirmer.</p>
 <div class="box warning"><span class="tag">⚠️ À confirmer</span>
 Deux valeurs légèrement floues sur la photo : <strong>B</strong> charge $R_{ch1}\approx1{,}1\,$kΩ et <strong>F</strong> sens de $V_7$ (lu comme <em>s'additionnant</em> à $V_1$). La méthode reste identique quelle que soit la valeur exacte.</div>
 
@@ -264,7 +264,7 @@ On identifie $\omega=200\pi$, et $f=\dfrac{\omega}{2\pi}=\dfrac{200\pi}{2\pi}=$ 
 <div class="q" id="E"><h2>Question E <span class="pts">/5 pts</span></h2>
 <p class="enonce">Pont redresseur double alternance filtré. Source V2 = 150 V<sub>pk</sub>, 200 Hz ; transformateur 6:2 ; C = 330 µF ; R<sub>charge</sub> = 470 Ω. Déterminer : tension efficace secondaire, crête de sortie, TIC des diodes, ondulation, valeur moyenne. Peut-on ajouter un 7824 ?</p></div>
 <div class="body">
-<figure><div class="svgwrap"><img src="img/E_schema.png" alt="Schéma E : transformateur 6:2, pont de Graetz, condensateur C2, charge" style="max-width:100%;display:block"/></div><figcaption>Schéma de l'examen (recadré) : source 150 V<sub>pk</sub> → transfo 6:2 → pont de Graetz (4 diodes) → C2 330 µF ∥ R<sub>charge</sub> 470 Ω.</figcaption></figure>
+<figure><div class="svgwrap"><img src="img/E_schema.png" alt="Schéma E : transformateur 6:2, pont de Graetz, condensateur C2, charge" style="max-width:100%;display:block"/></div><figcaption>Schéma (recadré) : source 150 V<sub>pk</sub> → transfo 6:2 → pont de Graetz (4 diodes) → C2 330 µF ∥ R<sub>charge</sub> 470 Ω.</figcaption></figure>
 <h3>Étape 1 — Tension au secondaire du transformateur (rapport 6:2 = abaisseur ×⅓)</h3>
 <p class="what"><strong>Où ?</strong> juste après le transfo, avant le pont. Le transformateur abaisse la tension. On calcule ce qui arrive au <strong>secondaire</strong> : la crête (le sommet de la sinusoïde) et l'efficace (ce que lirait un multimètre en AC).</p>
 <div class="box formula"><span class="tag">📐</span>
