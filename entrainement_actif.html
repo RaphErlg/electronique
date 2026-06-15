@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Entraînement actif — exercices</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script src="lib/tex-mml-svg.js" async></script>
+<style>
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:235px;max-width:235px;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .home{color:var(--gold);font-weight:600;margin-bottom:8px}
+nav.toc h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin:14px 0 6px}
+nav.toc .pts{float:right;color:var(--gold);font-size:11px}
+main{flex:1;max-width:860px;margin:0 auto;padding:30px 38px 120px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+h2.sujet{font-size:20px;margin:42px 0 10px;padding:9px 15px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:10px;border:1px solid var(--line);color:var(--accent)}
+h2.sujet .pts{float:right;color:var(--gold);font-size:14px}
+.enonce{background:#10243a;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0 4px}
+.enonce .tag{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:4px}
+.enonce em{color:var(--accent2);font-style:normal}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin:8px 0;overflow:hidden}
+summary{cursor:pointer;padding:11px 15px;font-weight:600;color:var(--accent2);list-style:none;position:relative;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--accent);margin-right:9px;display:inline-block;transition:transform .15s}
+details[open] summary{border-bottom:1px solid var(--line)}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{background:#1f2740}
+summary.s-form{color:var(--gold)}summary.s-form::before{color:var(--gold)}
+summary.s-res{color:var(--violet)}summary.s-res::before{color:var(--violet)}
+.ans{padding:10px 16px 14px}
+.ans p{margin:7px 0}.ans ul{margin:6px 0;padding-left:20px}.ans li{margin:5px 0}
+strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+.key{color:var(--green);font-weight:700}
+.box{border-radius:10px;padding:11px 16px;margin:12px 0;border:1px solid var(--line)}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.tip .tag{color:var(--green);font-weight:700;font-size:12px;text-transform:uppercase}
+.def{background:#1b2235;border-left:4px solid var(--gold)}.def .tag{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+.warning{background:#2a1622;border-left:4px solid var(--red)}.warning .tag{color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14.5px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+th{background:#222c45;color:var(--accent2)}tr:nth-child(even) td{background:#1e273c}
+.res-table td:last-child{color:var(--green);font-weight:700}
+figure{margin:14px 0;text-align:center}
+.svgwrap{background:#f7fafc;border-radius:12px;padding:8px;display:inline-block;border:1px solid var(--line)}
+figcaption{color:var(--muted);font-size:13px;margin-top:6px}
+text.lbl{font-family:Consolas,monospace;font-size:12px;fill:#1a2233}
+text.val{font-family:Consolas,monospace;font-size:11px;fill:#b00020}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}.comp{stroke:#1a2233;stroke-width:2;fill:none}.fillk{fill:#1a2233}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000}details,details[open]{border:1px solid #999}.ans{display:block!important}.svgwrap{background:#fff}body{font-size:12px}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a class="home" href="index.html">← Accueil</a>
+<h2>Exercices</h2>
+<a href="#A">A · LED + résistances<span class="pts">/4</span></a>
+<a href="#B">B · Plage Zéner<span class="pts">/4</span></a>
+<a href="#C">C · Calculs rapides<span class="pts">/10</span></a>
+<a href="#D">D · QCM conceptuel<span class="pts">/5</span></a>
+<a href="#E">E · Redresseur filtré<span class="pts">/5</span></a>
+<a href="#F">F · R équivalente<span class="pts">/4</span></a>
+<a href="#G">G · Droite de charge<span class="pts">/5</span></a>
+<a href="#H">H · R1 saturation<span class="pts">/3</span></a>
+</nav>
+<main id="top">
+<h1>🎯 Entraînement actif — résous toi-même</h1>
+<p class="sub">Une série complète d'exercices. La méthode du <strong>rappel actif</strong> appliquée au calcul.</p>
+<div class="box def"><span class="tag">Mode d'emploi</span>
+Pour chaque exercice : 1) lis l'énoncé et le schéma · 2) <strong>« Quelles formules ? »</strong> → cite de tête les formules nécessaires <em>avant</em> de cliquer · 3) <strong>« Le calcul »</strong> → pose et résous toi-même sur papier, puis vérifie · 4) <strong>« Résultat »</strong> → compare ta réponse finale. ⚠️ L'effort de récupération (chercher avant de voir) = la vraie mémorisation. Ne saute pas l'étape « formules ».</div>
+
+<!-- ============ A ============ -->
+<h2 class="sujet" id="A">A · LED + bloc de résistances <span class="pts">/4 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Si $V_{LED}=2$ V, déterminer le <em>courant qui traverse la LED</em>, puis la <em>tension aux bornes de R16</em> et les <em>courants dans R15 et R16</em>.</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 480 270" width="480" height="270">
+  <text x="6" y="120" class="lbl">VB</text><text x="6" y="135" class="val">30V</text>
+  <line x1="45" y1="55" x2="45" y2="112" class="wire"/>
+  <line x1="31" y1="112" x2="59" y2="112" class="comp"/>
+  <line x1="38" y1="122" x2="52" y2="122" class="comp" stroke-width="3"/>
+  <line x1="45" y1="122" x2="45" y2="225" class="wire"/>
+  <line x1="45" y1="55" x2="75" y2="55" class="wire"/>
+  <path d="M75,55 h6 l4,-8 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/>
+  <text x="74" y="42" class="lbl">R17 2,2kΩ</text>
+  <line x1="119" y1="55" x2="140" y2="55" class="wire"/>
+  <polygon points="140,46 140,64 162,55" class="fillk"/>
+  <line x1="162" y1="46" x2="162" y2="64" class="comp"/>
+  <text x="142" y="40" class="lbl">D1</text>
+  <line x1="162" y1="55" x2="440" y2="55" class="wire"/>
+  <line x1="250" y1="55" x2="250" y2="78" class="wire"/>
+  <path d="M250,78 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="250" y1="122" x2="250" y2="150" class="wire"/>
+  <text x="205" y="100" class="lbl">R14</text><text x="203" y="116" class="val">20kΩ</text>
+  <line x1="345" y1="55" x2="345" y2="78" class="wire"/>
+  <path d="M345,78 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="345" y1="122" x2="345" y2="150" class="wire"/>
+  <text x="355" y="100" class="lbl">R15</text><text x="355" y="116" class="val">20kΩ</text>
+  <line x1="425" y1="55" x2="425" y2="78" class="wire"/>
+  <path d="M425,78 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="425" y1="122" x2="425" y2="150" class="wire"/>
+  <text x="435" y="100" class="lbl">R16</text><text x="435" y="116" class="val">530Ω</text>
+  <line x1="250" y1="150" x2="425" y2="150" class="wire"/>
+  <circle cx="345" cy="150" r="3" class="fillk"/><circle cx="250" cy="55" r="3" class="fillk"/><circle cx="345" cy="55" r="3" class="fillk"/>
+  <line x1="250" y1="150" x2="250" y2="225" class="wire"/>
+  <line x1="250" y1="225" x2="210" y2="225" class="wire"/>
+  <polygon points="210,216 210,234 188,225" class="fillk"/>
+  <line x1="188" y1="216" x2="188" y2="234" class="comp"/>
+  <line x1="214" y1="212" x2="222" y2="204" class="comp"/><polygon points="222,204 218,206 220,209 222,204" class="fillk"/>
+  <line x1="206" y1="212" x2="214" y2="204" class="comp"/><polygon points="214,204 210,206 212,209 214,204" class="fillk"/>
+  <text x="184" y="250" class="lbl">LED 2V</text>
+  <line x1="188" y1="225" x2="159" y2="225" class="wire"/>
+  <path d="M159,225 h-6 l-4,-8 l-8,16 l-8,-16 l-8,16 l-4,-8 h-6" class="comp"/>
+  <text x="78" y="250" class="val">R18 470Ω</text>
+  <line x1="115" y1="225" x2="45" y2="225" class="wire"/>
+</svg></div><figcaption>Boucle série : 30 V → R17 → D1 → (R14∥R15∥R16) → LED → R18 → masse.</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>Bloc parallèle : <span class="key">$\dfrac1{R_{par}}=\dfrac1{R_{14}}+\dfrac1{R_{15}}+\dfrac1{R_{16}}$</span></li>
+<li>Loi des mailles : la diode (0,7 V) et la LED (2 V) ont une tension <strong>fixe</strong> → on les retire de la source. Le reste pousse le courant à travers les résistances :<br><span class="key">$I=\dfrac{V_B-V_{D1}-V_{LED}}{R_{17}+R_{par}+R_{18}}$</span> (même courant dans toute la boucle = $I_{LED}$)</li>
+<li>Tension du bloc : $U_{R16}=I\times R_{par}$ (c'est aussi $U_{R14}=U_{R15}$, même tension en parallèle)</li>
+<li>Courant d'une branche : loi d'Ohm $I=\dfrac{U}{R}$</li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$\dfrac1{R_{par}}=\dfrac1{20000}+\dfrac1{20000}+\dfrac1{530}=0{,}0019868 \Rightarrow R_{par}=503{,}3\,\Omega$</p>
+<p>$I_{LED}=\dfrac{30-0{,}7-2}{2200+503{,}3+470}=\dfrac{27{,}3}{3173{,}3}=8{,}60$ mA</p>
+<p>$U_{R16}=8{,}60\text{m}\times503{,}3=4{,}33$ V</p>
+<p>$I_{R16}=\dfrac{4{,}33}{530}=8{,}17$ mA &nbsp;;&nbsp; $I_{R15}=\dfrac{4{,}33}{20000}=0{,}216$ mA</p>
+<p><em>Vérif : $0{,}216+0{,}216+8{,}17\approx8{,}60$ mA ✓</em></p></div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$I_{LED}$</td><td>8,60 mA</td></tr>
+<tr><td>$U_{R16}$</td><td>4,33 V</td></tr>
+<tr><td>$I_{R15}$</td><td>0,216 mA</td></tr>
+<tr><td>$I_{R16}$</td><td>8,17 mA</td></tr>
+</table></div></details>
+
+<!-- ============ B ============ -->
+<h2 class="sujet" id="B">B · Plage de fonctionnement d'un régulateur Zéner <span class="pts">/4 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Pour quelles valeurs <em>minimale et maximale de la tension d'entrée</em> le régulateur Zéner fonctionne-t-il correctement ? On donne $I_{Zmin}=10$ mA, $I_{Zmax}=70$ mA, $V_Z=4{,}7$ V, $R_s\approx680\,\Omega$, $R_{ch}\approx1{,}1$ kΩ.</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 420 190" width="420" height="190">
+  <text x="6" y="92" class="lbl">V4</text>
+  <line x1="45" y1="45" x2="45" y2="84" class="wire"/>
+  <line x1="31" y1="84" x2="59" y2="84" class="comp"/>
+  <line x1="38" y1="94" x2="52" y2="94" class="comp" stroke-width="3"/>
+  <line x1="45" y1="94" x2="45" y2="155" class="wire"/>
+  <line x1="45" y1="45" x2="85" y2="45" class="wire"/>
+  <path d="M85,45 h6 l4,-8 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/>
+  <text x="86" y="32" class="lbl">Rs ≈680Ω</text>
+  <line x1="129" y1="45" x2="240" y2="45" class="wire"/>
+  <line x1="240" y1="45" x2="240" y2="72" class="wire"/>
+  <line x1="226" y1="74" x2="254" y2="74" class="comp"/>
+  <line x1="226" y1="74" x2="221" y2="79" class="comp"/>
+  <line x1="254" y1="74" x2="259" y2="69" class="comp"/>
+  <polygon points="226,96 254,96 240,76" class="fillk"/>
+  <line x1="240" y1="96" x2="240" y2="155" class="wire"/>
+  <text x="262" y="90" class="lbl">Vz=4,7V</text>
+  <line x1="240" y1="45" x2="340" y2="45" class="wire"/>
+  <circle cx="240" cy="45" r="3" class="fillk"/>
+  <line x1="340" y1="45" x2="340" y2="70" class="wire"/>
+  <path d="M340,70 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="340" y1="114" x2="340" y2="155" class="wire"/>
+  <text x="352" y="88" class="lbl">Rch1</text><text x="352" y="104" class="val">≈1,1kΩ</text>
+  <line x1="45" y1="155" x2="340" y2="155" class="wire"/>
+  <text x="150" y="40" class="lbl">→ I_R</text>
+  <text x="245" y="135" class="lbl">↓Iz</text>
+  <text x="300" y="40" class="lbl">→Ich</text>
+</svg></div><figcaption>Zéner en <strong>inverse</strong> (cathode vers +). V4 → Rs → (Zéner ∥ charge).</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>La charge tire un courant <strong>constant</strong> (car $V_Z$ est fixe) : <span class="key">$I_{ch}=\dfrac{V_Z}{R_{ch}}$</span></li>
+<li>Nœud : le courant dans $R_s$ se partage → $I_R=I_{ch}+I_Z$</li>
+<li>Maille : <span class="key">$V_{in}=V_Z+I_R\,R_s=V_Z+(I_{ch}+I_Z)R_s$</span></li>
+<li>Entrée <strong>min</strong> → la Zéner est juste au seuil bas : $I_Z=I_{Zmin}$ · entrée <strong>max</strong> → $I_Z=I_{Zmax}$</li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$I_{ch}=\dfrac{4{,}7}{1100}=4{,}27$ mA</p>
+<p>$V_{in,min}=4{,}7+(4{,}27\text{m}+10\text{m})\times680=4{,}7+9{,}71=14{,}4$ V</p>
+<p>$V_{in,max}=4{,}7+(4{,}27\text{m}+70\text{m})\times680=4{,}7+50{,}5=55{,}2$ V</p></div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$V_{in}$ minimale</td><td>≈ 14,4 V</td></tr>
+<tr><td>$V_{in}$ maximale</td><td>≈ 55,2 V</td></tr>
+</table></div></details>
+
+<!-- ============ C ============ -->
+<h2 class="sujet" id="C">C · Calculs rapides <span class="pts">/10 pts</span></h2>
+<div class="enonce"><span class="tag">Mode</span>10 calculs courts. Pour chacun : cite la formule, pose le calcul, <strong>puis</strong> clique pour vérifier la réponse.</div>
+<details><summary>C.1 — Résistance série d'une LED ($V_{LED}=2{,}1$ V) pour limiter $I$ à 15 mA sous 10 V ?</summary>
+<div class="ans"><p><span class="key">$R=\dfrac{V_{source}-V_{LED}}{I}$</span> $=\dfrac{10-2{,}1}{0{,}015}=\dfrac{7{,}9}{0{,}015}=$ <strong>527 Ω</strong> (≈ 530 Ω commercial)</p></div></details>
+<details><summary>C.2 — Pont filtré : ondulation 100 mV crête-à-crête, moyenne 20 V. Taux d'ondulation ?</summary>
+<div class="ans"><p><span class="key">$r=\dfrac{V_{ond}}{V_{moy}}$</span> $=\dfrac{0{,}1}{20}=0{,}005=$ <strong>0,5 %</strong></p></div></details>
+<details><summary>C.3 — Valeur efficace d'une sinusoïde de 20 V crête-à-crête ?</summary>
+<div class="ans"><p>$V_{crête}=\dfrac{V_{pp}}{2}=10$ V, puis <span class="key">$V_{eff}=\dfrac{V_{crête}}{\sqrt2}$</span> $=\dfrac{10}{\sqrt2}=$ <strong>7,07 V</strong></p></div></details>
+<details><summary>C.4 — $I_C$ d'un transistor si $I_B=50\,\mu$A et $\beta_{CC}=150$ ?</summary>
+<div class="ans"><p><span class="key">$I_C=\beta_{CC}\,I_B$</span> $=150\times50\,\mu\text{A}=$ <strong>7,5 mA</strong></p></div></details>
+<details><summary>C.5 — $I_C$ si $I_E=5$ mA et $I_B=50\,\mu$A ?</summary>
+<div class="ans"><p><span class="key">$I_C=I_E-I_B$</span> $=5-0{,}05=$ <strong>4,95 mA</strong></p></div></details>
+<details><summary>C.6 — Résistance d'un fil de cuivre : $L=30$ m, $S=0{,}05$ mm², $\rho=17\times10^{-9}$ Ω·m ?</summary>
+<div class="ans"><p><span class="key">$R=\rho\dfrac{L}{S}$</span> $=\dfrac{17\times10^{-9}\times30}{0{,}05\times10^{-6}}=$ <strong>10,2 Ω</strong> &nbsp;<small>(0,05 mm² = 0,05×10⁻⁶ m²)</small></p></div></details>
+<details><summary>C.7 — Puissance si 750 J consommés en 3 heures ?</summary>
+<div class="ans"><p><span class="key">$P=\dfrac{W}{t}$</span> $=\dfrac{750}{3\times3600}=$ <strong>69,4 mW</strong> &nbsp;<small>(3 h = 10 800 s)</small></p></div></details>
+<details><summary>C.8 — Puissance dissipée dans 5,5 kΩ parcourue par 20 mA ?</summary>
+<div class="ans"><p><span class="key">$P=R\,I^2$</span> $=5500\times(0{,}02)^2=$ <strong>2,2 W</strong></p></div></details>
+<details><summary>C.9 — Coût d'un jour continu d'un serveur de 500 W (kWh = 10 cts) ?</summary>
+<div class="ans"><p>$E=\dfrac{P\times t}{1000}=\dfrac{500\times24}{1000}=12$ kWh, puis coût $=12\times0{,}10=$ <strong>1,20 €</strong></p></div></details>
+<details><summary>C.10 — Fréquence de $v(t)=20\sin(200\pi t)$ ?</summary>
+<div class="ans"><p>On identifie $\omega=200\pi$, puis <span class="key">$f=\dfrac{\omega}{2\pi}$</span> $=\dfrac{200\pi}{2\pi}=$ <strong>100 Hz</strong></p></div></details>
+
+<!-- ============ D ============ -->
+<h2 class="sujet" id="D">D · QCM conceptuel <span class="pts">/5 pts</span></h2>
+<div class="enonce"><span class="tag">Mode</span>Réponds de tête, puis vérifie.</div>
+<details><summary>D.1 — Le Hertz est l'unité de… ?</summary><div class="ans"><p><span class="key">Fréquence</span></p></div></details>
+<details><summary>D.2 — Le noyau d'un atome est constitué de… ?</summary><div class="ans"><p><span class="key">Neutrons et protons</span></p></div></details>
+<details><summary>D.3 — Matériau semi-conducteur le plus utilisé ?</summary><div class="ans"><p><span class="key">Le silicium</span></p></div></details>
+<details><summary>D.4 — Bande où existent les électrons libres ?</summary><div class="ans"><p><span class="key">Bande de conduction</span></p></div></details>
+<details><summary>D.5 — Polarisation directe d'une jonction PN ?</summary><div class="ans"><p><span class="key">+ sur l'anode (région P), − sur la cathode (région N)</span></p></div></details>
+<details><summary>D.6 — Onde de crête 10 V → crête à crête ?</summary><div class="ans"><p><span class="key">20 V</span> &nbsp;($V_{pp}=2V_{crête}$)</p></div></details>
+<details><summary>D.7 — Entrée 60 Hz sur redresseur double alternance → fréquence de sortie ?</summary><div class="ans"><p><span class="key">120 Hz</span> &nbsp;($2f$)</p></div></details>
+<details><summary>D.8 — Si $R_{charge}$ d'un redresseur double alternance filtré diminue, l'ondulation… ?</summary><div class="ans"><p><span class="key">Augmente</span> &nbsp;(la charge se décharge plus vite : $V_{ond}=V_c/(fRC)$, R petit → ondulation grande)</p></div></details>
+<details><summary>D.9 — Rôle de la jonction PN dans une LED ?</summary><div class="ans"><p><span class="key">Recombiner électrons et trous pour émettre de la lumière</span></p></div></details>
+<details><summary>D.10 — Utilité du circuit 7805 ?</summary><div class="ans"><p><span class="key">Maintenir une tension constante de +5 V</span></p></div></details>
+
+<!-- ============ E ============ -->
+<h2 class="sujet" id="E">E · Pont redresseur filtré <span class="pts">/5 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Pont double alternance filtré. Source $V_2=150$ V<sub>pk</sub>, 200 Hz ; transformateur 6:2 ; $C=330\,\mu$F ; $R_{charge}=470\,\Omega$. Déterminer : <em>tension efficace secondaire, crête de sortie, TIC des diodes, ondulation, valeur moyenne</em>. Peut-on ajouter un 7824 (entrée admissible 26,5 → 39 V) ?</div>
+<figure><div class="svgwrap"><img src="img/E_schema.png" alt="Transformateur 6:2, pont de Graetz, condensateur, charge" style="max-width:100%;display:block"/></div><figcaption>150 V<sub>pk</sub> → transfo 6:2 → pont de Graetz (4 diodes) → C 330 µF ∥ R 470 Ω.</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>Secondaire du transfo (rapport $n_2/n_1=2/6$) : $V_{c,sec}=V_{pk}\times\dfrac{n_2}{n_1}$ &nbsp;;&nbsp; <span class="key">$V_{eff}=\dfrac{V_{c,sec}}{\sqrt2}$</span></li>
+<li>Sortie du pont : 2 diodes conduisent → on perd 1,4 V : <span class="key">$V_{c,out}=V_{c,sec}-1{,}4$</span></li>
+<li>TIC (tension inverse de crête supportée par une diode bloquée) : $\text{TIC}=V_{c,sec}-0{,}7$</li>
+<li>Ondulation, avec $f_{out}=2f$ (double alternance) : <span class="key">$V_{ond}=\dfrac{V_{c,out}}{f_{out}\,R\,C}$</span></li>
+<li>Valeur moyenne filtrée : <span class="key">$V_{moy}=V_{c,out}-\dfrac{V_{ond}}{2}$</span></li>
+<li>Régulateur : comparer $V_{moy}$ à la <strong>plage d'entrée</strong> du composant.</li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$V_{c,sec}=150\times\dfrac{2}{6}=50$ V → $V_{eff}=\dfrac{50}{\sqrt2}=35{,}4$ V</p>
+<p>$V_{c,out}=50-1{,}4=48{,}6$ V</p>
+<p>$\text{TIC}=50-0{,}7\approx49{,}3$ V</p>
+<p>$f_{out}=2\times200=400$ Hz → $V_{ond}=\dfrac{48{,}6}{400\times470\times330\times10^{-6}}=\dfrac{48{,}6}{62{,}04}=0{,}78$ V</p>
+<p>$V_{moy}=48{,}6-\dfrac{0{,}78}{2}=48{,}2$ V</p>
+<p><strong>7824 ?</strong> Il demande une entrée entre 26,5 et 39 V. Ici 48,2 V <strong>dépasse le max (39 V)</strong> → <strong>NON</strong> (sur-tension, échauffement). Il faudrait d'abord abaisser la tension.</p></div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$V_{eff}$ secondaire</td><td>35,4 V</td></tr>
+<tr><td>$V_{crête}$ sortie</td><td>48,6 V</td></tr>
+<tr><td>TIC diodes</td><td>≈ 49,3 V</td></tr>
+<tr><td>$V_{ondulation}$</td><td>0,78 V</td></tr>
+<tr><td>$V_{moyen}$</td><td>≈ 48,2 V</td></tr>
+<tr><td>7824 ?</td><td>NON (48,2 V &gt; 39 V)</td></tr>
+</table></div></details>
+
+<!-- ============ F ============ -->
+<h2 class="sujet" id="F">F · Résistance équivalente & chutes de tension <span class="pts">/4 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Déterminer la <em>résistance équivalente</em>, puis la <em>chute de tension aux bornes de chaque résistance</em>. $V_1=20$ V, $V_7=5$ V, $R_4=100\,\Omega\parallel R_1=220\,\Omega$, $R_5=330\,\Omega\parallel R_3=220\,\Omega$, $R_2=330\,\Omega$.</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 500 220" width="500" height="220">
+  <text x="6" y="92" class="lbl">V1</text><text x="6" y="108" class="val">20V</text>
+  <line x1="55" y1="48" x2="55" y2="88" class="wire"/>
+  <line x1="41" y1="88" x2="69" y2="88" class="comp"/>
+  <line x1="48" y1="98" x2="62" y2="98" class="comp" stroke-width="3"/>
+  <line x1="55" y1="98" x2="55" y2="160" class="wire"/>
+  <line x1="55" y1="48" x2="110" y2="48" class="wire"/>
+  <circle cx="110" cy="48" r="3" class="fillk"/>
+  <line x1="110" y1="30" x2="110" y2="66" class="wire"/>
+  <line x1="110" y1="30" x2="120" y2="30" class="wire"/>
+  <path d="M120,30 h4 l3,-7 l7,14 l7,-14 l7,14 l3,-7 h4" class="comp"/>
+  <line x1="155" y1="30" x2="200" y2="30" class="wire"/>
+  <text x="125" y="20" class="lbl">R4 100Ω</text>
+  <line x1="110" y1="66" x2="120" y2="66" class="wire"/>
+  <path d="M120,66 h4 l3,-7 l7,14 l7,-14 l7,14 l3,-7 h4" class="comp"/>
+  <line x1="155" y1="66" x2="200" y2="66" class="wire"/>
+  <text x="125" y="84" class="lbl">R1 220Ω</text>
+  <line x1="200" y1="30" x2="200" y2="66" class="wire"/>
+  <circle cx="200" cy="48" r="3" class="fillk"/>
+  <line x1="200" y1="48" x2="245" y2="48" class="wire"/>
+  <line x1="248" y1="42" x2="248" y2="54" class="comp" stroke-width="3"/>
+  <line x1="256" y1="37" x2="256" y2="59" class="comp"/>
+  <text x="232" y="78" class="lbl">V7 5V</text>
+  <line x1="256" y1="48" x2="360" y2="48" class="wire"/>
+  <line x1="360" y1="48" x2="430" y2="48" class="wire"/>
+  <circle cx="360" cy="48" r="3" class="fillk"/>
+  <line x1="360" y1="48" x2="360" y2="72" class="wire"/>
+  <path d="M360,72 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="360" y1="116" x2="360" y2="160" class="wire"/>
+  <text x="318" y="96" class="lbl">R5</text><text x="316" y="112" class="val">330Ω</text>
+  <line x1="430" y1="48" x2="430" y2="72" class="wire"/>
+  <path d="M430,72 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/>
+  <line x1="430" y1="116" x2="430" y2="160" class="wire"/>
+  <text x="440" y="96" class="lbl">R3</text><text x="440" y="112" class="val">220Ω</text>
+  <line x1="360" y1="160" x2="430" y2="160" class="wire"/>
+  <circle cx="430" cy="48" r="3" class="fillk"/>
+  <line x1="360" y1="160" x2="245" y2="160" class="wire"/>
+  <path d="M245,160 h-6 l-4,-8 l-8,16 l-8,-16 l-8,16 l-4,-8 h-6" class="comp"/>
+  <text x="168" y="182" class="lbl">R2 330Ω</text>
+  <line x1="201" y1="160" x2="55" y2="160" class="wire"/>
+</svg></div><figcaption>Boucle série unique avec deux sources : V1 → (R4∥R1) → V7 → (R5∥R3) → R2 → retour.</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>Deux résistances en parallèle : <span class="key">$R_a\parallel R_b=\dfrac{R_a\,R_b}{R_a+R_b}$</span></li>
+<li>Résistance équivalente = somme des blocs en série : $R_{éq}=(R_4\parallel R_1)+(R_5\parallel R_3)+R_2$</li>
+<li>FEM nette des deux sources (⚠️ <strong>sens</strong> : ici $V_7$ s'<em>ajoute</em> à $V_1$) : $E=V_1+V_7$</li>
+<li>Courant de la boucle (même partout) : <span class="key">$I=\dfrac{E}{R_{éq}}$</span></li>
+<li>Chute sur chaque bloc : loi d'Ohm $U=R\,I$ (sur un bloc parallèle, c'est la tension commune aux deux R)</li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$R_4\parallel R_1=\dfrac{100\times220}{320}=68{,}75\,\Omega$ &nbsp;;&nbsp; $R_5\parallel R_3=\dfrac{330\times220}{550}=132\,\Omega$</p>
+<p>$R_{éq}=68{,}75+132+330=530{,}75\,\Omega$</p>
+<p>$E=20+5=25$ V → $I=\dfrac{25}{530{,}75}=47{,}1$ mA</p>
+<p>$U_{R4\parallel R1}=47{,}1\text{m}\times68{,}75=3{,}24$ V &nbsp;($=U_{R4}=U_{R1}$)</p>
+<p>$U_{R5\parallel R3}=47{,}1\text{m}\times132=6{,}22$ V &nbsp;($=U_{R5}=U_{R3}$)</p>
+<p>$U_{R2}=47{,}1\text{m}\times330=15{,}54$ V</p>
+<p><em>Vérif : $3{,}24+6{,}22+15{,}54=25{,}0$ V = FEM nette ✓</em></p></div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$R_{éq}$</td><td>530,75 Ω</td></tr>
+<tr><td>$U_{R1}=U_{R4}$</td><td>3,24 V</td></tr>
+<tr><td>$U_{R5}=U_{R3}$</td><td>6,22 V</td></tr>
+<tr><td>$U_{R2}$</td><td>15,54 V</td></tr>
+</table></div></details>
+
+<!-- ============ G ============ -->
+<h2 class="sujet" id="G">G · Droite de charge & saturation <span class="pts">/5 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Dessiner la <em>droite de charge</em>. Déterminer $I_C$, $V_B$, $V_C$, $V_{CE}$. Le transistor est-il <em>en saturation</em> ? $V_{CC}=15$ V, $R_6=22$ kΩ et $R_{20}=5{,}3$ kΩ (pont de base), $R_C=2{,}2$ kΩ, $R_E=470\,\Omega$.</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 360 260" width="360" height="260">
+<line x1="40" y1="20" x2="300" y2="20" class="wire"/><text x="150" y="14" class="lbl">15V</text>
+<line x1="80" y1="20" x2="80" y2="55" class="wire"/>
+<rect x="72" y="55" width="16" height="44" class="comp"/><text x="30" y="78" class="lbl">R6 22kΩ</text>
+<line x1="80" y1="99" x2="80" y2="135" class="wire"/>
+<line x1="80" y1="135" x2="170" y2="135" class="wire"/>
+<line x1="80" y1="135" x2="80" y2="165" class="wire"/>
+<rect x="72" y="165" width="16" height="44" class="comp"/><text x="20" y="188" class="lbl">R20 5,3kΩ</text>
+<line x1="80" y1="209" x2="80" y2="240" class="wire"/><line x1="65" y1="240" x2="95" y2="240" class="wire"/>
+<line x1="250" y1="20" x2="250" y2="55" class="wire"/>
+<rect x="242" y="55" width="16" height="44" class="comp"/><text x="262" y="78" class="lbl">Rc 2,2kΩ</text>
+<line x1="250" y1="99" x2="250" y2="120" class="wire"/>
+<line x1="170" y1="115" x2="170" y2="155" class="comp" stroke-width="3"/>
+<line x1="170" y1="125" x2="250" y2="120" class="wire"/>
+<line x1="170" y1="145" x2="250" y2="155" class="wire"/>
+<polygon points="235,150 250,155 238,162" class="fillk"/>
+<text x="150" y="120" class="lbl">B</text>
+<line x1="250" y1="155" x2="250" y2="180" class="wire"/>
+<rect x="242" y="180" width="16" height="44" class="comp"/><text x="262" y="205" class="lbl">Re 470Ω</text>
+<line x1="250" y1="224" x2="250" y2="245" class="wire"/><line x1="235" y1="245" x2="265" y2="245" class="wire"/>
+</svg></div><figcaption>Polarisation par pont diviseur (R6/R20) avec résistance d'émetteur.</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>Tension de base (pont diviseur) : <span class="key">$V_B=V_{CC}\dfrac{R_{20}}{R_6+R_{20}}$</span></li>
+<li>Émetteur : $V_E=V_B-0{,}7$ (jonction base-émetteur)</li>
+<li>Courant : Re convertit $V_E$ en courant : <span class="key">$I_C\approx I_E=\dfrac{V_E}{R_E}$</span></li>
+<li>Collecteur : $V_C=V_{CC}-R_C\,I_C$ &nbsp;;&nbsp; $V_{CE}=V_C-V_E$</li>
+<li>Droite de charge : extrémités $(V_{CE}=V_{CC},\,I_C=0)$ et $(V_{CE}=0,\,I_{Csat})$ avec <span class="key">$I_{Csat}=\dfrac{V_{CC}}{R_C+R_E}$</span></li>
+<li>Saturé si $I_C\approx I_{Csat}$ et $V_{CE}\approx0$. Sinon → région active.</li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$V_B=15\times\dfrac{5{,}3}{22+5{,}3}=15\times0{,}194=2{,}91$ V</p>
+<p>$V_E=2{,}91-0{,}7=2{,}21$ V → $I_C\approx I_E=\dfrac{2{,}21}{470}=4{,}71$ mA</p>
+<p>$V_C=15-2200\times4{,}71\text{m}=4{,}64$ V → $V_{CE}=4{,}64-2{,}21=2{,}43$ V</p>
+<p>$I_{Csat}=\dfrac{15}{2200+470}=5{,}62$ mA</p>
+<p>$I_C=4{,}71$ mA $<5{,}62$ mA et $V_{CE}=2{,}43$ V $>0$ → <strong>région active, PAS saturé</strong>. Le point Q (2,43 V ; 4,71 mA) est sur la droite, sous le point de saturation.</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 360 250" width="360" height="250">
+<line x1="55" y1="22" x2="55" y2="215" class="wire"/><line x1="55" y1="215" x2="330" y2="215" class="wire"/>
+<polygon points="55,20 51,32 59,32" class="fillk"/><polygon points="332,215 320,211 320,219" class="fillk"/>
+<text x="20" y="16" class="lbl">Ic (mA)</text><text x="300" y="236" class="lbl">Vce (V)</text>
+<line x1="55" y1="55" x2="295" y2="215" stroke="#b00020" stroke-width="2.5"/>
+<circle cx="55" cy="55" r="4" class="fillk"/><text x="64" y="52" class="val">saturation (0 ; 5,62 mA)</text>
+<circle cx="295" cy="215" r="4" class="fillk"/><text x="214" y="206" class="val">blocage (15 V ; 0)</text>
+<line x1="89" y1="81" x2="89" y2="215" stroke="#0a6" stroke-dasharray="4 3" stroke-width="1.3"/>
+<line x1="89" y1="81" x2="55" y2="81" stroke="#0a6" stroke-dasharray="4 3" stroke-width="1.3"/>
+<circle cx="89" cy="81" r="5" fill="#0a6"/><text x="98" y="78" class="lbl" fill="#0a6">Q (2,43 V ; 4,71 mA)</text>
+<text x="22" y="85" class="val">4,71</text><text x="78" y="232" class="val">2,43</text>
+</svg></div><figcaption>Droite de charge : on relie le point de saturation au point de blocage ; Q est dessus, en zone active.</figcaption></figure>
+</div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$V_B$</td><td>2,91 V</td></tr>
+<tr><td>$I_C$</td><td>4,71 mA</td></tr>
+<tr><td>$V_{CE}$</td><td>2,43 V</td></tr>
+<tr><td>$V_C$</td><td>4,64 V</td></tr>
+<tr><td>Saturation</td><td>NON (région active)</td></tr>
+</table></div></details>
+
+<!-- ============ H ============ -->
+<h2 class="sujet" id="H">H · Transistor interrupteur — R1 pour saturer <span class="pts">/3 pts</span></h2>
+<div class="enonce"><span class="tag">Énoncé</span>
+Si $V_{CEsat}=0$ V et $\beta_{CC}=120$, quel est le <em>courant de saturation</em> du montage ? Quelle <em>valeur de R1</em> permet d'atteindre la saturation si $V_{BB}=5$ V ? ($V_{CC}=10$ V, $R_C=220\,\Omega$.)</div>
+<figure><div class="svgwrap"><svg viewBox="0 0 340 250" width="340" height="250">
+<line x1="120" y1="20" x2="300" y2="20" class="wire"/><text x="305" y="24" class="lbl">10V</text>
+<line x1="210" y1="20" x2="210" y2="50" class="wire"/>
+<rect x="202" y="50" width="16" height="44" class="comp"/><text x="222" y="74" class="lbl">R2 220Ω</text>
+<line x1="210" y1="94" x2="210" y2="120" class="wire"/>
+<line x1="180" y1="115" x2="180" y2="155" class="comp" stroke-width="3"/>
+<line x1="180" y1="125" x2="210" y2="120" class="wire"/>
+<line x1="180" y1="145" x2="210" y2="160" class="wire"/>
+<polygon points="196,155 210,160 198,167" class="fillk"/>
+<line x1="100" y1="135" x2="180" y2="135" class="wire"/>
+<rect x="60" y="127" width="40" height="16" class="comp"/><text x="60" y="122" class="lbl">R1 ?</text>
+<line x1="20" y1="135" x2="60" y2="135" class="wire"/><text x="2" y="139" class="lbl">VBB</text><text x="2" y="153" class="val">5V</text>
+<line x1="210" y1="160" x2="210" y2="210" class="wire"/>
+<line x1="195" y1="210" x2="225" y2="210" class="wire"/><line x1="200" y1="216" x2="220" y2="216" class="wire"/><line x1="205" y1="222" x2="215" y2="222" class="wire"/>
+<text x="226" y="206" class="lbl">GND</text>
+</svg></div><figcaption>Transistor en interrupteur : collecteur via R2, émetteur à la masse.</figcaption></figure>
+<details><summary class="s-form">Quelles formules / quelle méthode ?</summary>
+<div class="ans">
+<ul>
+<li>Courant de collecteur saturé (interrupteur fermé, $V_{CE}=V_{CEsat}$) : <span class="key">$I_{Csat}=\dfrac{V_{CC}-V_{CEsat}}{R_C}$</span></li>
+<li>Courant de base minimal pour saturer : <span class="key">$I_{Bmin}=\dfrac{I_{Csat}}{\beta_{CC}}$</span></li>
+<li>Résistance de base (maille d'entrée, jonction = 0,7 V) : <span class="key">$R_1=\dfrac{V_{BB}-0{,}7}{I_{Bmin}}$</span></li>
+</ul></div></details>
+<details><summary>Le calcul</summary>
+<div class="ans">
+<p>$I_{Csat}=\dfrac{10-0}{220}=45{,}45$ mA</p>
+<p>$I_{Bmin}=\dfrac{45{,}45\text{m}}{120}=378{,}8\,\mu$A</p>
+<p>$R_1=\dfrac{5-0{,}7}{378{,}8\times10^{-6}}=\dfrac{4{,}3}{378{,}8\,\mu}=11{,}35$ kΩ</p>
+<p><em>C'est la valeur <strong>maximale</strong> pour juste saturer ; en pratique on prend plus petit (ex. 10 kΩ) pour garantir $I_B>I_{Bmin}$.</em></p></div></details>
+<details><summary class="s-res">Résultat</summary>
+<div class="ans"><table class="res-table">
+<tr><td>$I_{Csat}$</td><td>45,45 mA</td></tr>
+<tr><td>$R_1$</td><td>≈ 11,35 kΩ</td></tr>
+</table></div></details>
+
+<div class="box tip" style="margin-top:40px"><span class="tag">💡 Conseil</span>
+Refais la série <strong>sans regarder</strong> plusieurs fois. La première passe, ouvre « Quelles formules ? ». Les suivantes, vise à tout sortir de tête (formules + calcul) avant d'ouvrir « Résultat ». Quand les 8 passent sans aide → c'est acquis.</div>
+
+</main>
+</div>
+</body>
+</html>
