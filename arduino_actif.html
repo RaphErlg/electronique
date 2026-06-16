@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Entraînement Arduino — labo pratique</title>
+<link rel="stylesheet" href="lib/atom-one-dark.min.css">
+<script src="lib/highlight.min.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('pre code').forEach(function(el){el.classList.add('language-cpp');});if(window.hljs){hljs.highlightAll();}});</script>
+<style>
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:250px;max-width:250px;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:5px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc .home{color:var(--gold);font-weight:600;margin-bottom:8px}
+nav.toc h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin:14px 0 6px}
+nav.toc .star{color:var(--gold)}
+main{flex:1;max-width:880px;margin:0 auto;padding:30px 38px 120px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+h2.sujet{font-size:20px;margin:42px 0 8px;padding:9px 15px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:10px;border:1px solid var(--line);color:var(--accent)}
+.exo{margin:22px 0 0}
+.exo .lab{display:inline-block;background:var(--accent);color:#04121f;font-weight:800;border-radius:7px;padding:1px 10px;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.exo .lab.key{background:var(--gold)}
+.extitle{font-size:18px;margin:4px 0 6px;color:var(--ink)}
+.enonce{background:#10243a;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:11px 16px;margin:4px 0}
+.enonce .tag{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:4px}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin:7px 0;overflow:hidden}
+summary{cursor:pointer;padding:10px 15px;font-weight:600;color:var(--accent2);list-style:none;position:relative;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--accent);margin-right:9px;display:inline-block;transition:transform .15s}
+details[open] summary{border-bottom:1px solid var(--line)}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{background:#1f2740}
+summary.s-cab{color:var(--accent2)}
+summary.s-logic{color:var(--gold)}summary.s-logic::before{color:var(--gold)}
+summary.s-code{color:var(--green)}summary.s-code::before{color:var(--green)}
+summary.s-test{color:var(--violet)}summary.s-test::before{color:var(--violet)}
+.ans{padding:10px 16px 14px}
+.ans p{margin:7px 0}.ans ul{margin:6px 0;padding-left:20px}.ans li{margin:5px 0}
+strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55}
+pre code{background:none;padding:0;color:#d6e2ff}
+pre code.hljs{background:transparent;padding:0}
+.key{color:var(--green);font-weight:700}
+.box{border-radius:10px;padding:11px 16px;margin:12px 0;border:1px solid var(--line)}
+.def{background:#1b2235;border-left:4px solid var(--gold)}.def .tag{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.tip .tag{color:var(--green);font-weight:700;font-size:12px;text-transform:uppercase}
+.warning{background:#2a1622;border-left:4px solid var(--red)}.warning .tag{color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+th{background:#222c45;color:var(--accent2)}
+td.c{font-family:Consolas,monospace;color:var(--gold);white-space:nowrap}
+figure{margin:10px 0;text-align:center}
+.svgwrap{background:#f7fafc;border-radius:12px;padding:10px;display:inline-block;border:1px solid var(--line);max-width:100%}
+figcaption{color:var(--muted);font-size:12.5px;margin-top:6px}
+text.lbl{font-family:Consolas,monospace;font-size:12px;fill:#1a2233}
+text.pin{font-family:Consolas,monospace;font-size:12px;fill:#0a6;font-weight:bold}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}.comp{stroke:#1a2233;stroke-width:2;fill:none}.fillk{fill:#1a2233}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000;font-size:12px}.svgwrap{background:#fff}pre{background:#f4f4f4;color:#000}.ans{display:block!important}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a class="home" href="index.html">← Accueil</a>
+<a href="#briques">🧱 Les briques à maîtriser</a>
+<h2>Exercices</h2>
+<a href="#e1">1 · Clignoter (millis)</a>
+<a href="#e2">2 · Clignoter + bouton</a>
+<a href="#e3">3 · 2 LED, 2 fréquences</a>
+<a href="#e4" class="star">4 · ★ Télérupteur</a>
+<a href="#e5">5 · Potentiomètre → LED</a>
+<a href="#e6">6 · Dimmer</a>
+<h2>Communication série</h2>
+<a href="#e7">7 · Compter les secondes</a>
+<a href="#e8">8 · Lettres a → z</a>
+<a href="#e9">9 · Photorésistance (continu)</a>
+<a href="#e10">10 · LED par « ON » / « OFF »</a>
+<a href="#e11">11 · Photorésistance (requête)</a>
+<h2>Capstone</h2>
+<a href="#exam" class="star">🎯 L'examen complet</a>
+</nav>
+<main id="top">
+<h1>🔌 Entraînement Arduino — labo pratique</h1>
+<p class="sub">Chaque exercice du labo, à comprendre puis à <strong>câbler et tester en vrai</strong>. Pour chacun : énoncé → tu réfléchis → câblage → logique → code commenté.</p>
+
+<div class="box def"><span class="tag">Mode d'emploi (méthode active pour le code)</span>
+1) Lis le <strong>cahier des charges</strong>. 2) Avant de cliquer : essaie de dire <strong>quelles commandes</strong> tu vas utiliser et <strong>quelle est la logique</strong>. 3) Ouvre <strong>🔌 Câblage</strong> et monte le circuit. 4) Ouvre <strong>🧠 Logique</strong>, vérifie ton raisonnement. 5) Écris ton code, puis compare avec <strong>💻 Le code</strong>. 6) <strong>Téléverse et teste pour de vrai</strong> — c'est le test réel qui ancre la mémoire. L'examen peut tomber sur <em>n'importe laquelle</em> de ces manips.</div>
+
+<!-- ===================== BRIQUES ===================== -->
+<h2 class="sujet" id="briques">🧱 Les briques à connaître par cœur</h2>
+<p>Presque tous les exercices se construisent avec ces quelques blocs. Si tu les maîtrises, tu peux reconstruire n'importe quel programme.</p>
+
+<details><summary class="s-code">Le squelette + les commandes E/S</summary>
+<div class="ans">
+<pre><code>void setup() {        // exécuté UNE SEULE FOIS au démarrage
+  pinMode(8, OUTPUT);        // 8 en sortie (LED)
+  pinMode(2, INPUT_PULLUP);  // 2 en entrée avec résistance interne
+  Serial.begin(9600);        // ouvre la liaison série (moniteur)
+}
+
+void loop() {         // répété À L'INFINI
+  int e = digitalRead(2);    // lit une entrée → HIGH ou LOW
+  digitalWrite(8, HIGH);     // met une sortie à 5 V (LOW = 0 V)
+}</code></pre>
+<table>
+<tr><th>Commande</th><th>Rôle</th></tr>
+<tr><td class="c">pinMode(p, OUTPUT/INPUT/INPUT_PULLUP)</td><td>configure une broche</td></tr>
+<tr><td class="c">digitalWrite(p, HIGH/LOW)</td><td>allume / éteint une sortie</td></tr>
+<tr><td class="c">digitalRead(p)</td><td>lit une entrée logique</td></tr>
+<tr><td class="c">analogRead(A0)</td><td>lit une entrée analogique (0 → 1023)</td></tr>
+<tr><td class="c">analogWrite(p, 0..255)</td><td>sortie PWM (broches ~)</td></tr>
+<tr><td class="c">millis()</td><td>nombre de ms depuis le démarrage</td></tr>
+<tr><td class="c">map(v, a, b, c, d)</td><td>convertit l'intervalle [a,b] vers [c,d]</td></tr>
+<tr><td class="c">Serial.print / println(x)</td><td>affiche dans le moniteur</td></tr>
+</table></div></details>
+
+<details><summary class="s-logic">⭐ INPUT_PULLUP : « appuyé = LOW »</summary>
+<div class="ans">
+<p>Avec <code>INPUT_PULLUP</code>, l'Arduino branche une résistance interne vers le 5 V. La broche est donc à <strong>HIGH au repos</strong>. Le bouton, lui, relie la broche à la <strong>masse (GND)</strong>.</p>
+<p>👉 Bouton <strong>relâché = HIGH</strong>, bouton <strong>appuyé = LOW</strong>. C'est l'inverse de l'intuition ! D'où le test :</p>
+<pre><code>if (digitalRead(BP) == LOW) {   // ← appuyé
+  // ...
+}</code></pre>
+<p>Avantage : <strong>pas de résistance externe</strong> à câbler pour le bouton (juste bouton entre la broche et GND).</p></div></details>
+
+<details><summary class="s-logic">⭐ Le clignotement non bloquant (le patron millis)</summary>
+<div class="ans">
+<p>C'est LE réflexe à avoir : <code>delay()</code> <strong>fige tout</strong> le programme. Avec <code>millis()</code>, on « regarde l'heure » sans bloquer, ce qui permet de faire plusieurs choses à la fois (clignoter ET lire un bouton).</p>
+<pre><code>unsigned long tPrecedent = 0;
+const unsigned long INTERVALLE = 500;   // ms
+bool etat = LOW;
+
+void loop() {
+  if (millis() - tPrecedent &gt;= INTERVALLE) {  // assez de temps passé ?
+    tPrecedent = millis();   // on note l'instant du basculement
+    etat = !etat;            // on inverse
+    digitalWrite(LED, etat);
+  }
+  // la loop reste libre pour le reste
+}</code></pre>
+<p class="key">À retenir : <code>if (millis() - tPrecedent &gt;= INTERVALLE) { tPrecedent = millis(); ... }</code></p></div></details>
+
+<details><summary class="s-logic">⭐ Niveau vs front, et l'anti-rebond</summary>
+<div class="ans">
+<p><strong>Niveau</strong> = « est-ce appuyé maintenant ? » (LED qui suit le bouton). <strong>Front</strong> = « vient-on de passer de relâché à appuyé ? » (un seul événement par appui — pour un télérupteur, un compteur…).</p>
+<p>Détecter un front = comparer le niveau actuel au précédent :</p>
+<pre><code>bool dernier = HIGH;
+void loop() {
+  bool niveau = digitalRead(BP);
+  if (niveau == LOW &amp;&amp; dernier == HIGH) {   // front d'appui (HIGH→LOW)
+    // ... action UNE fois
+  }
+  dernier = niveau;
+}</code></pre>
+<p><strong>Anti-rebond (debounce)</strong> : un bouton mécanique « rebondit » quelques ms → un appui peut être lu comme plusieurs. On ne prend le changement en compte que s'il est <strong>stable</strong> depuis ~30 ms (voir le télérupteur, exercice 4).</p></div></details>
+
+<!-- ===================== 1 ===================== -->
+<h2 class="sujet" id="e1">1 · Faire clignoter une LED (millis)</h2>
+<div class="exo"><span class="lab">Manip 3</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Faire clignoter une LED avec une période raisonnable, <strong>sans <code>delay()</code></strong> (méthode non bloquante).</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 380 90" width="380" height="90">
+<text x="6" y="40" class="pin">D9</text>
+<line x1="34" y1="44" x2="70" y2="44" class="wire"/>
+<path d="M70,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="78" y="26" class="lbl">220 Ω</text>
+<line x1="130" y1="44" x2="175" y2="44" class="wire"/>
+<polygon points="175,34 175,54 197,44" class="fillk"/><line x1="197" y1="34" x2="197" y2="54" class="comp"/>
+<line x1="182" y1="30" x2="190" y2="22" class="comp"/><polygon points="190,22 185,23 188,26" class="fillk"/>
+<line x1="190" y1="30" x2="198" y2="22" class="comp"/><polygon points="198,22 193,23 196,26" class="fillk"/>
+<text x="172" y="70" class="lbl">LED</text>
+<line x1="197" y1="44" x2="300" y2="44" class="wire"/>
+<line x1="300" y1="30" x2="300" y2="44" class="wire"/>
+<line x1="288" y1="30" x2="312" y2="30" class="comp"/><line x1="292" y1="36" x2="308" y2="36" class="comp"/><line x1="296" y1="42" x2="304" y2="42" class="comp"/>
+<text x="318" y="34" class="lbl">GND</text>
+</svg></div><figcaption>Broche D9 → résistance 220 Ω → LED (patte longue = +) → GND.</figcaption></figure>
+<p><strong>R = (5 − 2) / 0,02 = 150 Ω</strong> minimum ; 220 Ω est une valeur sûre courante.</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Une seule sortie. On applique le patron <code>millis()</code> : toutes les 500 ms, on inverse l'état de la LED. Commandes : <code>pinMode</code>, <code>millis()</code>, <code>digitalWrite</code>.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED 9
+unsigned long tPrecedent = 0;
+const unsigned long INTERVALLE = 500;   // 500 ms allumé, 500 éteint → 1 Hz
+bool etatLED = LOW;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  if (millis() - tPrecedent &gt;= INTERVALLE) {
+    tPrecedent = millis();   // mémorise l'instant du basculement
+    etatLED = !etatLED;      // inverse l'état
+    digitalWrite(LED, etatLED);
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>La LED clignote à 1 Hz (1 s allumée, 1 s éteinte... non : 0,5 s chacune → cycle de 1 s).</li><li>Mets <code>INTERVALLE</code> à 1000 pour ralentir et bien voir.</li><li>Piège : oublier <code>tPrecedent = millis();</code> → la LED reste figée.</li></ul></div></details>
+</div>
+
+<!-- ===================== 2 ===================== -->
+<h2 class="sujet" id="e2">2 · Clignoter + une LED qui suit un bouton</h2>
+<div class="exo"><span class="lab">Manip 4</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Une LED clignote (période longue), et une <strong>autre LED</strong> s'allume selon un <strong>bouton poussoir</strong>. Sans <code>delay()</code>.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 380 150" width="380" height="150">
+<text x="6" y="34" class="pin">D8</text>
+<line x1="34" y1="38" x2="70" y2="38" class="wire"/>
+<path d="M70,38 h6 l4,-8 l8,16 l8,-16 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/><text x="80" y="22" class="lbl">220Ω</text>
+<line x1="130" y1="38" x2="170" y2="38" class="wire"/>
+<polygon points="170,30 170,46 190,38" class="fillk"/><line x1="190" y1="30" x2="190" y2="46" class="comp"/><text x="168" y="62" class="lbl">LED clignote</text>
+<line x1="190" y1="38" x2="300" y2="38" class="wire"/>
+<text x="6" y="104" class="pin">D2</text>
+<line x1="34" y1="108" x2="120" y2="108" class="wire"/>
+<line x1="120" y1="98" x2="120" y2="118" class="comp"/><line x1="140" y1="98" x2="140" y2="118" class="comp"/>
+<path d="M118,94 q12,-10 24,0" class="comp"/><text x="108" y="134" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="108" x2="300" y2="108" class="wire"/>
+<line x1="300" y1="38" x2="300" y2="108" class="wire"/>
+<line x1="288" y1="120" x2="312" y2="120" class="comp"/><line x1="292" y1="126" x2="308" y2="126" class="comp"/><line x1="296" y1="132" x2="304" y2="132" class="comp"/>
+<text x="318" y="112" class="lbl">GND</text>
+<text x="220" y="22" class="lbl">(2e LED+R sur D10)</text>
+</svg></div><figcaption>LED clignotante sur D8 (+ R). 2e LED sur D10 (+ R). Bouton entre D2 et GND (INPUT_PULLUP).</figcaption></figure></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Deux choses « en même temps » → c'est l'intérêt de <code>millis()</code>. Bloc 1 : le patron millis fait clignoter D8. Bloc 2 : on lit le bouton et on recopie son état (niveau) sur D10. <code>delay()</code> serait impossible ici (il bloquerait le clignotement).</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED_CLIGNOTE 8
+#define LED_BOUTON   10
+#define BP           2
+unsigned long tPrecedent = 0;
+const unsigned long INTERVALLE = 500;
+bool etatClignote = LOW;
+
+void setup() {
+  pinMode(LED_CLIGNOTE, OUTPUT);
+  pinMode(LED_BOUTON, OUTPUT);
+  pinMode(BP, INPUT_PULLUP);
+}
+
+void loop() {
+  // 1) clignotement non bloquant
+  if (millis() - tPrecedent &gt;= INTERVALLE) {
+    tPrecedent = millis();
+    etatClignote = !etatClignote;
+    digitalWrite(LED_CLIGNOTE, etatClignote);
+  }
+  // 2) la 2e LED suit le bouton (appuyé = LOW)
+  bool appuye = (digitalRead(BP) == LOW);
+  digitalWrite(LED_BOUTON, appuye);
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>La 1ère LED clignote sans s'arrêter quand tu presses le bouton → preuve que c'est bien non bloquant.</li><li>Piège : si tu avais utilisé <code>delay(500)</code>, le bouton ne répondrait qu'une fois par seconde.</li></ul></div></details>
+</div>
+
+<!-- ===================== 3 ===================== -->
+<h2 class="sujet" id="e3">3 · Deux LED à des fréquences différentes</h2>
+<div class="exo"><span class="lab">Manip 5</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>LED 1 clignote à <strong>1 Hz</strong>, LED 2 à <strong>0,8 Hz</strong> (duty cycle 50 % chacune).</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p>2 LED indépendantes : <span class="key">D8 → R 220 Ω → LED1 → GND</span> et <span class="key">D10 → R 220 Ω → LED2 → GND</span> (même principe que l'exercice 1, deux fois).</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Le truc : <strong>deux chronomètres millis indépendants</strong> (un par LED), chacun avec sa demi-période.</p>
+<ul><li>1 Hz → période 1000 ms → bascule toutes les <strong>500 ms</strong>.</li><li>0,8 Hz → période 1/0,8 = 1250 ms → bascule toutes les <strong>625 ms</strong>.</li></ul>
+<p>(La demi-période = le temps entre deux basculements, car un cycle complet = allumé + éteint.)</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED1 8
+#define LED2 10
+unsigned long t1 = 0, t2 = 0;
+const unsigned long DEMI1 = 500;   // 1 Hz   → demi-période 500 ms
+const unsigned long DEMI2 = 625;   // 0,8 Hz → demi-période 625 ms
+bool e1 = LOW, e2 = LOW;
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+}
+
+void loop() {
+  if (millis() - t1 &gt;= DEMI1) { t1 = millis(); e1 = !e1; digitalWrite(LED1, e1); }
+  if (millis() - t2 &gt;= DEMI2) { t2 = millis(); e2 = !e2; digitalWrite(LED2, e2); }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Les 2 LED se décalent peu à peu (fréquences différentes) → normal.</li><li>Piège : utiliser une seule variable de temps pour les deux → elles seraient synchronisées.</li></ul></div></details>
+</div>
+
+<!-- ===================== 4 TELERUPTEUR ===================== -->
+<h2 class="sujet" id="e4">4 · ★ Le télérupteur</h2>
+<div class="exo"><span class="lab key">Manip 6 · cœur de l'examen</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Chaque <strong>appui</strong> sur le bouton <strong>change l'état</strong> de la LED (allumée ↔ éteinte) et elle y reste jusqu'au prochain appui. <strong>Une seule bascule par appui</strong>, et <strong>sans <code>delay()</code></strong>.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 380 150" width="380" height="150">
+<text x="6" y="34" class="pin">D8</text>
+<line x1="34" y1="38" x2="70" y2="38" class="wire"/>
+<path d="M70,38 h6 l4,-8 l8,16 l8,-16 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/><text x="80" y="22" class="lbl">220Ω</text>
+<line x1="130" y1="38" x2="170" y2="38" class="wire"/>
+<polygon points="170,30 170,46 190,38" class="fillk"/><line x1="190" y1="30" x2="190" y2="46" class="comp"/>
+<line x1="175" y1="26" x2="183" y2="18" class="comp"/><polygon points="183,18 178,19 181,22" class="fillk"/>
+<line x1="183" y1="26" x2="191" y2="18" class="comp"/><polygon points="191,18 186,19 189,22" class="fillk"/>
+<text x="172" y="62" class="lbl">LED</text>
+<line x1="190" y1="38" x2="300" y2="38" class="wire"/>
+<text x="6" y="104" class="pin">D2</text>
+<line x1="34" y1="108" x2="120" y2="108" class="wire"/>
+<line x1="120" y1="98" x2="120" y2="118" class="comp"/><line x1="140" y1="98" x2="140" y2="118" class="comp"/>
+<path d="M118,94 q12,-10 24,0" class="comp"/><text x="108" y="134" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="108" x2="300" y2="108" class="wire"/>
+<line x1="300" y1="38" x2="300" y2="108" class="wire"/>
+<line x1="288" y1="120" x2="312" y2="120" class="comp"/><line x1="292" y1="126" x2="308" y2="126" class="comp"/><line x1="296" y1="132" x2="304" y2="132" class="comp"/>
+<text x="318" y="112" class="lbl">GND</text>
+</svg></div><figcaption>LED sur D8 (+ R 220 Ω) → GND. Bouton entre D2 et GND (INPUT_PULLUP, pas de R externe).</figcaption></figure></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Trois difficultés à gérer :</p>
+<ol>
+<li><strong>Détecter un FRONT</strong>, pas un niveau : on ne bascule que lors du passage relâché→appuyé (sinon, tant qu'on tient, ça bascule en boucle).</li>
+<li><strong>L'anti-rebond</strong> : on n'accepte le changement de niveau que s'il est stable depuis ~30 ms (le bouton « grésille » à la fermeture).</li>
+<li><strong>Pas de <code>delay()</code></strong> → on mesure le temps avec <code>millis()</code>.</li>
+</ol>
+<p>Méthode : on suit le niveau brut ; dès qu'il bouge, on (re)lance un chrono. Si le niveau est resté stable assez longtemps <em>et</em> qu'il est différent du dernier niveau confirmé, c'est un vrai changement → si c'est un appui (LOW), on bascule la LED.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED 8
+#define BP  2
+const unsigned long ANTIREBOND = 30;   // ms
+
+bool etatLED = LOW;
+bool dernierNiveau = HIGH;   // PULLUP : relâché = HIGH
+bool niveauStable = HIGH;
+unsigned long tChangement = 0;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool niveau = digitalRead(BP);
+
+  // le niveau brut a bougé → on (re)lance le chrono anti-rebond
+  if (niveau != dernierNiveau) {
+    tChangement = millis();
+    dernierNiveau = niveau;
+  }
+
+  // stable depuis assez longtemps ET réellement différent du dernier état confirmé
+  if (millis() - tChangement &gt; ANTIREBOND &amp;&amp; niveau != niveauStable) {
+    niveauStable = niveau;
+    if (niveauStable == LOW) {     // front d'appui confirmé
+      etatLED = !etatLED;          // ← on bascule UNE fois
+      digitalWrite(LED, etatLED);
+    }
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Un appui = un seul changement, même si tu gardes le doigt → c'est le but.</li><li>Si la LED « saute » parfois 2 états : augmente <code>ANTIREBOND</code> (40-50 ms).</li><li>Piège classique : tester le niveau (<code>if (digitalRead(BP)==LOW) etat=!etat;</code>) → ça bascule des centaines de fois par appui. Il <strong>faut</strong> le front.</li></ul></div></details>
+</div>
+
+<!-- ===================== 5 ===================== -->
+<h2 class="sujet" id="e5">5 · Piloter une LED avec un potentiomètre</h2>
+<div class="exo"><span class="lab">Manip 7</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Régler la <strong>luminosité</strong> d'une LED avec un potentiomètre : du min au max, la luminosité varie <strong>sans interruption</strong>.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 320 170" width="320" height="170">
+<text x="6" y="24" class="lbl">5V</text><line x1="30" y1="20" x2="120" y2="20" class="wire"/>
+<line x1="120" y1="20" x2="120" y2="48" class="wire"/>
+<rect x="104" y="48" width="32" height="50" class="comp"/><text x="142" y="60" class="lbl">pot.</text>
+<line x1="120" y1="98" x2="120" y2="128" class="wire"/>
+<line x1="136" y1="73" x2="170" y2="73" class="comp"/><polygon points="136,73 144,69 144,77" class="fillk"/>
+<text x="174" y="68" class="pin">A0</text><line x1="170" y1="73" x2="210" y2="73" class="wire"/>
+<line x1="104" y1="128" x2="136" y2="128" class="comp"/><line x1="110" y1="134" x2="130" y2="134" class="comp"/><line x1="115" y1="140" x2="125" y2="140" class="comp"/>
+<text x="138" y="132" class="lbl">GND</text>
+<text x="220" y="120" class="pin">D9 (~)</text><line x1="220" y1="124" x2="250" y2="124" class="wire"/>
+<path d="M250,124 h6 l4,-8 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/>
+<line x1="295" y1="124" x2="305" y2="124" class="wire"/><text x="252" y="150" class="lbl">→ LED + R → GND</text>
+</svg></div><figcaption>Potentiomètre : bornes extrêmes sur 5 V et GND, curseur sur A0. LED (+R) sur une broche PWM (~), ex. D9.</figcaption></figure></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>On <strong>lit l'analogique</strong> (0 → 1023) et on le <strong>convertit</strong> en valeur PWM (0 → 255) avec <code>map</code>, qu'on envoie sur la LED avec <code>analogWrite</code>. La broche doit être marquée <code>~</code> (PWM).</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED 9        // broche PWM (~)
+
+void setup() {
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  int valeur = analogRead(A0);              // 0 → 1023
+  int pwm = map(valeur, 0, 1023, 0, 255);   // converti en 0 → 255
+  analogWrite(LED, pwm);                     // luminosité
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Tourne le potentiomètre : la LED varie en douceur.</li><li>Piège : choisir une broche <strong>non</strong> PWM (sans <code>~</code>) → <code>analogWrite</code> ne fera qu'allumer/éteindre.</li><li><code>analogRead</code> va jusqu'à 1023, <code>analogWrite</code> jusqu'à 255 : ne pas confondre les deux échelles.</li></ul></div></details>
+</div>
+
+<!-- ===================== 6 DIMMER ===================== -->
+<h2 class="sujet" id="e6">6 · Le dimmer (appui maintenu)</h2>
+<div class="exo"><span class="lab">Manip 8 · dépassement</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Un <strong>appui prolongé</strong> sur le bouton fait <strong>varier la luminosité</strong> de la LED (PWM), et le <strong>sens s'inverse</strong> à chaque nouvel appui. La valeur s'arrête au max (255) ou au min (0).</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p><span class="key">D11 (~) → R 220 Ω → LED → GND</span> et <span class="key">bouton entre D3 et GND</span> (INPUT_PULLUP). La LED doit être sur une broche PWM (<code>~</code>).</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Tant que le bouton est <strong>maintenu</strong>, on fait évoluer une variable <code>luminosite</code> par petits pas, à cadence régulière (patron millis). On la <strong>borne</strong> entre 0 et 255 (<code>constrain</code>). Au <strong>relâchement</strong> (front montant), on inverse le sens — une seule fois.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED 11       // broche PWM
+#define BP  3
+int luminosite = 0;
+bool sensMontant = true;
+bool dernierAppuye = false;
+unsigned long tPrecedent = 0;
+const unsigned long PAS = 20;   // ms entre deux pas
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  pinMode(BP, INPUT_PULLUP);
+}
+
+void loop() {
+  bool appuye = (digitalRead(BP) == LOW);
+
+  if (appuye) {                              // tant qu'on maintient
+    if (millis() - tPrecedent &gt;= PAS) {
+      tPrecedent = millis();
+      luminosite += (sensMontant ? 5 : -5);  // monte ou descend
+      luminosite = constrain(luminosite, 0, 255);  // borne 0..255
+      analogWrite(LED, luminosite);
+    }
+  }
+
+  if (dernierAppuye &amp;&amp; !appuye) {   // front de relâchement
+    sensMontant = !sensMontant;     // inverse le sens pour la prochaine fois
+  }
+  dernierAppuye = appuye;
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Maintiens : ça monte ; relâche, re-maintiens : ça descend.</li><li>Piège (présent dans le code original du labo) : inverser le sens dans un <code>else</code> sans front → il s'inverse des milliers de fois/seconde et le sens devient aléatoire. Il faut le <strong>front</strong> de relâchement.</li></ul></div></details>
+</div>
+
+<!-- ===================== 7 ===================== -->
+<h2 class="sujet" id="e7">7 · Compter les secondes d'appui</h2>
+<div class="exo"><span class="lab">Comm · ex. 1</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Lors de l'appui sur un bouton, <strong>compter et afficher</strong> (moniteur série) le nombre de <strong>secondes écoulées</strong> tant que le bouton est enfoncé.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP). Ouvre le <strong>moniteur série</strong> (9600 bauds).</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Au <strong>front d'appui</strong>, on note l'heure de départ. Ensuite, tant qu'on appuie, on affiche un compteur qui augmente <strong>toutes les secondes</strong> (encore le patron millis, avec 1000 ms). C'est la base de toute <strong>mesure de durée</strong> → réutilisée pour l'appui long de l'examen.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define BP 5
+unsigned long tDebut = 0;
+unsigned long tDernierAffichage = 0;
+bool dernierAppuye = false;
+
+void setup() {
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool appuye = (digitalRead(BP) == LOW);
+
+  if (appuye &amp;&amp; !dernierAppuye) {     // front d'appui → départ du chrono
+    tDebut = millis();
+    tDernierAffichage = millis();
+  }
+
+  if (appuye) {                       // tant qu'on appuie, 1 affichage/seconde
+    if (millis() - tDernierAffichage &gt;= 1000) {
+      tDernierAffichage += 1000;
+      unsigned long secondes = (millis() - tDebut) / 1000;
+      Serial.println(secondes);
+    }
+  }
+
+  dernierAppuye = appuye;
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Maintiens : le moniteur affiche 1, 2, 3… une fois par seconde.</li><li>Piège (code original) : faire <code>(tempsAppuye - tempsRelache)/1000</code> en continu donne n'importe quoi. Il faut mémoriser l'instant de départ <strong>au front</strong>.</li></ul></div></details>
+</div>
+
+<!-- ===================== 8 ===================== -->
+<h2 class="sujet" id="e8">8 · Afficher les lettres a → z</h2>
+<div class="exo"><span class="lab">Comm · ex. 2</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>À l'appui sur le bouton, afficher les <strong>26 lettres</strong> de l'alphabet (200 ms entre chaque). Si le bouton est toujours tenu après le z, ça recommence. <em>Indice : type <code>char</code> + code ASCII.</em></div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP) + moniteur série.</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>Un <code>char</code> est en réalité un <strong>nombre</strong> (code ASCII) : <code>'a'</code> vaut 97, <code>'z'</code> vaut 122. On peut donc faire <code>lettre++</code> pour passer à la suivante. Tant que le bouton est tenu, on affiche une lettre toutes les 200 ms (patron millis), et après <code>'z'</code> on revient à <code>'a'</code>.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define BP 5
+char lettre = 'a';                 // 'a' = 97 en ASCII
+unsigned long tPrecedent = 0;
+const unsigned long DELAI = 200;
+
+void setup() {
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (digitalRead(BP) == LOW) {              // bouton maintenu
+    if (millis() - tPrecedent &gt;= DELAI) {
+      tPrecedent = millis();
+      Serial.println(lettre);
+      lettre++;                              // lettre suivante
+      if (lettre &gt; 'z') { lettre = 'a'; }    // après z → retour à a
+    }
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Maintiens : a, b, c… z, puis ça reboucle.</li><li>Piège : déclarer <code>lettre</code> en <code>int</code> afficherait <strong>97, 98…</strong> au lieu des lettres. Le type <code>char</code> est essentiel pour l'affichage en lettre.</li></ul></div></details>
+</div>
+
+<!-- ===================== 9 ===================== -->
+<h2 class="sujet" id="e9">9 · Afficher la luminosité d'une photorésistance</h2>
+<div class="exo"><span class="lab">Comm · ex. 3</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Afficher <strong>en continu</strong> la luminosité perçue par une photorésistance (lecture analogique), en %.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 300 170" width="300" height="170">
+<text x="6" y="24" class="lbl">5V</text><line x1="30" y1="20" x2="120" y2="20" class="wire"/>
+<line x1="120" y1="20" x2="120" y2="40" class="wire"/>
+<path d="M120,40 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="62" class="lbl">LDR</text>
+<line x1="120" y1="84" x2="120" y2="100" class="wire"/>
+<circle cx="120" cy="100" r="3" class="fillk"/>
+<line x1="120" y1="100" x2="190" y2="100" class="wire"/><text x="194" y="96" class="pin">A0</text>
+<line x1="120" y1="100" x2="120" y2="116" class="wire"/>
+<path d="M120,116 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="140" class="lbl">R</text>
+<line x1="120" y1="160" x2="120" y2="166" class="wire"/>
+<line x1="108" y1="166" x2="132" y2="166" class="comp"/><line x1="112" y1="171" x2="128" y2="171" class="comp"/>
+<text x="138" y="168" class="lbl">GND</text>
+</svg></div><figcaption>Pont diviseur : 5 V → LDR → (nœud A0) → R → GND. La tension sur A0 dépend de la lumière.</figcaption></figure></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>La photorésistance + R forment un <strong>pont diviseur</strong> : la tension sur A0 change avec la lumière. On lit <code>analogRead(A0)</code> et on convertit en % avec <code>map</code>. Affichage cadencé (patron millis) pour ne pas inonder le moniteur.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>unsigned long tPrecedent = 0;
+const unsigned long INTERVALLE = 500;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (millis() - tPrecedent &gt;= INTERVALLE) {
+    tPrecedent = millis();
+    int valeur = analogRead(A0);              // 0 → 1023
+    int pourcent = map(valeur, 0, 1023, 0, 100);
+    Serial.print(pourcent);
+    Serial.println(" %");
+  }
+}</code></pre>
+<p class="key">Selon le branchement (LDR en haut ou en bas du pont), plus de lumière peut donner une valeur plus petite. Si c'est inversé, échange les bornes : <code>map(valeur, 1023, 0, 0, 100)</code>.</p></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Couvre la photorésistance avec la main : le % doit bouger nettement.</li><li>Si le % bouge « à l'envers », inverse le <code>map</code> (voir ci-dessus).</li></ul></div></details>
+</div>
+
+<!-- ===================== 10 ===================== -->
+<h2 class="sujet" id="e10">10 · Allumer une LED par « ON » / « OFF »</h2>
+<div class="exo"><span class="lab">Comm · ex. 4</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Allumer une LED quand on envoie <strong>« ON »</strong> dans le moniteur série, l'éteindre avec <strong>« OFF »</strong>.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p><span class="key">D8 → R 220 Ω → LED → GND</span>. Moniteur série ouvert (9600), avec le champ de saisie en haut.</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>On <strong>reçoit</strong> du texte : <code>Serial.available()</code> dit s'il y a quelque chose, <code>Serial.readString()</code> lit tout le message. <code>.trim()</code> enlève les espaces / retours à la ligne parasites. On compare ensuite la chaîne reçue à <code>"ON"</code> / <code>"OFF"</code>.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED 8
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {          // un message est arrivé ?
+    String msg = Serial.readString();    // on lit tout
+    msg.trim();                          // enlève espaces / \n
+    if (msg == "ON")  { digitalWrite(LED, HIGH); }
+    if (msg == "OFF") { digitalWrite(LED, LOW); }
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Tape <code>ON</code> puis Entrée → LED allumée ; <code>OFF</code> → éteinte.</li><li>Piège : sans <code>.trim()</code>, le message peut contenir un retour à la ligne et ne jamais être égal à <code>"ON"</code>.</li><li>La comparaison est sensible à la casse : <code>on</code> ≠ <code>ON</code>.</li></ul></div></details>
+</div>
+
+<!-- ===================== 11 ===================== -->
+<h2 class="sujet" id="e11">11 · Photorésistance sur requête « Lumi »</h2>
+<div class="exo"><span class="lab">Comm · ex. 5</span>
+<div class="enonce"><span class="tag">Cahier des charges</span>Comme l'exercice 9, mais <strong>plus en continu</strong> : la luminosité n'est affichée que lorsqu'on envoie le message <strong>« Lumi »</strong> dans le moniteur.</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p>Même pont diviseur que l'exercice 9 (5 V → LDR → A0 → R → GND) + moniteur série.</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>On combine l'exercice 9 (lecture analogique) et l'exercice 10 (réception série) : <strong>seulement quand</strong> on reçoit « Lumi », on lit A0 et on affiche le %. C'est un système <strong>question → réponse</strong>.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() &gt; 0) {
+    String msg = Serial.readString();
+    msg.trim();
+    if (msg == "Lumi") {                        // requête reçue
+      int valeur = analogRead(A0);
+      int pourcent = map(valeur, 0, 1023, 0, 100);
+      Serial.print(pourcent);
+      Serial.println(" %");
+    }
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Rien ne s'affiche tant que tu n'envoies pas <code>Lumi</code> → une mesure par requête.</li><li>Même piège du <code>.trim()</code> et de la casse qu'à l'exercice 10.</li></ul></div></details>
+</div>
+
+<!-- ===================== EXAM ===================== -->
+<h2 class="sujet" id="exam">🎯 Capstone — l'examen complet</h2>
+<div class="exo"><span class="lab key">Examen type · /20</span>
+<div class="enonce"><span class="tag">Énoncé (assemblage de tout)</span>
+<strong>1.</strong> Circuit LED + résistance sur le 5 V Arduino (choisir R pour ne pas griller la LED), mesurer U aux bornes de R au multimètre.<br>
+<strong>2.</strong> Programme <strong>télérupteur</strong> : chaque appui change l'état de la LED.<br>
+<strong>3.</strong> Ajouter une 2e LED (autre couleur) : un <strong>appui long (&gt; 2 s)</strong> fait clignoter les 2 LED à <strong>0,6 Hz</strong>.<br>
+<strong>4.</strong> Afficher dans la console le <strong>type d'appui</strong> (bref / long) et la <strong>période de clignotement mesurée</strong> (en s).</div>
+<details><summary class="s-cab">🔌 Le câblage</summary>
+<div class="ans"><p><span class="key">LED1 → D8 (+ R 220 Ω) → GND</span> · <span class="key">LED2 (autre couleur) → D10 (+ R 220 Ω) → GND</span> · <span class="key">bouton entre D2 et GND</span> (INPUT_PULLUP).</p>
+<p><strong>Question 1 (calcul R) :</strong> R = (5 − V<sub>LED</sub>) / I = (5 − 2) / 0,02 = <strong>150 Ω</strong> minimum (220 Ω = valeur sûre). Au multimètre, U aux bornes de R ≈ 5 − 2 = <strong>3 V</strong>.</p></div></details>
+<details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
+<div class="ans"><p>On assemble 3 briques déjà vues :</p>
+<ul>
+<li><strong>Télérupteur anti-rebond</strong> (exercice 4) pour détecter les fronts proprement.</li>
+<li><strong>Mesure de durée</strong> (exercice 7) : entre le front d'appui et le relâchement → si &lt; 2 s = bref, sinon = long.</li>
+<li><strong>Clignotement millis multi-LED</strong> (exercices 1-3) : 0,6 Hz → période 1/0,6 ≈ 1667 ms → bascule toutes les <strong>833 ms</strong>.</li>
+</ul>
+<p>Choix de comportement (à adapter selon la consigne du jour) : <strong>appui bref</strong> → bascule LED1 (télérupteur) et sort du mode clignotant ; <strong>appui long</strong> → les 2 LED clignotent. La période réelle est mesurée entre deux basculements (× 2 = période complète) et affichée.</p></div></details>
+<details><summary class="s-code">💻 Le code commenté</summary>
+<div class="ans"><pre><code>#define LED1 8
+#define LED2 10
+#define BP   2
+
+const unsigned long ANTIREBOND   = 30;     // ms
+const unsigned long SEUIL_LONG   = 2000;   // 2 s
+const unsigned long DEMI_PERIODE = 833;    // 0,6 Hz → T≈1667 ms → demi 833 ms
+
+bool etatLED1 = LOW;
+bool modeClignotant = false;
+
+// --- anti-rebond + fronts ---
+bool dernierNiveau = HIGH, niveauStable = HIGH;
+unsigned long tChangement = 0;
+unsigned long tAppui = 0;        // instant du front d'appui
+
+// --- clignotement + mesure de période ---
+bool etatClignote = LOW;
+unsigned long tClignote = 0;
+unsigned long tDernierFront = 0;
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(BP, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // ===== anti-rebond + détection des fronts =====
+  bool niveau = digitalRead(BP);
+  if (niveau != dernierNiveau) { tChangement = millis(); dernierNiveau = niveau; }
+
+  if (millis() - tChangement &gt; ANTIREBOND &amp;&amp; niveau != niveauStable) {
+    niveauStable = niveau;
+    if (niveauStable == LOW) {              // --- front d'appui ---
+      tAppui = millis();
+    } else {                               // --- front de relâchement → on classe ---
+      unsigned long duree = millis() - tAppui;
+      if (duree &gt;= SEUIL_LONG) {
+        Serial.println("Appui long");
+        modeClignotant = true;             // les 2 LED vont clignoter
+        tClignote = millis();
+        tDernierFront = millis();
+      } else {
+        Serial.println("Appui bref");
+        modeClignotant = false;            // retour en mode telerupteur
+        etatLED1 = !etatLED1;              // bascule LED1
+        digitalWrite(LED1, etatLED1);
+        digitalWrite(LED2, LOW);
+      }
+    }
+  }
+
+  // ===== mode clignotant : 2 LED a 0,6 Hz =====
+  if (modeClignotant) {
+    if (millis() - tClignote &gt;= DEMI_PERIODE) {
+      tClignote = millis();
+      etatClignote = !etatClignote;
+      digitalWrite(LED1, etatClignote);
+      digitalWrite(LED2, etatClignote);
+
+      // periode reelle = 2 x (temps entre deux basculements)
+      unsigned long periode = (millis() - tDernierFront) * 2;
+      tDernierFront = millis();
+      Serial.print("Periode mesuree : ");
+      Serial.print(periode / 1000.0);
+      Serial.println(" s");
+    }
+  }
+}</code></pre></div></details>
+<details><summary class="s-test">✅ À tester / pièges</summary>
+<div class="ans"><ul><li>Appui bref → LED1 bascule, le moniteur affiche « Appui bref ».</li><li>Appui &gt; 2 s → les 2 LED clignotent, le moniteur affiche « Appui long » puis « Periode mesuree : 1.67 s » (≈ 0,6 Hz). ✓</li><li>Adapte le comportement si la consigne diffère (ex. le clignotement démarre <em>pendant</em> l'appui long, ou un 2e appui arrête le clignotement).</li><li>C'est l'exercice qui combine tout : <strong>maîtrise d'abord le télérupteur (4) et la mesure de durée (7)</strong>, le reste s'assemble.</li></ul></div></details>
+</div>
+
+<div class="box tip" style="margin-top:40px"><span class="tag">🏁 Stratégie d'examen</span>
+L'examen peut tomber sur n'importe quelle manip. Ordre de priorité pour t'entraîner <strong>en réel</strong> : <strong>(4) télérupteur</strong> → <strong>(7) mesure de durée</strong> → clignotement multi-LED (1-3) → l'assemblage (capstone) → l'analogique (5, 9) → la série (8, 10, 11). Si tu sais reconstruire le télérupteur et le patron <code>millis()</code> de tête, tu tiens 80 % de l'examen.</div>
+
+</main>
+</div>
+</body>
+</html>
