@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prépa examen labo — méthode + manips type</title>
+<link rel="stylesheet" href="lib/atom-one-dark.min.css">
+<script src="lib/highlight.min.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('pre code').forEach(function(el){el.classList.add('language-cpp');});if(window.hljs){hljs.highlightAll();}});</script>
+<style>
+:root{--bg:#0f1320;--panel:#161c2d;--card:#1b2235;--ink:#e8ecf4;--muted:#9aa6c0;--accent:#4cc9f0;--accent2:#7bdff2;--gold:#ffd166;--green:#06d6a0;--red:#ef476f;--violet:#b794f6;--line:#2a3450;--code:#0c1322}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+.layout{display:flex;align-items:flex-start}
+nav.toc{position:sticky;top:0;height:100vh;overflow-y:auto;min-width:260px;max-width:260px;background:var(--panel);border-right:1px solid var(--line);padding:18px 14px}
+nav.toc a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:4px 8px;border-radius:6px;border-left:2px solid transparent}
+nav.toc a:hover{color:var(--ink);background:#1f2740;border-left-color:var(--accent)}
+nav.toc a.sub{padding-left:20px;font-size:12.5px}
+nav.toc .home{color:var(--gold);font-weight:600;margin-bottom:8px}
+nav.toc h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin:14px 0 6px}
+main{flex:1;max-width:880px;margin:0 auto;padding:30px 38px 120px}
+h1{font-size:27px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+h2.sujet{font-size:20px;margin:46px 0 8px;padding:9px 15px;background:linear-gradient(90deg,#1d2740,#161c2d);border-radius:10px;border:1px solid var(--line);color:var(--accent)}
+h3.step{font-size:16.5px;margin:24px 0 6px;color:var(--accent2);border-bottom:1px solid var(--line);padding-bottom:5px}
+h3.step .n{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;background:var(--accent);color:#04121f;border-radius:50%;font-size:13px;font-weight:800;margin-right:9px;vertical-align:middle}
+.enonce{background:#10243a;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:11px 16px;margin:8px 0}
+.enonce .tag{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:4px}
+.lab{display:inline-block;background:var(--accent);color:#04121f;font-weight:800;border-radius:7px;padding:1px 10px;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.lab.key{background:var(--gold)}
+details{background:var(--card);border:1px solid var(--line);border-radius:9px;margin:8px 0;overflow:hidden}
+summary{cursor:pointer;padding:10px 15px;font-weight:600;color:var(--accent2);list-style:none;position:relative;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";color:var(--accent);margin-right:9px;display:inline-block;transition:transform .15s}
+details[open] summary{border-bottom:1px solid var(--line)}
+details[open] summary::before{transform:rotate(90deg)}
+summary:hover{background:#1f2740}
+summary.s-var{color:var(--gold)}summary.s-var::before{color:var(--gold)}
+summary.s-piege{color:var(--red)}summary.s-piege::before{color:var(--red)}
+.ans{padding:10px 16px 14px}
+.ans p{margin:7px 0}
+ul,ol{margin:6px 0;padding-left:22px}li{margin:5px 0}
+strong{color:#fff}
+code{background:var(--code);padding:2px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13.5px;color:var(--gold)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55}
+pre code{background:none;padding:0;color:#d6e2ff}
+pre code.hljs{background:transparent;padding:0}
+.key{color:var(--green);font-weight:700}
+.box{border-radius:10px;padding:11px 16px;margin:12px 0;border:1px solid var(--line)}
+.def{background:#1b2235;border-left:4px solid var(--gold)}.def .tag{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase}
+.tip{background:#0f2a22;border-left:4px solid var(--green)}.tip .tag{color:var(--green);font-weight:700;font-size:12px;text-transform:uppercase}
+.warning{background:#2a1622;border-left:4px solid var(--red)}.warning .tag{color:var(--red);font-weight:700;font-size:12px;text-transform:uppercase}
+.check{list-style:none;padding-left:4px}.check li{margin:6px 0}.check li::before{content:"☐ ";color:var(--accent);font-weight:700}
+.calc{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;font-family:Consolas,monospace;font-size:13.5px;line-height:1.9;color:#d6e2ff;overflow-x:auto;white-space:pre-wrap;tab-size:2}
+.calc .r{color:var(--gold);font-weight:700}
+.calc .c{color:#6b7a99}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#222c45;color:var(--accent2)}
+.chain{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:12px 0}
+.chain .b{background:#10243a;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px;color:var(--accent2);font-weight:600}
+.chain .a{color:var(--accent);font-weight:800}
+figure{margin:10px 0;text-align:center}
+.svgwrap{background:#f7fafc;border-radius:12px;padding:10px;display:inline-block;border:1px solid var(--line);max-width:100%}
+figcaption{color:var(--muted);font-size:12.5px;margin-top:6px}
+text.lbl{font-family:Consolas,monospace;font-size:12px;fill:#1a2233}
+text.pin{font-family:Consolas,monospace;font-size:12px;fill:#0a6;font-weight:bold}
+text.val{font-family:Consolas,monospace;font-size:11.5px;fill:#0a6;font-weight:bold}
+.wire{stroke:#1a2233;stroke-width:2;fill:none}.comp{stroke:#1a2233;stroke-width:2;fill:none}.fillk{fill:#1a2233}
+a.top{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#04121f;border-radius:50%;width:46px;height:46px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+@media(max-width:900px){nav.toc{display:none}main{padding:20px}}
+@media print{nav.toc,a.top{display:none}body{background:#fff;color:#000;font-size:12px}.svgwrap{background:#fff}pre{background:#f4f4f4;color:#000}details{break-inside:avoid}.ans{display:block!important}}
+</style>
+</head>
+<body>
+<a href="#top" class="top">↑</a>
+<div class="layout">
+<nav class="toc">
+<a class="home" href="index.html">← Accueil</a>
+<a href="#contexte">📌 Contexte & méthode</a>
+<a href="#regles">📋 Format & règles</a>
+<h2>Exercice 1 — Élec</h2>
+<a href="#e1">Pont + transistor + 3 LED</a>
+<a class="sub" href="#e1-enonce">0 · Énoncé déduit</a>
+<a class="sub" href="#e1-mat">1 · Matériel</a>
+<a class="sub" href="#e1-chaine">2 · La chaîne</a>
+<a class="sub" href="#e1-redress">3 · Redressement</a>
+<a class="sub" href="#e1-leds">4 · Résistances LED</a>
+<a class="sub" href="#e1-condo">5 · Condensateur</a>
+<a class="sub" href="#e1-transistor">6 · Transistor + R_B</a>
+<a class="sub" href="#e1-cablage">7 · Câblage complet</a>
+<a class="sub" href="#e1-test">8 · Test & mesures</a>
+<a class="sub" href="#e1-variantes">🔀 Variantes & pièges</a>
+<h2>Exercice 2 — Arduino</h2>
+<a href="#e2">Fréquence par potentiomètre</a>
+<a class="sub" href="#e2-enonce">0 · Énoncé déduit</a>
+<a class="sub" href="#e2-mat">1 · Matériel & câblage</a>
+<a class="sub" href="#e2-logique">2 · La logique</a>
+<a class="sub" href="#e2-code">3 · Le code</a>
+<a class="sub" href="#e2-test">4 · Test & variantes</a>
+<a class="sub" href="#e2-autre">🔀 Autre scénario : télérupteur</a>
+<h2>Avant de rendre</h2>
+<a href="#checklist">✅ Checklist</a>
+<a href="#depannage">🔧 Dépannage</a>
+<h2>Annexe</h2>
+<a href="#formules">📐 Formules réutilisables</a>
+</nav>
+<main id="top">
+<h1>🎓 Prépa examen labo — méthode + 2 manips type</h1>
+<p class="sub">Objectif : être <strong>autonome</strong>. On te donne une consigne → tu déduis, tu dimensionnes, tu câbles, tu testes. Sans solution toute prête.</p>
+
+<div class="box warning" id="contexte"><span class="tag">⚠️ D'où viennent ces 2 exercices</span>
+Ce sont les <strong>2 exercices tombés à l'examen de labo</strong> (infos rapportées : « un circuit pont de diodes + transistor avec 3 LED à allumer », et « avec Arduino, faire clignoter une LED en changeant la fréquence avec un potentiomètre »). On <strong>n'a pas l'énoncé officiel exact ni les consignes</strong> : on les <strong>déduit</strong> en croisant les labos, l'examen-type et ces infos. Le but n'est pas d'apprendre une réponse par cœur, mais de savoir traiter <strong>toute variante</strong> du même genre.</div>
+
+<h2 class="sujet" id="regles">📋 Format & règles de l'examen labo</h2>
+<div class="box warning"><span class="tag">⚠️ Conditions (lis-les !)</span>
+<ul>
+<li><strong>2 h</strong> (évaluation comprise). Tu seras <strong>interrogé à l'oral</strong> sur ton circuit / ton programme.</li>
+<li><strong>Document autorisé</strong> (ces fiches !). <strong>Pas</strong> d'Internet, pas de Moodle, pas de GSM / montre connectée.</li>
+<li>Si <strong>rien ne fonctionne</strong> à la fin → note max = <strong>4/20</strong>.</li>
+<li><strong>−6 points (cumulatifs)</strong> en cas de dégradation de matériel (LED grillée, multimètre…) ou de sabotage.</li>
+<li>Triche → 0 + convocation.</li>
+</ul></div>
+<div class="box tip"><span class="tag">💡 Stratégie</span>
+Fais les questions <strong>dans l'ordre</strong> et <strong>teste après chaque étape</strong> : un montage ou un programme partiel qui marche vaut mieux qu'un tout qui plante. <strong>Câble propre, alim coupée, vérifie 2× avant d'alimenter.</strong></div>
+
+<div class="box def"><span class="tag">🧭 Méthode générale (à appliquer à n'importe quel énoncé de labo)</span>
+<ol>
+<li><strong>Lire / déduire la consigne</strong> : qu'est-ce qui est imposé (tension, fréquence, nombre de LED…) et qu'est-ce qu'on doit <strong>calculer</strong> ?</li>
+<li><strong>Lister le matériel</strong> et faire un <strong>schéma blocs</strong> (la « chaîne »).</li>
+<li><strong>Dimensionner</strong> (les résistances, le condensateur, R<sub>B</sub>…) <em>avant</em> de câbler.</li>
+<li><strong>Câbler</strong> alim éteinte, vérifier le sens des composants polarisés (LED, condensateur, transistor).</li>
+<li><strong>Coder</strong> (si Arduino), par petites étapes testées.</li>
+<li><strong>Tester & mesurer</strong> (multimètre / oscillo / moniteur série) et <strong>comparer aux calculs</strong>.</li>
+</ol></div>
+
+<!-- ===================================================================== -->
+<!-- EXERCICE 1 -->
+<!-- ===================================================================== -->
+<h2 class="sujet" id="e1">Exercice 1 · Pont de diodes + transistor pour allumer 3 LED</h2>
+<span class="lab key">Élec · croise les labos 3 (LED), 4 (alim) et 5 (transistor)</span>
+
+<h3 class="step" id="e1-enonce"><span class="n">0</span>L'énoncé probable (déduit)</h3>
+<div class="enonce"><span class="tag">Reconstitution</span>
+« À partir d'une <strong>tension alternative</strong> (secondaire d'un transformateur), réaliser une <strong>alimentation continue</strong> à l'aide d'un <strong>pont de diodes</strong> (4 diodes) suivi d'un <strong>condensateur de filtrage</strong>. Cette tension alimente <strong>3 LED</strong> commandées par un <strong>transistor NPN</strong> fonctionnant en interrupteur (un bouton — ou un signal — sur la base allume les 3 LED). <strong>Calculer</strong> : les résistances série des LED, le condensateur de filtrage et la résistance de base. »</div>
+<div class="box tip"><span class="tag">Ce qu'on doit calculer nous-mêmes</span> ① la tension continue obtenue, ② la <strong>résistance de chaque LED</strong>, ③ le <strong>condensateur</strong> de filtrage, ④ la <strong>résistance de base R<sub>B</sub></strong> (pour saturer). On prendra un exemple chiffré ; la <em>méthode</em> reste la même avec d'autres valeurs.</div>
+
+<h3 class="step" id="e1-mat"><span class="n">1</span>Le matériel</h3>
+<ul>
+<li>Une <strong>source alternative</strong> : secondaire de transfo, ou sortie AC de l'alim de labo / GBF (on supposera <strong>9 V efficaces</strong> en exemple).</li>
+<li><strong>4 diodes</strong> (1N4007 typiques) pour le pont — ou un pont moulé tout fait.</li>
+<li>Un <strong>condensateur chimique</strong> (polarisé) de filtrage — on calculera sa valeur (~1000 µF).</li>
+<li><strong>3 LED</strong> + <strong>3 résistances</strong> (on calculera, ~470 Ω).</li>
+<li>Un <strong>transistor NPN</strong> (BC547, 2N2222…), β ≈ 100.</li>
+<li>Une <strong>résistance de base</strong> R<sub>B</sub> (on calculera, ~4,7 kΩ) + un <strong>bouton poussoir</strong> (ou un fil vers un signal de commande).</li>
+<li>Multimètre, oscilloscope, breadboard, câbles.</li>
+</ul>
+
+<h3 class="step" id="e1-chaine"><span class="n">2</span>La chaîne complète (vue d'ensemble)</h3>
+<div class="chain">
+<span class="b">~ AC (9 V eff)</span><span class="a">→</span>
+<span class="b">Pont de Graetz<br>(4 diodes)</span><span class="a">→</span>
+<span class="b">Condensateur<br>(filtrage)</span><span class="a">→</span>
+<span class="b">+11 V continu</span><span class="a">→</span>
+<span class="b">3 LED + R</span><span class="a">→</span>
+<span class="b">Transistor NPN<br>(interrupteur)</span><span class="a">→</span>
+<span class="b">GND</span>
+</div>
+<p>On traite la chaîne de gauche à droite : d'abord <strong>fabriquer le continu</strong>, ensuite <strong>commander la charge</strong>.</p>
+
+<h3 class="step" id="e1-redress"><span class="n">3</span>Le redressement (pont de Graetz) + calcul de la tension</h3>
+<figure><div class="svgwrap"><svg viewBox="0 0 340 230" width="340" height="230">
+<defs><g id="zd"><polygon points="-5,-7 -5,7 6,0" class="fillk"/><line x1="6" y1="-7" x2="6" y2="7" class="comp"/></g></defs>
+<line x1="80" y1="115" x2="160" y2="45" class="wire"/>
+<line x1="240" y1="115" x2="160" y2="45" class="wire"/>
+<line x1="160" y1="185" x2="80" y2="115" class="wire"/>
+<line x1="160" y1="185" x2="240" y2="115" class="wire"/>
+<use href="#zd" transform="translate(120,80) rotate(-41)"/>
+<use href="#zd" transform="translate(200,80) rotate(-139)"/>
+<use href="#zd" transform="translate(120,150) rotate(-139)"/>
+<use href="#zd" transform="translate(200,150) rotate(-41)"/>
+<line x1="160" y1="45" x2="160" y2="20" class="wire"/><text x="166" y="24" class="val">+ (sortie)</text>
+<line x1="160" y1="185" x2="160" y2="210" class="wire"/><text x="166" y="208" class="val">−</text>
+<line x1="80" y1="115" x2="40" y2="115" class="wire"/><text x="20" y="111" class="lbl">~</text>
+<line x1="240" y1="115" x2="290" y2="115" class="wire"/><text x="296" y="111" class="lbl">~</text>
+<text x="92" y="74" class="lbl">D1</text><text x="214" y="74" class="lbl">D2</text>
+<text x="86" y="160" class="lbl">D4</text><text x="214" y="160" class="lbl">D3</text>
+<text x="108" y="118" class="lbl">entrée AC</text>
+</svg></div><figcaption>Pont de Graetz : l'AC entre par les 2 bornes latérales, 2 diodes conduisent à chaque alternance, le courant ressort toujours vers le + en haut.</figcaption></figure>
+<div class="calc"><span class="c">// 1) tension de crête à l'entrée (eff → crête)</span>
+V_crête = V_eff × √2 = 9 × 1,414 = <span class="r">12,7 V</span>
+
+<span class="c">// 2) pont = 2 diodes en série conduisent → on perd 2 × 0,7 V</span>
+V_crête,sortie = 12,7 − 1,4 = <span class="r">11,3 V</span>
+
+<span class="c">// 3) le pont DOUBLE la fréquence d'ondulation</span>
+f_ondulation = 2 × 50 Hz = <span class="r">100 Hz</span></div>
+<div class="box tip"><span class="tag">Repère</span> Simple alternance (1 diode) : on perd <strong>0,7 V</strong>, f reste 50 Hz. Pont (4 diodes) : on perd <strong>1,4 V</strong>, f passe à <strong>100 Hz</strong>. C'est le « +1,4 / fréquence doublée » à toujours sortir.</div>
+
+<h3 class="step" id="e1-leds"><span class="n">4</span>Les résistances des LED (+ courant total)</h3>
+<p>On calcule R pour chaque LED avec la tension continue disponible. Hypothèses standard : V<sub>LED</sub> ≈ 2 V, I<sub>LED</sub> = 20 mA, et la chute du transistor saturé V<sub>CEsat</sub> ≈ 0,2 V.</p>
+<div class="calc"><span class="c">// 3 LED en PARALLÈLE, chacune sa résistance</span>
+R = (V_DC − V_LED − V_CEsat) / I_LED
+R = (11 − 2 − 0,2) / 0,02 = 8,8 / 0,02 = <span class="r">440 Ω → 470 Ω</span> (normalisée)
+
+<span class="c">// courant total tiré par les 3 LED (utile pour C et R_B)</span>
+I_total = 3 × 20 mA = <span class="r">60 mA</span></div>
+<div class="box def"><span class="tag">Parallèle vs série</span> Si l'énoncé voulait les 3 LED <strong>en série</strong> : une seule résistance, R = (11 − 3×2 − 0,2)/0,02 = (11 − 6,2)/0,02 = <strong>240 Ω → 270 Ω</strong>, et I_total = <strong>20 mA</strong> (le même courant traverse les 3). Le <strong>parallèle</strong> est le cas le plus courant pour « allumer 3 LED ».</div>
+
+<h3 class="step" id="e1-condo"><span class="n">5</span>Le condensateur de filtrage (calcul)</h3>
+<p>Le condensateur se charge aux crêtes et se décharge dans la charge entre deux crêtes → il « lisse ». Plus C est grand, plus l'ondulation V<sub>ond</sub> est petite. Formule pratique (redressement double alternance, f = 100 Hz) :</p>
+<div class="calc"><span class="c">// formule de base du filtrage</span>
+C = I_charge / (f × V_ond)
+
+<span class="c">// on se fixe une ondulation acceptable, p.ex. V_ond = 1 V crête-à-crête</span>
+C = 0,06 / (100 × 1) = 6,0 × 10⁻⁴ F = <span class="r">600 µF → 1000 µF</span> (valeur du dessus, sûre)
+
+<span class="c">// tension continue moyenne réellement obtenue</span>
+V_DC ≈ V_crête − V_ond/2 ≈ 11,3 − 0,5 ≈ <span class="r">10,8 V</span> (≈ 11 V)</div>
+<div class="box warning"><span class="tag">Erreur fréquente</span> Pour <strong>60 mA</strong>, un petit 100 µF donnerait V<sub>ond</sub> = I/(f·C) = 0,06/(100×100µ) = <strong>6 V</strong> d'ondulation → les LED clignoteraient/papilloteraient. Il <strong>faut</strong> faire le calcul : ici on vise du gros (≈ 1000 µF). C'est un condensateur <strong>polarisé</strong> → respecter le + et le −.</div>
+
+<h3 class="step" id="e1-transistor"><span class="n">6</span>Le transistor en interrupteur + résistance de base R<sub>B</sub></h3>
+<figure><div class="svgwrap"><svg viewBox="0 0 240 180" width="240" height="180">
+<circle cx="120" cy="90" r="55" fill="none" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="40" y1="90" x2="95" y2="90" class="wire"/><text x="20" y="94" class="lbl">B</text>
+<line x1="95" y1="55" x2="95" y2="125" class="comp" stroke-width="3"/>
+<line x1="95" y1="70" x2="150" y2="40" class="wire"/><line x1="150" y1="40" x2="150" y2="10" class="wire"/><text x="156" y="20" class="lbl">C</text>
+<line x1="95" y1="110" x2="150" y2="145" class="wire"/><line x1="150" y1="145" x2="150" y2="172" class="wire"/><text x="156" y="165" class="lbl">E</text>
+<polygon points="135,140 150,145 138,153" class="fillk"/>
+</svg></div><figcaption>NPN : Base = commande, Collecteur = courant principal (les LED), Émetteur = masse. Flèche de l'émetteur sortante.</figcaption></figure>
+<p>On veut le transistor <strong>saturé</strong> (fermé) quand on commande, <strong>bloqué</strong> (ouvert) sinon. La base doit recevoir <strong>assez</strong> de courant.</p>
+<div class="calc"><span class="c">// 1) courant à commuter = courant total des LED</span>
+I_C = 60 mA
+
+<span class="c">// 2) courant de base minimal pour saturer (β = 100)</span>
+I_Bmin = I_C / β = 60 mA / 100 = <span class="r">0,6 mA</span>
+
+<span class="c">// 3) R_B maximale : commande = le rail +11 V via le bouton</span>
+R_Bmax = (V_BB − 0,7) / I_Bmin = (11 − 0,7) / 0,0006 ≈ <span class="r">17 kΩ</span>
+
+<span class="c">// 4) on prend BIEN en-dessous pour saturer franc → 4,7 kΩ</span>
+Vérif : I_B = (11 − 0,7) / 4700 = 2,2 mA  ≥  0,6 mA  →  <span class="r">SATURÉ ✅</span></div>
+<table>
+<tr><th>Si la commande de base vient de…</th><th>V_BB</th><th>R_B conseillée</th></tr>
+<tr><td>Bouton relié au rail <strong>+11 V</strong></td><td>11 V</td><td>4,7 kΩ (jusqu'à ~10 kΩ)</td></tr>
+<tr><td>Broche <strong>Arduino 5 V</strong> (D9 en sortie)</td><td>5 V</td><td>R_Bmax = (5−0,7)/0,6m ≈ 7,2 kΩ → prendre 2,2 kΩ</td></tr>
+</table>
+<div class="box def"><span class="tag">À dire à l'oral</span> « Le R<sub>B</sub> de la formule est le <strong>maximum</strong> qui sature juste. Je prends plus petit → surpolarisation → saturation garantie même si β varie. À saturation, V<sub>CE</sub> ≈ 0 et c'est <strong>R_C (les R de LED) qui fixe le courant</strong>, plus β. »</div>
+
+<h3 class="step" id="e1-cablage"><span class="n">7</span>Le câblage complet</h3>
+<figure><div class="svgwrap"><svg viewBox="0 0 470 360" width="470" height="360">
+<line x1="60" y1="40" x2="420" y2="40" class="wire"/><text x="300" y="32" class="val">+ ≈ 11 V continu</text>
+<line x1="60" y1="320" x2="420" y2="320" class="wire"/><text x="300" y="338" class="lbl">GND (−)</text>
+<line x1="80" y1="40" x2="80" y2="168" class="wire"/>
+<line x1="66" y1="168" x2="94" y2="168" class="comp"/><line x1="66" y1="182" x2="94" y2="182" class="comp"/>
+<line x1="80" y1="182" x2="80" y2="320" class="wire"/>
+<text x="98" y="180" class="lbl">C 1000 µF</text>
+<line x1="170" y1="40" x2="170" y2="58" class="wire"/>
+<path d="M170,58 v6 l-9,4 l18,8 l-18,8 l18,8 l-9,4 v6" class="comp"/><text x="182" y="86" class="lbl">470Ω</text>
+<line x1="170" y1="102" x2="170" y2="118" class="wire"/>
+<polygon points="160,118 180,118 170,138" class="fillk"/><line x1="160" y1="138" x2="180" y2="138" class="comp"/>
+<text x="146" y="156" class="lbl">LED1</text>
+<line x1="170" y1="138" x2="170" y2="230" class="wire"/>
+<line x1="230" y1="40" x2="230" y2="58" class="wire"/>
+<path d="M230,58 v6 l-9,4 l18,8 l-18,8 l18,8 l-9,4 v6" class="comp"/><text x="242" y="86" class="lbl">470Ω</text>
+<line x1="230" y1="102" x2="230" y2="118" class="wire"/>
+<polygon points="220,118 240,118 230,138" class="fillk"/><line x1="220" y1="138" x2="240" y2="138" class="comp"/>
+<text x="206" y="156" class="lbl">LED2</text>
+<line x1="230" y1="138" x2="230" y2="230" class="wire"/>
+<line x1="290" y1="40" x2="290" y2="58" class="wire"/>
+<path d="M290,58 v6 l-9,4 l18,8 l-18,8 l18,8 l-9,4 v6" class="comp"/><text x="302" y="86" class="lbl">470Ω</text>
+<line x1="290" y1="102" x2="290" y2="118" class="wire"/>
+<polygon points="280,118 300,118 290,138" class="fillk"/><line x1="280" y1="138" x2="300" y2="138" class="comp"/>
+<text x="266" y="156" class="lbl">LED3</text>
+<line x1="290" y1="138" x2="290" y2="230" class="wire"/>
+<line x1="170" y1="230" x2="390" y2="230" class="wire"/>
+<circle cx="372" cy="270" r="40" fill="none" stroke="#1a2233" stroke-width="1.5"/>
+<line x1="360" y1="250" x2="360" y2="290" class="comp" stroke-width="3"/>
+<line x1="360" y1="258" x2="388" y2="240" class="wire"/><line x1="388" y1="240" x2="388" y2="230" class="wire"/>
+<line x1="360" y1="282" x2="388" y2="300" class="wire"/><line x1="388" y1="300" x2="388" y2="320" class="wire"/>
+<polygon points="380,294 388,300 379,303" class="fillk"/>
+<text x="396" y="236" class="lbl">C</text><text x="332" y="263" class="lbl">B</text><text x="396" y="312" class="lbl">E</text>
+<line x1="110" y1="40" x2="110" y2="270" class="wire"/>
+<line x1="110" y1="270" x2="130" y2="270" class="wire"/>
+<line x1="130" y1="260" x2="130" y2="280" class="comp"/><line x1="150" y1="260" x2="150" y2="280" class="comp"/>
+<path d="M128,256 q12,-10 24,0" class="comp"/><text x="118" y="298" class="lbl">BP</text>
+<line x1="150" y1="270" x2="190" y2="270" class="wire"/>
+<path d="M190,270 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/><text x="196" y="258" class="lbl">R_B 4,7kΩ</text>
+<line x1="242" y1="270" x2="360" y2="270" class="wire"/>
+</svg></div><figcaption>Rails + / − issus du pont. Condensateur entre les rails. 3 LED (+R) en parallèle, cathodes sur le collecteur. Émetteur au −. Bouton + R<sub>B</sub> = commande de la base.</figcaption></figure>
+<p><strong>Ordre de câblage (alim coupée) :</strong></p>
+<ol>
+<li>Le <strong>pont</strong> (4 diodes) ; repérer la sortie + et −.</li>
+<li>Le <strong>condensateur</strong> entre + et − (⚠️ patte − du condo vers le −).</li>
+<li>Les <strong>3 branches</strong> LED + R, anodes au +, cathodes reliées ensemble (= nœud collecteur).</li>
+<li>Le <strong>transistor</strong> : collecteur au nœud des LED, émetteur au −, base via R<sub>B</sub>.</li>
+<li>Le <strong>bouton</strong> entre le + et R<sub>B</sub> (la commande).</li>
+</ol>
+
+<h3 class="step" id="e1-test"><span class="n">8</span>Test & mesures</h3>
+<ul>
+<li><strong>Avant les LED</strong> : mesurer la tension continue + / − au multimètre (DC) → ≈ <strong>11 V</strong>. À l'oscillo, voir l'ondulation à <strong>100 Hz</strong> (faible si C bien dimensionné).</li>
+<li><strong>Sans condensateur</strong> : à l'oscillo on voit les « bosses » redressées ; la valeur moyenne DC est plus basse → bon moyen de montrer le rôle du filtrage.</li>
+<li><strong>Appui bouton</strong> → les 3 LED s'allument ; relâché → éteintes (transistor bloqué).</li>
+<li>Mesurer V<sub>CE</sub> du transistor allumé : doit être <strong>≈ 0,2 V</strong> (preuve de la saturation).</li>
+</ul>
+
+<details id="e1-variantes"><summary class="s-var">🔀 Variantes possibles (pour couvrir tous les cas)</summary>
+<div class="ans">
+<table>
+<tr><th>Si on te demande…</th><th>Ce qui change</th></tr>
+<tr><td>Une autre tension AC (ex. 12 V eff)</td><td>V_crête = 12×1,414 = 17 V ; −1,4 → 15,6 V. Recalcule R_LED et R_B avec ce V_DC.</td></tr>
+<tr><td><strong>Simple</strong> alternance (1 diode)</td><td>−0,7 V seulement, f = 50 Hz, V_ond plus grande (C = I/(50×V_ond), donc C ~ 2× plus gros).</td></tr>
+<tr><td>3 LED <strong>en série</strong></td><td>1 seule R = (V_DC−6,2)/0,02 ; I_total = 20 mA → C et R_B plus petits.</td></tr>
+<tr><td>Commande par <strong>Arduino</strong></td><td>Base via R_B (≈2,2 kΩ) sur une broche en <code>OUTPUT</code> ; <code>digitalWrite(D9, HIGH)</code> allume.</td></tr>
+<tr><td>Charge = <strong>moteur / relais</strong></td><td>Idem transistor, mais ajouter une <strong>diode de roue libre</strong> en // sur la charge inductive.</td></tr>
+<tr><td>On impose l'<strong>ondulation max</strong> (ex. 0,5 V)</td><td>C = I/(f×V_ond) = 0,06/(100×0,5) = 1200 µF.</td></tr>
+</table>
+</div></details>
+
+<details><summary class="s-piege">⚠️ Pièges classiques</summary>
+<div class="ans"><ul>
+<li><strong>Condensateur à l'envers</strong> → il chauffe / explose. Patte courte / bande = −.</li>
+<li><strong>LED sans résistance</strong> ou à l'envers → claquage / n'allume pas.</li>
+<li><strong>Brochage du transistor</strong> (C-B-E) : vérifier la datasheet ! Un BC547 vu de face méplat : souvent C-B-E, mais ça dépend du modèle.</li>
+<li><strong>R<sub>B</sub> trop grand</strong> → pas de saturation, LED faibles. <strong>R<sub>B</sub> = 0</strong> → trop de courant de base, on peut abîmer le transistor.</li>
+<li><strong>Masses non communes</strong> : le − du pont, l'émetteur et (si Arduino) le GND Arduino doivent être <strong>reliés</strong>.</li>
+<li><strong>Oublier le ×√2</strong> (confondre efficace et crête) ou le <strong>−1,4 V</strong> du pont.</li>
+</ul></div></details>
+
+<details><summary class="s-var">📎 Rappel — la version d'origine du labo 5 (1 LED, 5 V)</summary>
+<div class="ans">
+<p>Au labo, le transistor était plus simple : <strong>1 LED + R 470 Ω</strong> sur le collecteur, alimentée par le <strong>5 V de l'Arduino</strong> (pas de pont), base via <strong>R 10 kΩ</strong> + bouton (manip 1) ou broche D9 (manip 2). Exercice du labo (β = 100) :</p>
+<div class="calc"><span class="c">// 1) courant collecteur quand la LED est allumée</span>
+I_Csat = (5 − 2 − 0,2) / 470 ≈ <span class="r">6 mA</span>
+
+<span class="c">// 2) courant de base minimal pour saturer (β = 100)</span>
+I_Bmin = 6 mA / 100 = <span class="r">60 µA</span>
+
+<span class="c">// 3) on teste deux valeurs de résistance de base</span>
+R = 10 kΩ   → I_B = (5 − 0,7) / 10000  = 430 µA  ≥ 60 µA  → <span class="r">saturé ✅</span>
+R = 100 kΩ  → I_B = (5 − 0,7) / 100000 =  43 µA  &lt; 60 µA  → <span class="r">PAS saturé ❌</span></div>
+<p>L'exercice d'examen = <strong>la même idée</strong>, mais en ajoutant le pont (labo 4) et en passant à 3 LED → c'est pour ça que les valeurs changent. Si tu sais faire les deux, tu es couvert.</p>
+</div></details>
+
+<!-- ===================================================================== -->
+<!-- EXERCICE 2 -->
+<!-- ===================================================================== -->
+<h2 class="sujet" id="e2">Exercice 2 · Clignotement à fréquence réglée par un potentiomètre</h2>
+<span class="lab">Arduino · croise labo 6 (millis + analogRead/map)</span>
+
+<h3 class="step" id="e2-enonce"><span class="n">0</span>L'énoncé probable (déduit)</h3>
+<div class="enonce"><span class="tag">Reconstitution</span>
+« Faire clignoter une LED <strong>sans <code>delay()</code></strong> (méthode non bloquante). La <strong>fréquence</strong> de clignotement doit être <strong>réglable en temps réel</strong> par un <strong>potentiomètre</strong> : tourné d'un côté la LED clignote lentement, de l'autre rapidement. (Éventuellement : afficher la fréquence au moniteur série.) »</div>
+
+<h3 class="step" id="e2-mat"><span class="n">1</span>Matériel & câblage</h3>
+<p><strong>Matériel :</strong> Arduino, 1 LED + R 220 Ω, 1 potentiomètre (10 kΩ typique), câbles. (Le moniteur série de l'IDE pour vérifier.)</p>
+<figure><div class="svgwrap"><svg viewBox="0 0 360 158" width="360" height="158">
+<text x="2" y="24" class="lbl">5V</text>
+<line x1="24" y1="20" x2="80" y2="20" class="wire"/>
+<line x1="80" y1="20" x2="80" y2="40" class="wire"/>
+<rect x="62" y="40" width="36" height="56" class="comp"/>
+<text x="36" y="74" class="lbl">pot</text>
+<line x1="80" y1="96" x2="80" y2="120" class="wire"/>
+<line x1="98" y1="68" x2="150" y2="68" class="comp"/><polygon points="98,68 106,64 106,72" class="fillk"/>
+<text x="154" y="63" class="pin">A0</text>
+<line x1="150" y1="68" x2="200" y2="68" class="wire"/>
+<line x1="68" y1="120" x2="92" y2="120" class="comp"/><line x1="72" y1="125" x2="88" y2="125" class="comp"/><line x1="76" y1="130" x2="84" y2="130" class="comp"/>
+<text x="56" y="146" class="lbl">GND</text>
+<text x="236" y="24" class="pin">D13</text>
+<line x1="270" y1="20" x2="312" y2="20" class="wire"/>
+<line x1="312" y1="20" x2="312" y2="34" class="wire"/>
+<path d="M312,34 v6 l-9,4 l18,8 l-18,8 l18,8 l-9,4 v6" class="comp"/>
+<text x="322" y="62" class="lbl">220Ω</text>
+<line x1="312" y1="78" x2="312" y2="92" class="wire"/>
+<polygon points="302,92 322,92 312,112" class="fillk"/><line x1="302" y1="112" x2="322" y2="112" class="comp"/>
+<text x="326" y="108" class="lbl">LED</text>
+<line x1="312" y1="112" x2="312" y2="130" class="wire"/>
+<line x1="300" y1="130" x2="324" y2="130" class="comp"/><line x1="304" y1="135" x2="320" y2="135" class="comp"/><line x1="308" y1="140" x2="316" y2="140" class="comp"/>
+<text x="280" y="134" class="lbl">GND</text>
+</svg></div><figcaption>Potentiomètre : 2 bornes extrêmes sur 5 V et GND, curseur (milieu) sur A0. LED : D13 → R 220 Ω → GND.</figcaption></figure>
+
+<h3 class="step" id="e2-logique"><span class="n">2</span>La logique</h3>
+<p>C'est le <strong>patron <code>millis()</code></strong> habituel, mais l'intervalle n'est plus une constante : on le <strong>recalcule à chaque tour</strong> à partir du potentiomètre.</p>
+<ul>
+<li><code>analogRead(A0)</code> → 0…1023.</li>
+<li><code>map()</code> convertit en une <strong>demi-période</strong> en ms (ex. 50 ms = rapide → 1000 ms = lent).</li>
+<li>Le patron millis bascule la LED dès que la demi-période est écoulée.</li>
+</ul>
+<div class="box tip"><span class="tag">Demi-période ?</span> Un cycle complet = LED allumée puis éteinte = 2 basculements. On bascule donc toutes les <strong>T/2</strong>. f = 1/T = 1/(2 × demi-période).</div>
+
+<h3 class="step" id="e2-code"><span class="n">3</span>Le code commenté</h3>
+<pre><code>#define LED 13
+#define POT A0
+
+unsigned long tPrec = 0;     // instant du dernier basculement
+bool etat = LOW;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int val = analogRead(POT);                          // 0 → 1023
+  // position du potentiomètre → demi-période (ms)
+  // 50 ms (clignote vite)  ...  1000 ms (lent)
+  unsigned long demiPeriode = map(val, 0, 1023, 50, 1000);
+
+  if (millis() - tPrec &gt;= demiPeriode) {              // patron millis (non bloquant)
+    tPrec = millis();
+    etat = !etat;
+    digitalWrite(LED, etat);
+
+    float freq = 1000.0 / (2.0 * demiPeriode);        // f = 1/T, T = 2 × demi-période
+    Serial.print("demi-periode = "); Serial.print(demiPeriode);
+    Serial.print(" ms  ->  f = ");   Serial.print(freq); Serial.println(" Hz");
+  }
+}</code></pre>
+<p class="key">Clés : <code>demiPeriode</code> est une <strong>variable</strong> (elle change) et un <code>unsigned long</code> (c'est un temps comparé à <code>millis()</code>).</p>
+
+<h3 class="step" id="e2-test"><span class="n">4</span>Test & variantes</h3>
+<ul>
+<li>Tourne le potentiomètre : la LED accélère / ralentit en continu, le moniteur affiche la fréquence.</li>
+<li>Repères : demi-période 50 ms → <strong>10 Hz</strong> ; 1000 ms → <strong>0,5 Hz</strong>.</li>
+</ul>
+<details><summary class="s-var">🔀 Variantes possibles</summary>
+<div class="ans"><table>
+<tr><th>Si on te demande…</th><th>Ce qui change</th></tr>
+<tr><td>Régler directement la <strong>fréquence</strong> (Hz)</td><td><code>int f = map(val, 0, 1023, 1, 10);</code> puis <code>demiPeriode = 1000/(2*f);</code></td></tr>
+<tr><td>Régler la <strong>période</strong> complète</td><td><code>map(val,0,1023,100,2000)</code> = T, et basculer toutes les <code>T/2</code>.</td></tr>
+<tr><td>Régler la <strong>luminosité</strong> (au lieu de la vitesse)</td><td>LED sur broche <code>~</code> : <code>analogWrite(LED, map(val,0,1023,0,255));</code> (PWM).</td></tr>
+<tr><td><strong>2 LED</strong> à régler séparément</td><td>2 potentiomètres (A0, A1), 2 chronos millis indépendants.</td></tr>
+<tr><td>Borne mini (éviter trop rapide)</td><td><code>demiPeriode = constrain(demiPeriode, 30, 2000);</code></td></tr>
+</table></div></details>
+<details><summary class="s-piege">⚠️ Pièges classiques</summary>
+<div class="ans"><ul>
+<li>Ne pas mapper vers <strong>0 ms</strong> (la LED basculerait à chaque tour → semble allumée fixe). Garde un mini ≈ 30–50 ms.</li>
+<li><code>analogRead</code> va jusqu'à <strong>1023</strong> (pas 1024). <code>analogWrite</code> / PWM jusqu'à <strong>255</strong>.</li>
+<li>Pour la <strong>luminosité</strong>, la LED doit être sur une broche <strong>PWM (~)</strong>, pas D13.</li>
+<li><code>delay(map(...))</code> « marche » mais relit le potentiomètre une seule fois par demi-période → réponse molle. Le <code>millis()</code> reste plus réactif (et attendu).</li>
+<li>Le potentiomètre se branche en <strong>3 fils</strong> : 2 extrêmes (5 V / GND) + le curseur sur A0. Inverser 5V/GND inverse juste le sens.</li>
+</ul></div></details>
+
+<h3 class="step" id="e2-autre">🔀 L'autre scénario Arduino possible : le télérupteur</h3>
+<div class="box def"><span class="tag">À connaître aussi</span>
+<p>L'examen Arduino peut aussi tomber sur le scénario <strong>« télérupteur »</strong> (celui de l'<strong>examen-type / PDF officiel</strong>) : un bouton qui bascule une LED à chaque appui, un <strong>appui long (&gt; 2 s)</strong> qui fait clignoter 2 LED à 0,6 Hz, et l'affichage du type d'appui au moniteur série.</p>
+<p>Le <strong>corrigé complet</strong> (énoncé, câblage, programme avec anti-rebond robuste et mesure de période) est traité comme « examen complet » dans l'entraînement Arduino :</p>
+<p>👉 <a href="arduino_actif.html#exam" style="color:var(--accent);font-weight:600">Ouvrir « Entraînement Arduino » → Capstone (l'examen complet)</a></p>
+</div>
+
+<!-- ===================================================================== -->
+<!-- ANNEXE -->
+<!-- ===================================================================== -->
+<h2 class="sujet" id="formules">📐 Annexe — formules réutilisables</h2>
+<div class="box def"><span class="tag">Redressement & filtrage</span>
+<div class="calc">V_crête = V_eff × √2
+Simple alternance : V_out = V_crête − 0,7   |   f = 50 Hz
+Pont (Graetz)     : V_out = V_crête − 1,4   |   f = 100 Hz
+Condensateur : C = I_charge / (f × V_ond)
+Ondulation : V_ond = I_charge / (f × C)</div></div>
+<div class="box def"><span class="tag">LED & transistor</span>
+<div class="calc">R_LED = (V_alim − V_LED − V_CEsat) / I_LED      (V_LED≈2V, I≈20mA)
+I_C = somme des courants de charge
+I_Bmin = I_C / β        (β ≈ 100)
+R_Bmax = (V_BB − 0,7) / I_Bmin      → prendre PLUS PETIT (surpolariser)
+Saturé si : I_B = (V_BB − 0,7)/R_B ≥ I_Bmin</div></div>
+<div class="box def"><span class="tag">Arduino — temps & échelles</span>
+<div class="calc">millis() : ms depuis le démarrage (unsigned long !)
+Patron : if (millis() - tPrec &gt;= INTERVALLE) { tPrec = millis(); ... }
+f = 1/T   |   demi-période = T/2 = 1/(2f)
+analogRead : 0…1023    |    analogWrite (PWM ~) : 0…255
+map(v, 0, 1023, min, max)   |   constrain(v, lo, hi)</div></div>
+
+<!-- ===================================================================== -->
+<!-- CHECKLIST & DÉPANNAGE -->
+<!-- ===================================================================== -->
+<h2 class="sujet" id="checklist">✅ Checklist avant de rendre</h2>
+<ul class="check">
+<li>Une résistance sur <strong>chaque</strong> LED (jamais de LED nue).</li>
+<li>Condensateur <strong>polarisé</strong> branché dans le bon sens (patte − vers le −).</li>
+<li>Masses <strong>communes</strong> : le − du pont, l'émetteur du transistor et le GND Arduino sont reliés.</li>
+<li>Le programme <strong>compile</strong> sans erreur.</li>
+<li><strong>Aucun delay()</strong> si tu dois lire un bouton en même temps (cherche-le dans le code).</li>
+<li>Moniteur série réglé à <strong>9600 bauds</strong> si tu affiches quelque chose.</li>
+<li>Câblage propre, vérifié 2× <strong>alim coupée</strong> avant d'alimenter.</li>
+</ul>
+
+<h2 class="sujet" id="depannage">🔧 Dépannage (si ça ne marche pas)</h2>
+<table>
+<tr><th>Symptôme</th><th>Cause probable → solution</th></tr>
+<tr><td>LED ne s'allume pas</td><td>Sens inversé (anode/cathode) ou R trop grande → vérifier la patte longue, mesurer au multimètre.</td></tr>
+<tr><td>Les LED papillotent</td><td>Condensateur de filtrage trop petit → recalcule C = I/(f·V<sub>ond</sub>), vise plus gros (≈ 1000 µF).</td></tr>
+<tr><td>Le condensateur chauffe</td><td>Il est <strong>à l'envers</strong> → couper tout de suite, respecter le + et le −.</td></tr>
+<tr><td>Le télérupteur bascule 2-3 fois</td><td>Rebond mécanique → c'est le rôle de l'anti-rebond (augmente le seuil à 50 ms si besoin).</td></tr>
+<tr><td>Le bouton « marche à l'envers »</td><td>INPUT_PULLUP → appuyé = <strong>LOW</strong> : teste <code>== LOW</code>, pas <code>== HIGH</code>.</td></tr>
+<tr><td>Le code ne s'upload pas</td><td>Mauvais port COM / type de carte (Outils → Port), ou broches 0/1 utilisées.</td></tr>
+<tr><td>Console vide / caractères bizarres</td><td><code>Serial.begin(9600)</code> manquant ou baud du moniteur ≠ 9600.</td></tr>
+</table>
+
+</main>
+</div>
+</body>
+</html>

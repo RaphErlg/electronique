@@ -211,23 +211,41 @@ void loop() {
 <div class="exo"><span class="lab">Manip 4</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Une LED clignote (période longue), et une <strong>autre LED</strong> s'allume selon un <strong>bouton poussoir</strong>. Sans <code>delay()</code>.</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 380 150" width="380" height="150">
-<text x="6" y="34" class="pin">D8</text>
-<line x1="34" y1="38" x2="70" y2="38" class="wire"/>
-<path d="M70,38 h6 l4,-8 l8,16 l8,-16 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/><text x="80" y="22" class="lbl">220Ω</text>
-<line x1="130" y1="38" x2="170" y2="38" class="wire"/>
-<polygon points="170,30 170,46 190,38" class="fillk"/><line x1="190" y1="30" x2="190" y2="46" class="comp"/><text x="168" y="62" class="lbl">LED clignote</text>
-<line x1="190" y1="38" x2="300" y2="38" class="wire"/>
-<text x="6" y="104" class="pin">D2</text>
-<line x1="34" y1="108" x2="120" y2="108" class="wire"/>
-<line x1="120" y1="98" x2="120" y2="118" class="comp"/><line x1="140" y1="98" x2="140" y2="118" class="comp"/>
-<path d="M118,94 q12,-10 24,0" class="comp"/><text x="108" y="134" class="lbl">bouton (PULLUP)</text>
-<line x1="140" y1="108" x2="300" y2="108" class="wire"/>
-<line x1="300" y1="38" x2="300" y2="108" class="wire"/>
-<line x1="288" y1="120" x2="312" y2="120" class="comp"/><line x1="292" y1="126" x2="308" y2="126" class="comp"/><line x1="296" y1="132" x2="304" y2="132" class="comp"/>
-<text x="318" y="112" class="lbl">GND</text>
-<text x="220" y="22" class="lbl">(2e LED+R sur D10)</text>
-</svg></div><figcaption>LED clignotante sur D8 (+ R). 2e LED sur D10 (+ R). Bouton entre D2 et GND (INPUT_PULLUP).</figcaption></figure></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 348 176" width="348" height="176">
+<!-- LED1 sur D8 -->
+<text x="4" y="48" class="pin">D8</text>
+<line x1="28" y1="44" x2="68" y2="44" class="wire"/>
+<path d="M68,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="31" class="lbl">220Ω</text>
+<line x1="120" y1="44" x2="150" y2="44" class="wire"/>
+<polygon points="150,34 150,54 172,44" class="fillk"/><line x1="172" y1="34" x2="172" y2="54" class="comp"/>
+<line x1="157" y1="32" x2="165" y2="24" class="comp"/><polygon points="165,24 160,25 163,28" class="fillk"/>
+<line x1="165" y1="32" x2="173" y2="24" class="comp"/><polygon points="173,24 168,25 171,28" class="fillk"/>
+<text x="150" y="68" class="lbl">LED1</text>
+<line x1="172" y1="44" x2="300" y2="44" class="wire"/>
+<!-- LED2 sur D10 -->
+<text x="2" y="96" class="pin">D10</text>
+<line x1="28" y1="92" x2="68" y2="92" class="wire"/>
+<path d="M68,92 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="79" class="lbl">220Ω</text>
+<line x1="120" y1="92" x2="150" y2="92" class="wire"/>
+<polygon points="150,82 150,102 172,92" class="fillk"/><line x1="172" y1="82" x2="172" y2="102" class="comp"/>
+<line x1="157" y1="80" x2="165" y2="72" class="comp"/><polygon points="165,72 160,73 163,76" class="fillk"/>
+<line x1="165" y1="80" x2="173" y2="72" class="comp"/><polygon points="173,72 168,73 171,76" class="fillk"/>
+<text x="150" y="116" class="lbl">LED2</text>
+<line x1="172" y1="92" x2="300" y2="92" class="wire"/>
+<!-- bouton sur D2 -->
+<text x="4" y="142" class="pin">D2</text>
+<line x1="28" y1="138" x2="120" y2="138" class="wire"/>
+<line x1="120" y1="128" x2="120" y2="148" class="comp"/><line x1="140" y1="128" x2="140" y2="148" class="comp"/>
+<path d="M118,124 q12,-10 24,0" class="comp"/>
+<text x="150" y="142" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="138" x2="300" y2="138" class="wire"/>
+<!-- rail GND commun -->
+<line x1="300" y1="44" x2="300" y2="158" class="wire"/>
+<line x1="288" y1="158" x2="312" y2="158" class="comp"/><line x1="292" y1="163" x2="308" y2="163" class="comp"/><line x1="296" y1="168" x2="304" y2="168" class="comp"/>
+<text x="316" y="162" class="lbl">GND</text>
+</svg></div><figcaption>LED1 : D8 → R 220 Ω → LED → GND. LED2 : D10 → R 220 Ω → LED → GND. Bouton entre D2 et GND (INPUT_PULLUP, pas de R externe). Toutes les masses sont reliées au même GND.</figcaption></figure></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>Deux choses « en même temps » → c'est l'intérêt de <code>millis()</code>. Bloc 1 : le patron millis fait clignoter D8. Bloc 2 : on lit le bouton et on recopie son état (niveau) sur D10. <code>delay()</code> serait impossible ici (il bloquerait le clignotement).</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -264,7 +282,35 @@ void loop() {
 <div class="exo"><span class="lab">Manip 5</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>LED 1 clignote à <strong>1 Hz</strong>, LED 2 à <strong>0,8 Hz</strong> (duty cycle 50 % chacune).</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p>2 LED indépendantes : <span class="key">D8 → R 220 Ω → LED1 → GND</span> et <span class="key">D10 → R 220 Ω → LED2 → GND</span> (même principe que l'exercice 1, deux fois).</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 348 130" width="348" height="130">
+<!-- LED1 sur D8 -->
+<text x="4" y="48" class="pin">D8</text>
+<line x1="28" y1="44" x2="68" y2="44" class="wire"/>
+<path d="M68,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="31" class="lbl">220Ω</text>
+<line x1="120" y1="44" x2="150" y2="44" class="wire"/>
+<polygon points="150,34 150,54 172,44" class="fillk"/><line x1="172" y1="34" x2="172" y2="54" class="comp"/>
+<line x1="157" y1="32" x2="165" y2="24" class="comp"/><polygon points="165,24 160,25 163,28" class="fillk"/>
+<line x1="165" y1="32" x2="173" y2="24" class="comp"/><polygon points="173,24 168,25 171,28" class="fillk"/>
+<text x="150" y="68" class="lbl">LED1 (1 Hz)</text>
+<line x1="172" y1="44" x2="300" y2="44" class="wire"/>
+<!-- LED2 sur D10 -->
+<text x="2" y="96" class="pin">D10</text>
+<line x1="28" y1="92" x2="68" y2="92" class="wire"/>
+<path d="M68,92 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="79" class="lbl">220Ω</text>
+<line x1="120" y1="92" x2="150" y2="92" class="wire"/>
+<polygon points="150,82 150,102 172,92" class="fillk"/><line x1="172" y1="82" x2="172" y2="102" class="comp"/>
+<line x1="157" y1="80" x2="165" y2="72" class="comp"/><polygon points="165,72 160,73 163,76" class="fillk"/>
+<line x1="165" y1="80" x2="173" y2="72" class="comp"/><polygon points="173,72 168,73 171,76" class="fillk"/>
+<text x="150" y="116" class="lbl">LED2 (0,8 Hz)</text>
+<line x1="172" y1="92" x2="300" y2="92" class="wire"/>
+<!-- rail GND commun -->
+<line x1="300" y1="44" x2="300" y2="112" class="wire"/>
+<line x1="288" y1="112" x2="312" y2="112" class="comp"/><line x1="292" y1="117" x2="308" y2="117" class="comp"/><line x1="296" y1="122" x2="304" y2="122" class="comp"/>
+<text x="316" y="116" class="lbl">GND</text>
+</svg></div><figcaption>Deux branches identiques et indépendantes : D8 → R → LED1 → GND et D10 → R → LED2 → GND. C'est l'exercice 1 fait deux fois (chacune sa fréquence côté code).</figcaption></figure>
+<p>2 LED indépendantes : <span class="key">D8 → R 220 Ω → LED1 → GND</span> et <span class="key">D10 → R 220 Ω → LED2 → GND</span> (même principe que l'exercice 1, deux fois).</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>Le truc : <strong>deux chronomètres millis indépendants</strong> (un par LED), chacun avec sa demi-période.</p>
 <ul><li>1 Hz → période 1000 ms → bascule toutes les <strong>500 ms</strong>.</li><li>0,8 Hz → période 1/0,8 = 1250 ms → bascule toutes les <strong>625 ms</strong>.</li></ul>
@@ -365,19 +411,33 @@ void loop() {
 <div class="exo"><span class="lab">Manip 7</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Régler la <strong>luminosité</strong> d'une LED avec un potentiomètre : du min au max, la luminosité varie <strong>sans interruption</strong>.</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 320 170" width="320" height="170">
-<text x="6" y="24" class="lbl">5V</text><line x1="30" y1="20" x2="120" y2="20" class="wire"/>
-<line x1="120" y1="20" x2="120" y2="48" class="wire"/>
-<rect x="104" y="48" width="32" height="50" class="comp"/><text x="142" y="60" class="lbl">pot.</text>
-<line x1="120" y1="98" x2="120" y2="128" class="wire"/>
-<line x1="136" y1="73" x2="170" y2="73" class="comp"/><polygon points="136,73 144,69 144,77" class="fillk"/>
-<text x="174" y="68" class="pin">A0</text><line x1="170" y1="73" x2="210" y2="73" class="wire"/>
-<line x1="104" y1="128" x2="136" y2="128" class="comp"/><line x1="110" y1="134" x2="130" y2="134" class="comp"/><line x1="115" y1="140" x2="125" y2="140" class="comp"/>
-<text x="138" y="132" class="lbl">GND</text>
-<text x="220" y="120" class="pin">D9 (~)</text><line x1="220" y1="124" x2="250" y2="124" class="wire"/>
-<path d="M250,124 h6 l4,-8 l8,16 l8,-16 l8,16 l4,-8 h6" class="comp"/>
-<line x1="295" y1="124" x2="305" y2="124" class="wire"/><text x="252" y="150" class="lbl">→ LED + R → GND</text>
-</svg></div><figcaption>Potentiomètre : bornes extrêmes sur 5 V et GND, curseur sur A0. LED (+R) sur une broche PWM (~), ex. D9.</figcaption></figure></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 360 158" width="360" height="158">
+<!-- Potentiometre -->
+<text x="2" y="24" class="lbl">5V</text>
+<line x1="24" y1="20" x2="80" y2="20" class="wire"/>
+<line x1="80" y1="20" x2="80" y2="40" class="wire"/>
+<rect x="62" y="40" width="36" height="56" class="comp"/>
+<text x="36" y="74" class="lbl">pot</text>
+<line x1="80" y1="96" x2="80" y2="120" class="wire"/>
+<line x1="98" y1="68" x2="150" y2="68" class="comp"/><polygon points="98,68 106,64 106,72" class="fillk"/>
+<text x="154" y="63" class="pin">A0</text>
+<line x1="150" y1="68" x2="200" y2="68" class="wire"/>
+<line x1="68" y1="120" x2="92" y2="120" class="comp"/><line x1="72" y1="125" x2="88" y2="125" class="comp"/><line x1="76" y1="130" x2="84" y2="130" class="comp"/>
+<text x="56" y="146" class="lbl">GND</text>
+<!-- Branche LED PWM -->
+<text x="238" y="24" class="pin">D9 (~)</text>
+<line x1="286" y1="20" x2="312" y2="20" class="wire"/>
+<line x1="312" y1="20" x2="312" y2="34" class="wire"/>
+<path d="M312,34 v6 l-9,4 l18,8 l-18,8 l18,8 l-9,4 v6" class="comp"/>
+<text x="322" y="62" class="lbl">220Ω</text>
+<line x1="312" y1="78" x2="312" y2="92" class="wire"/>
+<polygon points="302,92 322,92 312,112" class="fillk"/><line x1="302" y1="112" x2="322" y2="112" class="comp"/>
+<line x1="326" y1="100" x2="334" y2="92" class="comp"/><polygon points="334,92 329,93 332,96" class="fillk"/>
+<text x="326" y="118" class="lbl">LED</text>
+<line x1="312" y1="112" x2="312" y2="130" class="wire"/>
+<line x1="300" y1="130" x2="324" y2="130" class="comp"/><line x1="304" y1="135" x2="320" y2="135" class="comp"/><line x1="308" y1="140" x2="316" y2="140" class="comp"/>
+<text x="280" y="134" class="lbl">GND</text>
+</svg></div><figcaption>Potentiomètre : ses 2 bornes extrêmes sur 5 V et GND, le curseur (milieu) sur A0. À côté, branche LED indépendante : D9 (~, PWM) → R 220 Ω → LED → GND.</figcaption></figure></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>On <strong>lit l'analogique</strong> (0 → 1023) et on le <strong>convertit</strong> en valeur PWM (0 → 255) avec <code>map</code>, qu'on envoie sur la LED avec <code>analogWrite</code>. La broche doit être marquée <code>~</code> (PWM).</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -401,7 +461,31 @@ void loop() {
 <div class="exo"><span class="lab">Manip 8 · dépassement</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Un <strong>appui prolongé</strong> sur le bouton fait <strong>varier la luminosité</strong> de la LED (PWM), et le <strong>sens s'inverse</strong> à chaque nouvel appui. La valeur s'arrête au max (255) ou au min (0).</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p><span class="key">D11 (~) → R 220 Ω → LED → GND</span> et <span class="key">bouton entre D3 et GND</span> (INPUT_PULLUP). La LED doit être sur une broche PWM (<code>~</code>).</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 348 130" width="348" height="130">
+<!-- LED PWM sur D11 -->
+<text x="0" y="48" class="pin">D11 (~)</text>
+<line x1="48" y1="44" x2="76" y2="44" class="wire"/>
+<path d="M76,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="82" y="31" class="lbl">220Ω</text>
+<line x1="128" y1="44" x2="158" y2="44" class="wire"/>
+<polygon points="158,34 158,54 180,44" class="fillk"/><line x1="180" y1="34" x2="180" y2="54" class="comp"/>
+<line x1="165" y1="32" x2="173" y2="24" class="comp"/><polygon points="173,24 168,25 171,28" class="fillk"/>
+<line x1="173" y1="32" x2="181" y2="24" class="comp"/><polygon points="181,24 176,25 179,28" class="fillk"/>
+<text x="158" y="68" class="lbl">LED</text>
+<line x1="180" y1="44" x2="300" y2="44" class="wire"/>
+<!-- bouton sur D3 -->
+<text x="4" y="96" class="pin">D3</text>
+<line x1="28" y1="92" x2="120" y2="92" class="wire"/>
+<line x1="120" y1="82" x2="120" y2="102" class="comp"/><line x1="140" y1="82" x2="140" y2="102" class="comp"/>
+<path d="M118,78 q12,-10 24,0" class="comp"/>
+<text x="150" y="96" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="92" x2="300" y2="92" class="wire"/>
+<!-- rail GND commun -->
+<line x1="300" y1="44" x2="300" y2="112" class="wire"/>
+<line x1="288" y1="112" x2="312" y2="112" class="comp"/><line x1="292" y1="117" x2="308" y2="117" class="comp"/><line x1="296" y1="122" x2="304" y2="122" class="comp"/>
+<text x="316" y="116" class="lbl">GND</text>
+</svg></div><figcaption>LED sur D11 (broche PWM ~, obligatoire pour <code>analogWrite</code>) → R 220 Ω → GND. Bouton entre D3 et GND (INPUT_PULLUP).</figcaption></figure>
+<p><span class="key">D11 (~) → R 220 Ω → LED → GND</span> et <span class="key">bouton entre D3 et GND</span> (INPUT_PULLUP). La LED doit être sur une broche PWM (<code>~</code>).</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>Tant que le bouton est <strong>maintenu</strong>, on fait évoluer une variable <code>luminosite</code> par petits pas, à cadence régulière (patron millis). On la <strong>borne</strong> entre 0 et 255 (<code>constrain</code>). Au <strong>relâchement</strong> (front montant), on inverse le sens — une seule fois.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -444,7 +528,18 @@ void loop() {
 <div class="exo"><span class="lab">Comm · ex. 1</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Lors de l'appui sur un bouton, <strong>compter et afficher</strong> (moniteur série) le nombre de <strong>secondes écoulées</strong> tant que le bouton est enfoncé.</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP). Ouvre le <strong>moniteur série</strong> (9600 bauds).</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 300 104" width="300" height="104">
+<text x="4" y="48" class="pin">D5</text>
+<line x1="28" y1="44" x2="120" y2="44" class="wire"/>
+<line x1="120" y1="34" x2="120" y2="54" class="comp"/><line x1="140" y1="34" x2="140" y2="54" class="comp"/>
+<path d="M118,30 q12,-10 24,0" class="comp"/>
+<text x="150" y="48" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="44" x2="240" y2="44" class="wire"/>
+<line x1="240" y1="44" x2="240" y2="70" class="wire"/>
+<line x1="228" y1="70" x2="252" y2="70" class="comp"/><line x1="232" y1="75" x2="248" y2="75" class="comp"/><line x1="236" y1="80" x2="244" y2="80" class="comp"/>
+<text x="256" y="74" class="lbl">GND</text>
+</svg></div><figcaption>Bouton entre D5 et GND (INPUT_PULLUP, pas de R externe). Tout le reste se passe dans le moniteur série (9600 bauds).</figcaption></figure>
+<p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP). Ouvre le <strong>moniteur série</strong> (9600 bauds).</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>Au <strong>front d'appui</strong>, on note l'heure de départ. Ensuite, tant qu'on appuie, on affiche un compteur qui augmente <strong>toutes les secondes</strong> (encore le patron millis, avec 1000 ms). C'est la base de toute <strong>mesure de durée</strong> → réutilisée pour l'appui long de l'examen.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -485,7 +580,18 @@ void loop() {
 <div class="exo"><span class="lab">Comm · ex. 2</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>À l'appui sur le bouton, afficher les <strong>26 lettres</strong> de l'alphabet (200 ms entre chaque). Si le bouton est toujours tenu après le z, ça recommence. <em>Indice : type <code>char</code> + code ASCII.</em></div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP) + moniteur série.</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 300 104" width="300" height="104">
+<text x="4" y="48" class="pin">D5</text>
+<line x1="28" y1="44" x2="120" y2="44" class="wire"/>
+<line x1="120" y1="34" x2="120" y2="54" class="comp"/><line x1="140" y1="34" x2="140" y2="54" class="comp"/>
+<path d="M118,30 q12,-10 24,0" class="comp"/>
+<text x="150" y="48" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="44" x2="240" y2="44" class="wire"/>
+<line x1="240" y1="44" x2="240" y2="70" class="wire"/>
+<line x1="228" y1="70" x2="252" y2="70" class="comp"/><line x1="232" y1="75" x2="248" y2="75" class="comp"/><line x1="236" y1="80" x2="244" y2="80" class="comp"/>
+<text x="256" y="74" class="lbl">GND</text>
+</svg></div><figcaption>Même câblage qu'à l'exercice 7 : bouton entre D5 et GND (INPUT_PULLUP). L'affichage des lettres se fait dans le moniteur série.</figcaption></figure>
+<p><span class="key">Bouton entre D5 et GND</span> (INPUT_PULLUP) + moniteur série.</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>Un <code>char</code> est en réalité un <strong>nombre</strong> (code ASCII) : <code>'a'</code> vaut 97, <code>'z'</code> vaut 122. On peut donc faire <code>lettre++</code> pour passer à la suivante. Tant que le bouton est tenu, on affiche une lettre toutes les 200 ms (patron millis), et après <code>'z'</code> on revient à <code>'a'</code>.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -526,11 +632,12 @@ void loop() {
 <circle cx="120" cy="100" r="3" class="fillk"/>
 <line x1="120" y1="100" x2="190" y2="100" class="wire"/><text x="194" y="96" class="pin">A0</text>
 <line x1="120" y1="100" x2="120" y2="116" class="wire"/>
-<path d="M120,116 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="140" class="lbl">R</text>
+<path d="M120,116 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="140" class="lbl">R 10 kΩ</text>
 <line x1="120" y1="160" x2="120" y2="166" class="wire"/>
 <line x1="108" y1="166" x2="132" y2="166" class="comp"/><line x1="112" y1="171" x2="128" y2="171" class="comp"/>
 <text x="138" y="168" class="lbl">GND</text>
-</svg></div><figcaption>Pont diviseur : 5 V → LDR → (nœud A0) → R → GND. La tension sur A0 dépend de la lumière.</figcaption></figure></div></details>
+</svg></div><figcaption>Pont diviseur : 5 V → LDR → (nœud A0) → R 10 kΩ → GND. La tension sur A0 dépend de la lumière.</figcaption></figure>
+<div class="box tip"><span class="tag">Quelle résistance fixe ?</span> <strong>10 kΩ</strong> (valeur du labo). La LDR varie d'environ <strong>~1 kΩ en pleine lumière</strong> à <strong>~10–100 kΩ dans le noir</strong> ; on prend une R fixe au milieu de cette plage pour que la tension sur A0 balaie une large portion du 0–5 V. Trop petite (220 Ω) ou trop grande (1 MΩ) → A0 resterait collé à une extrémité et le % ne bougerait presque pas. 4,7 kΩ ou 22 kΩ marchent aussi ; par défaut, <strong>10 kΩ</strong>.</div></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>La photorésistance + R forment un <strong>pont diviseur</strong> : la tension sur A0 change avec la lumière. On lit <code>analogRead(A0)</code> et on convertit en % avec <code>map</code>. Affichage cadencé (patron millis) pour ne pas inonder le moniteur.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -560,7 +667,22 @@ void loop() {
 <div class="exo"><span class="lab">Comm · ex. 4</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Allumer une LED quand on envoie <strong>« ON »</strong> dans le moniteur série, l'éteindre avec <strong>« OFF »</strong>.</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p><span class="key">D8 → R 220 Ω → LED → GND</span>. Moniteur série ouvert (9600), avec le champ de saisie en haut.</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 320 96" width="320" height="96">
+<text x="4" y="48" class="pin">D8</text>
+<line x1="28" y1="44" x2="68" y2="44" class="wire"/>
+<path d="M68,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="31" class="lbl">220Ω</text>
+<line x1="120" y1="44" x2="150" y2="44" class="wire"/>
+<polygon points="150,34 150,54 172,44" class="fillk"/><line x1="172" y1="34" x2="172" y2="54" class="comp"/>
+<line x1="157" y1="32" x2="165" y2="24" class="comp"/><polygon points="165,24 160,25 163,28" class="fillk"/>
+<line x1="165" y1="32" x2="173" y2="24" class="comp"/><polygon points="173,24 168,25 171,28" class="fillk"/>
+<text x="150" y="68" class="lbl">LED</text>
+<line x1="172" y1="44" x2="250" y2="44" class="wire"/>
+<line x1="250" y1="44" x2="250" y2="68" class="wire"/>
+<line x1="238" y1="68" x2="262" y2="68" class="comp"/><line x1="242" y1="73" x2="258" y2="73" class="comp"/><line x1="246" y1="78" x2="254" y2="78" class="comp"/>
+<text x="266" y="72" class="lbl">GND</text>
+</svg></div><figcaption>Une seule LED : D8 → R 220 Ω → LED → GND. L'allumage est commandé par les messages « ON » / « OFF » tapés dans le moniteur série.</figcaption></figure>
+<p><span class="key">D8 → R 220 Ω → LED → GND</span>. Moniteur série ouvert (9600), avec le champ de saisie en haut.</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>On <strong>reçoit</strong> du texte : <code>Serial.available()</code> dit s'il y a quelque chose, <code>Serial.readString()</code> lit tout le message. <code>.trim()</code> enlève les espaces / retours à la ligne parasites. On compare ensuite la chaîne reçue à <code>"ON"</code> / <code>"OFF"</code>.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -588,7 +710,20 @@ void loop() {
 <div class="exo"><span class="lab">Comm · ex. 5</span>
 <div class="enonce"><span class="tag">Cahier des charges</span>Comme l'exercice 9, mais <strong>plus en continu</strong> : la luminosité n'est affichée que lorsqu'on envoie le message <strong>« Lumi »</strong> dans le moniteur.</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p>Même pont diviseur que l'exercice 9 (5 V → LDR → A0 → R → GND) + moniteur série.</p></div></details>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 300 170" width="300" height="170">
+<text x="6" y="24" class="lbl">5V</text><line x1="30" y1="20" x2="120" y2="20" class="wire"/>
+<line x1="120" y1="20" x2="120" y2="40" class="wire"/>
+<path d="M120,40 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="62" class="lbl">LDR</text>
+<line x1="120" y1="84" x2="120" y2="100" class="wire"/>
+<circle cx="120" cy="100" r="3" class="fillk"/>
+<line x1="120" y1="100" x2="190" y2="100" class="wire"/><text x="194" y="96" class="pin">A0</text>
+<line x1="120" y1="100" x2="120" y2="116" class="wire"/>
+<path d="M120,116 v6 l-8,4 l16,8 l-16,8 l16,8 l-8,4 v6" class="comp"/><text x="140" y="140" class="lbl">R 10 kΩ</text>
+<line x1="120" y1="160" x2="120" y2="166" class="wire"/>
+<line x1="108" y1="166" x2="132" y2="166" class="comp"/><line x1="112" y1="171" x2="128" y2="171" class="comp"/>
+<text x="138" y="168" class="lbl">GND</text>
+</svg></div><figcaption>Identique à l'exercice 9 : pont diviseur 5 V → LDR → (nœud A0) → R 10 kΩ → GND. La différence est uniquement dans le code (lecture sur requête « Lumi »).</figcaption></figure>
+<p>Même pont diviseur que l'exercice 9 (5 V → LDR → A0 → R → GND) + moniteur série.</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>On combine l'exercice 9 (lecture analogique) et l'exercice 10 (réception série) : <strong>seulement quand</strong> on reçoit « Lumi », on lit A0 et on affiche le %. C'est un système <strong>question → réponse</strong>.</p></div></details>
 <details><summary class="s-code">💻 Le code commenté</summary>
@@ -621,7 +756,42 @@ void loop() {
 <strong>3.</strong> Ajouter une 2e LED (autre couleur) : un <strong>appui long (&gt; 2 s)</strong> fait clignoter les 2 LED à <strong>0,6 Hz</strong>.<br>
 <strong>4.</strong> Afficher dans la console le <strong>type d'appui</strong> (bref / long) et la <strong>période de clignotement mesurée</strong> (en s).</div>
 <details><summary class="s-cab">🔌 Le câblage</summary>
-<div class="ans"><p><span class="key">LED1 → D8 (+ R 220 Ω) → GND</span> · <span class="key">LED2 (autre couleur) → D10 (+ R 220 Ω) → GND</span> · <span class="key">bouton entre D2 et GND</span> (INPUT_PULLUP).</p>
+<div class="ans"><figure><div class="svgwrap"><svg viewBox="0 0 348 176" width="348" height="176">
+<!-- LED1 sur D8 -->
+<text x="4" y="48" class="pin">D8</text>
+<line x1="28" y1="44" x2="68" y2="44" class="wire"/>
+<path d="M68,44 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="31" class="lbl">220Ω</text>
+<line x1="120" y1="44" x2="150" y2="44" class="wire"/>
+<polygon points="150,34 150,54 172,44" class="fillk"/><line x1="172" y1="34" x2="172" y2="54" class="comp"/>
+<line x1="157" y1="32" x2="165" y2="24" class="comp"/><polygon points="165,24 160,25 163,28" class="fillk"/>
+<line x1="165" y1="32" x2="173" y2="24" class="comp"/><polygon points="173,24 168,25 171,28" class="fillk"/>
+<text x="150" y="68" class="lbl">LED1</text>
+<line x1="172" y1="44" x2="300" y2="44" class="wire"/>
+<!-- LED2 sur D10 -->
+<text x="2" y="96" class="pin">D10</text>
+<line x1="28" y1="92" x2="68" y2="92" class="wire"/>
+<path d="M68,92 h6 l4,-9 l8,18 l8,-18 l8,18 l8,-18 l8,18 l4,-9 h6" class="comp"/>
+<text x="74" y="79" class="lbl">220Ω</text>
+<line x1="120" y1="92" x2="150" y2="92" class="wire"/>
+<polygon points="150,82 150,102 172,92" class="fillk"/><line x1="172" y1="82" x2="172" y2="102" class="comp"/>
+<line x1="157" y1="80" x2="165" y2="72" class="comp"/><polygon points="165,72 160,73 163,76" class="fillk"/>
+<line x1="165" y1="80" x2="173" y2="72" class="comp"/><polygon points="173,72 168,73 171,76" class="fillk"/>
+<text x="150" y="116" class="lbl">LED2 (autre couleur)</text>
+<line x1="172" y1="92" x2="300" y2="92" class="wire"/>
+<!-- bouton sur D2 -->
+<text x="4" y="142" class="pin">D2</text>
+<line x1="28" y1="138" x2="120" y2="138" class="wire"/>
+<line x1="120" y1="128" x2="120" y2="148" class="comp"/><line x1="140" y1="128" x2="140" y2="148" class="comp"/>
+<path d="M118,124 q12,-10 24,0" class="comp"/>
+<text x="150" y="142" class="lbl">bouton (PULLUP)</text>
+<line x1="140" y1="138" x2="300" y2="138" class="wire"/>
+<!-- rail GND commun -->
+<line x1="300" y1="44" x2="300" y2="158" class="wire"/>
+<line x1="288" y1="158" x2="312" y2="158" class="comp"/><line x1="292" y1="163" x2="308" y2="163" class="comp"/><line x1="296" y1="168" x2="304" y2="168" class="comp"/>
+<text x="316" y="162" class="lbl">GND</text>
+</svg></div><figcaption>Montage complet de l'examen : 2 LED (couleurs différentes) sur D8 et D10, chacune avec sa R 220 Ω ; bouton entre D2 et GND (INPUT_PULLUP). Masses reliées au même GND.</figcaption></figure>
+<p><span class="key">LED1 → D8 (+ R 220 Ω) → GND</span> · <span class="key">LED2 (autre couleur) → D10 (+ R 220 Ω) → GND</span> · <span class="key">bouton entre D2 et GND</span> (INPUT_PULLUP).</p>
 <p><strong>Question 1 (calcul R) :</strong> R = (5 − V<sub>LED</sub>) / I = (5 − 2) / 0,02 = <strong>150 Ω</strong> minimum (220 Ω = valeur sûre). Au multimètre, U aux bornes de R ≈ 5 − 2 = <strong>3 V</strong>.</p></div></details>
 <details><summary class="s-logic">🧠 La logique &amp; les commandes</summary>
 <div class="ans"><p>On assemble 3 briques déjà vues :</p>
